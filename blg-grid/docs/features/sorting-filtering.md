@@ -2,6 +2,16 @@
 
 Comprehensive guide to implementing sorting and filtering capabilities in BlgGrid.
 
+## Visual Examples
+
+| Feature | Example |
+|---------|---------|
+| **Column Headers** | ![Column Headers](../images/column-headers.png) |
+| **Sorting Ascending** | ![Sorted Ascending](../images/grid-sorted-ascending.png) |
+| **Sorting Descending** | ![Sorted Descending](../images/grid-sorted-descending.png) |
+| **Filter UI** | ![Filter UI](../images/filter-dropdown-open.png) |
+| **Filtered Results** | ![Filtered Grid](../images/grid-filtered.png) |
+
 ## Column Sorting
 
 ### Basic Sorting Configuration

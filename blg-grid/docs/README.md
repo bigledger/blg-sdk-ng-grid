@@ -2,6 +2,12 @@
 
 Welcome to the comprehensive documentation for BlgGrid - a modern, high-performance Angular data grid component.
 
+## Overview
+
+![BLG Grid Complete Overview](./images/grid-complete-overview.png)
+
+BLG Grid provides a comprehensive, feature-rich data grid solution for Angular applications with built-in support for sorting, filtering, virtual scrolling, and responsive design.
+
 ## Quick Navigation
 
 ### 🚀 Getting Started
@@ -81,8 +87,13 @@ Looking for something specific? Use these quick searches:
 
 Try these interactive examples to see BlgGrid in action:
 
-- [StackBlitz - Basic Grid](https://stackblitz.com/edit/blg-grid-basic)
-- [StackBlitz - Large Dataset](https://stackblitz.com/edit/blg-grid-large-data)
+| Feature | Screenshot | Live Demo |
+|---------|------------|-----------|
+| Basic Grid | ![Basic Grid](./images/grid-with-data.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-basic) |
+| Sorting & Filtering | ![Sorted Grid](./images/grid-sorted-ascending.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-sorting) |
+| Row Selection | ![Row Selection](./images/multiple-row-selection.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-selection) |
+| Virtual Scrolling | ![Virtual Scrolling](./images/virtual-scroll-middle.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-large-data) |
+
 - [StackBlitz - Enterprise Dashboard](https://stackblitz.com/edit/blg-grid-enterprise)
 - [CodeSandbox - Full Feature Demo](https://codesandbox.io/s/blg-grid-demo)
 

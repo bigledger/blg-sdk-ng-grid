@@ -1,2 +1,1120 @@
-<testsuites id="" name="" tests="0" failures="0" skipped="0" errors="0" time="2.186071">
+<testsuites id="" name="" tests="85" failures="57" skipped="0" errors="0" time="50.532548">
+<testsuite name="screenshots/capture-screenshots.spec.ts" timestamp="2025-08-31T15:26:10.168Z" hostname="chromium" tests="17" failures="3" skipped="0" time="94.895" errors="0">
+<testcase name="BLG Grid Documentation Screenshots › Basic Grid Layout" classname="screenshots/capture-screenshots.spec.ts" time="2.117">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grid with Data Loaded" classname="screenshots/capture-screenshots.spec.ts" time="1.916">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Column Headers and Sorting" classname="screenshots/capture-screenshots.spec.ts" time="31.548">
+<failure message="capture-screenshots.spec.ts:63:7 Column Headers and Sorting" type="FAILURE">
+<![CDATA[  [chromium] › screenshots/capture-screenshots.spec.ts:63:7 › BLG Grid Documentation Screenshots › Column Headers and Sorting 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-column="name"]')
+
+
+      72 |     
+      73 |     // Click on a column header to show sort indicator
+    > 74 |     await page.click('[data-column="name"]');
+         |                ^
+      75 |     await page.waitForTimeout(200);
+      76 |     
+      77 |     // Capture with sort indicator
+        at /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/screenshots/capture-screenshots.spec.ts:74:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-chromium/video.webm]]
+
+[[ATTACHMENT|screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Sorting in Action" classname="screenshots/capture-screenshots.spec.ts" time="31.542">
+<failure message="capture-screenshots.spec.ts:83:7 Sorting in Action" type="FAILURE">
+<![CDATA[  [chromium] › screenshots/capture-screenshots.spec.ts:83:7 › BLG Grid Documentation Screenshots › Sorting in Action 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-column="name"]')
+
+
+      83 |   test('Sorting in Action', async ({ page }) => {
+      84 |     // Click on a sortable column
+    > 85 |     await page.click('[data-column="name"]');
+         |                ^
+      86 |     
+      87 |     // Wait for sort to complete
+      88 |     await page.waitForTimeout(300);
+        at /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/screenshots/capture-screenshots.spec.ts:85:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-chromium/video.webm]]
+
+[[ATTACHMENT|screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Filtering UI" classname="screenshots/capture-screenshots.spec.ts" time="1.924">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Row Selection" classname="screenshots/capture-screenshots.spec.ts" time="2.823">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Cell Editing" classname="screenshots/capture-screenshots.spec.ts" time="2.105">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grouping Feature" classname="screenshots/capture-screenshots.spec.ts" time="1.715">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Export Dialog" classname="screenshots/capture-screenshots.spec.ts" time="2.272">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Pagination" classname="screenshots/capture-screenshots.spec.ts" time="1.719">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Virtual Scrolling" classname="screenshots/capture-screenshots.spec.ts" time="2.796">
+<failure message="capture-screenshots.spec.ts:436:7 Virtual Scrolling" type="FAILURE">
+<![CDATA[  [chromium] › screenshots/capture-screenshots.spec.ts:436:7 › BLG Grid Documentation Screenshots › Virtual Scrolling 
+
+    TypeError: scrollContainer.scroll is not a function
+
+      482 |       
+      483 |       if (await scrollContainer.isVisible()) {
+    > 484 |         await scrollContainer.scroll({ top: 300 });
+          |                               ^
+      485 |         await page.waitForTimeout(300);
+      486 |         
+      487 |         await page.screenshot({
+        at /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/screenshots/capture-screenshots.spec.ts:484:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-chromium/video.webm]]
+
+[[ATTACHMENT|screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Responsive Design" classname="screenshots/capture-screenshots.spec.ts" time="3.432">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Loading States" classname="screenshots/capture-screenshots.spec.ts" time="1.67">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Error States" classname="screenshots/capture-screenshots.spec.ts" time="1.623">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Theme Variations" classname="screenshots/capture-screenshots.spec.ts" time="1.654">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Full Grid Overview" classname="screenshots/capture-screenshots.spec.ts" time="2.614">
+</testcase>
+<testcase name="Component Screenshots › Individual Components" classname="screenshots/capture-screenshots.spec.ts" time="1.425">
+</testcase>
+</testsuite>
+<testsuite name="screenshots/capture-screenshots.spec.ts" timestamp="2025-08-31T15:26:10.168Z" hostname="firefox" tests="17" failures="17" skipped="0" time="0.018" errors="0">
+<testcase name="BLG Grid Documentation Screenshots › Basic Grid Layout" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:28:7 Basic Grid Layout" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:28:7 › BLG Grid Documentation Screenshots › Basic Grid Layout 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grid with Data Loaded" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:42:7 Grid with Data Loaded" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:42:7 › BLG Grid Documentation Screenshots › Grid with Data Loaded 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Column Headers and Sorting" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:63:7 Column Headers and Sorting" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:63:7 › BLG Grid Documentation Screenshots › Column Headers and Sorting 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Sorting in Action" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:83:7 Sorting in Action" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:83:7 › BLG Grid Documentation Screenshots › Sorting in Action 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Filtering UI" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:122:7 Filtering UI" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:122:7 › BLG Grid Documentation Screenshots › Filtering UI 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Row Selection" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:176:7 Row Selection" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:176:7 › BLG Grid Documentation Screenshots › Row Selection 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Cell Editing" classname="screenshots/capture-screenshots.spec.ts" time="0.002">
+<failure message="capture-screenshots.spec.ts:216:7 Cell Editing" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:216:7 › BLG Grid Documentation Screenshots › Cell Editing 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grouping Feature" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:274:7 Grouping Feature" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:274:7 › BLG Grid Documentation Screenshots › Grouping Feature 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Export Dialog" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:347:7 Export Dialog" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:347:7 › BLG Grid Documentation Screenshots › Export Dialog 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Pagination" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:397:7 Pagination" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:397:7 › BLG Grid Documentation Screenshots › Pagination 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Virtual Scrolling" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:436:7 Virtual Scrolling" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:436:7 › BLG Grid Documentation Screenshots › Virtual Scrolling 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Responsive Design" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:501:7 Responsive Design" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:501:7 › BLG Grid Documentation Screenshots › Responsive Design 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Loading States" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:533:7 Loading States" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:533:7 › BLG Grid Documentation Screenshots › Loading States 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Error States" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:595:7 Error States" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:595:7 › BLG Grid Documentation Screenshots › Error States 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Theme Variations" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:660:7 Theme Variations" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:660:7 › BLG Grid Documentation Screenshots › Theme Variations 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Full Grid Overview" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:714:7 Full Grid Overview" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:714:7 › BLG Grid Documentation Screenshots › Full Grid Overview 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Component Screenshots › Individual Components" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:750:7 Individual Components" type="FAILURE">
+<![CDATA[  [firefox] › screenshots/capture-screenshots.spec.ts:750:7 › Component Screenshots › Individual Components 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/firefox-1490/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="screenshots/capture-screenshots.spec.ts" timestamp="2025-08-31T15:26:10.168Z" hostname="webkit" tests="17" failures="17" skipped="0" time="0.017" errors="0">
+<testcase name="BLG Grid Documentation Screenshots › Basic Grid Layout" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:28:7 Basic Grid Layout" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:28:7 › BLG Grid Documentation Screenshots › Basic Grid Layout 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grid with Data Loaded" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:42:7 Grid with Data Loaded" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:42:7 › BLG Grid Documentation Screenshots › Grid with Data Loaded 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Column Headers and Sorting" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:63:7 Column Headers and Sorting" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:63:7 › BLG Grid Documentation Screenshots › Column Headers and Sorting 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Sorting in Action" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:83:7 Sorting in Action" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:83:7 › BLG Grid Documentation Screenshots › Sorting in Action 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Filtering UI" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:122:7 Filtering UI" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:122:7 › BLG Grid Documentation Screenshots › Filtering UI 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Row Selection" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:176:7 Row Selection" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:176:7 › BLG Grid Documentation Screenshots › Row Selection 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Cell Editing" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:216:7 Cell Editing" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:216:7 › BLG Grid Documentation Screenshots › Cell Editing 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grouping Feature" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:274:7 Grouping Feature" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:274:7 › BLG Grid Documentation Screenshots › Grouping Feature 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Export Dialog" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:347:7 Export Dialog" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:347:7 › BLG Grid Documentation Screenshots › Export Dialog 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Pagination" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:397:7 Pagination" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:397:7 › BLG Grid Documentation Screenshots › Pagination 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Virtual Scrolling" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:436:7 Virtual Scrolling" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:436:7 › BLG Grid Documentation Screenshots › Virtual Scrolling 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Responsive Design" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:501:7 Responsive Design" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:501:7 › BLG Grid Documentation Screenshots › Responsive Design 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Loading States" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:533:7 Loading States" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:533:7 › BLG Grid Documentation Screenshots › Loading States 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Error States" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:595:7 Error States" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:595:7 › BLG Grid Documentation Screenshots › Error States 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Theme Variations" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:660:7 Theme Variations" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:660:7 › BLG Grid Documentation Screenshots › Theme Variations 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Full Grid Overview" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:714:7 Full Grid Overview" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:714:7 › BLG Grid Documentation Screenshots › Full Grid Overview 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Component Screenshots › Individual Components" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:750:7 Individual Components" type="FAILURE">
+<![CDATA[  [webkit] › screenshots/capture-screenshots.spec.ts:750:7 › Component Screenshots › Individual Components 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="screenshots/capture-screenshots.spec.ts" timestamp="2025-08-31T15:26:10.168Z" hostname="Mobile Chrome" tests="17" failures="3" skipped="0" time="95.907" errors="0">
+<testcase name="BLG Grid Documentation Screenshots › Basic Grid Layout" classname="screenshots/capture-screenshots.spec.ts" time="1.816">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grid with Data Loaded" classname="screenshots/capture-screenshots.spec.ts" time="1.923">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Column Headers and Sorting" classname="screenshots/capture-screenshots.spec.ts" time="31.324">
+<failure message="capture-screenshots.spec.ts:63:7 Column Headers and Sorting" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › screenshots/capture-screenshots.spec.ts:63:7 › BLG Grid Documentation Screenshots › Column Headers and Sorting 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-column="name"]')
+
+
+      72 |     
+      73 |     // Click on a column header to show sort indicator
+    > 74 |     await page.click('[data-column="name"]');
+         |                ^
+      75 |     await page.waitForTimeout(200);
+      76 |     
+      77 |     // Capture with sort indicator
+        at /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/screenshots/capture-screenshots.spec.ts:74:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|screenshots-capture-screen-1ad96--Column-Headers-and-Sorting-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Sorting in Action" classname="screenshots/capture-screenshots.spec.ts" time="31.313">
+<failure message="capture-screenshots.spec.ts:83:7 Sorting in Action" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › screenshots/capture-screenshots.spec.ts:83:7 › BLG Grid Documentation Screenshots › Sorting in Action 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-column="name"]')
+
+
+      83 |   test('Sorting in Action', async ({ page }) => {
+      84 |     // Click on a sortable column
+    > 85 |     await page.click('[data-column="name"]');
+         |                ^
+      86 |     
+      87 |     // Wait for sort to complete
+      88 |     await page.waitForTimeout(300);
+        at /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/screenshots/capture-screenshots.spec.ts:85:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|screenshots-capture-screen-b5271-reenshots-Sorting-in-Action-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Filtering UI" classname="screenshots/capture-screenshots.spec.ts" time="1.721">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Row Selection" classname="screenshots/capture-screenshots.spec.ts" time="2.78">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Cell Editing" classname="screenshots/capture-screenshots.spec.ts" time="2.143">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grouping Feature" classname="screenshots/capture-screenshots.spec.ts" time="1.727">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Export Dialog" classname="screenshots/capture-screenshots.spec.ts" time="2.307">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Pagination" classname="screenshots/capture-screenshots.spec.ts" time="1.741">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Virtual Scrolling" classname="screenshots/capture-screenshots.spec.ts" time="3.056">
+<failure message="capture-screenshots.spec.ts:436:7 Virtual Scrolling" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › screenshots/capture-screenshots.spec.ts:436:7 › BLG Grid Documentation Screenshots › Virtual Scrolling 
+
+    TypeError: scrollContainer.scroll is not a function
+
+      482 |       
+      483 |       if (await scrollContainer.isVisible()) {
+    > 484 |         await scrollContainer.scroll({ top: 300 });
+          |                               ^
+      485 |         await page.waitForTimeout(300);
+      486 |         
+      487 |         await page.screenshot({
+        at /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/screenshots/capture-screenshots.spec.ts:484:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|screenshots-capture-screen-4eaa8-reenshots-Virtual-Scrolling-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Responsive Design" classname="screenshots/capture-screenshots.spec.ts" time="3.906">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Loading States" classname="screenshots/capture-screenshots.spec.ts" time="1.848">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Error States" classname="screenshots/capture-screenshots.spec.ts" time="1.651">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Theme Variations" classname="screenshots/capture-screenshots.spec.ts" time="1.724">
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Full Grid Overview" classname="screenshots/capture-screenshots.spec.ts" time="3.383">
+</testcase>
+<testcase name="Component Screenshots › Individual Components" classname="screenshots/capture-screenshots.spec.ts" time="1.544">
+</testcase>
+</testsuite>
+<testsuite name="screenshots/capture-screenshots.spec.ts" timestamp="2025-08-31T15:26:10.168Z" hostname="Mobile Safari" tests="17" failures="17" skipped="0" time="0.017" errors="0">
+<testcase name="BLG Grid Documentation Screenshots › Basic Grid Layout" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:28:7 Basic Grid Layout" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:28:7 › BLG Grid Documentation Screenshots › Basic Grid Layout 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grid with Data Loaded" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:42:7 Grid with Data Loaded" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:42:7 › BLG Grid Documentation Screenshots › Grid with Data Loaded 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Column Headers and Sorting" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:63:7 Column Headers and Sorting" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:63:7 › BLG Grid Documentation Screenshots › Column Headers and Sorting 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Sorting in Action" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:83:7 Sorting in Action" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:83:7 › BLG Grid Documentation Screenshots › Sorting in Action 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Filtering UI" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:122:7 Filtering UI" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:122:7 › BLG Grid Documentation Screenshots › Filtering UI 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Row Selection" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:176:7 Row Selection" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:176:7 › BLG Grid Documentation Screenshots › Row Selection 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Cell Editing" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:216:7 Cell Editing" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:216:7 › BLG Grid Documentation Screenshots › Cell Editing 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Grouping Feature" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:274:7 Grouping Feature" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:274:7 › BLG Grid Documentation Screenshots › Grouping Feature 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Export Dialog" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:347:7 Export Dialog" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:347:7 › BLG Grid Documentation Screenshots › Export Dialog 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Pagination" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:397:7 Pagination" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:397:7 › BLG Grid Documentation Screenshots › Pagination 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Virtual Scrolling" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:436:7 Virtual Scrolling" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:436:7 › BLG Grid Documentation Screenshots › Virtual Scrolling 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Responsive Design" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:501:7 Responsive Design" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:501:7 › BLG Grid Documentation Screenshots › Responsive Design 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Loading States" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:533:7 Loading States" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:533:7 › BLG Grid Documentation Screenshots › Loading States 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Error States" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:595:7 Error States" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:595:7 › BLG Grid Documentation Screenshots › Error States 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Theme Variations" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:660:7 Theme Variations" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:660:7 › BLG Grid Documentation Screenshots › Theme Variations 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="BLG Grid Documentation Screenshots › Full Grid Overview" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:714:7 Full Grid Overview" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:714:7 › BLG Grid Documentation Screenshots › Full Grid Overview 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="Component Screenshots › Individual Components" classname="screenshots/capture-screenshots.spec.ts" time="0.001">
+<failure message="capture-screenshots.spec.ts:750:7 Individual Components" type="FAILURE">
+<![CDATA[  [Mobile Safari] › screenshots/capture-screenshots.spec.ts:750:7 › Component Screenshots › Individual Components 
+
+    Error: browserType.launch: Executable doesn't exist at /Users/vincent/Library/Caches/ms-playwright/webkit-2203/pw_run.sh
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
 </testsuites>

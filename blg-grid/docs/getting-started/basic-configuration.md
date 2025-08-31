@@ -2,6 +2,10 @@
 
 This guide covers the essential configuration options for BlgGrid to get you up and running quickly.
 
+![Basic Grid Layout](../images/basic-grid-layout.png)
+
+*A basic BLG Grid with default configuration*
+
 ## Grid Configuration
 
 The `GridConfig` interface defines the main configuration options for your grid:
