@@ -1,0 +1,218 @@
+.blg-export-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  position: relative;
+
+  .export-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .export-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  .export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &.export-btn-primary {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+
+      &:hover:not(:disabled) {
+        background: #0056b3;
+        border-color: #0056b3;
+      }
+
+      &:active {
+        background: #004085;
+        border-color: #004085;
+      }
+    }
+
+    &.export-btn-secondary {
+      background: white;
+      color: #6c757d;
+      border-color: #6c757d;
+
+      &:hover:not(:disabled) {
+        background: #6c757d;
+        color: white;
+      }
+
+      &.active {
+        background: #6c757d;
+        color: white;
+      }
+    }
+
+    .export-icon {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+  }
+
+  .export-options-panel {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .options-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      h4 {
+        margin: 0;
+        color: #495057;
+        font-size: 1rem;
+        font-weight: 600;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 0.5rem;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      label {
+        font-weight: 500;
+        color: #495057;
+        font-size: 0.875rem;
+      }
+
+      .form-control {
+        padding: 0.5rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+      }
+
+      .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.25rem;
+      }
+
+      .radio-label,
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.875rem;
+        color: #495057;
+
+        input[type="radio"],
+        input[type="checkbox"] {
+          margin: 0;
+        }
+
+        &:hover {
+          color: #007bff;
+        }
+      }
+    }
+
+    .options-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e9ecef;
+    }
+  }
+
+  .export-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #007bff;
+
+    .progress-spinner {
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid rgba(0, 123, 255, 0.3);
+      border-top: 2px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    .export-controls {
+      flex-direction: column;
+      align-items: stretch;
+
+      .export-buttons {
+        justify-content: center;
+      }
+    }
+
+    .export-options-panel {
+      .options-section {
+        .radio-group {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+      }
+
+      .options-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  }
+}

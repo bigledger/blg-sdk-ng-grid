@@ -1,0 +1,29 @@
+<tr 
+  class="blg-row"
+  [class.selected]="isSelected"
+  [class.even]="isEven"
+  [class.odd]="!isEven"
+  [style.height.px]="rowHeight"
+  (click)="onRowClick()">
+  
+  <td 
+    *ngFor="let column of columns; trackBy: trackByColumn"
+    class="blg-cell"
+    [class.pinned-left]="column.pinned === 'left'"
+    [class.pinned-right]="column.pinned === 'right'"
+    [class.hidden]="column.visible === false"
+    [style.width]="column.width + 'px'"
+    [style.text-align]="column.align || 'left'"
+    (click)="onCellClick(column.id, getCellValue(column))">
+    
+    <ng-container *ngIf="!column.cellRenderer">
+      {{ getCellValue(column) }}
+    </ng-container>
+    
+    <!-- Custom cell renderer would be handled by the cell module -->
+    <ng-content 
+      *ngIf="column.cellRenderer"
+      select="[blg-cell-renderer]">
+    </ng-content>
+  </td>
+</tr>

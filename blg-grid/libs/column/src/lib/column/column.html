@@ -1,0 +1,22 @@
+<th 
+  class="blg-column-header"
+  [ngStyle]="columnStyle()"
+  [class.sortable]="canSort()"
+  [class.resizable]="canResize()"
+  [class.sorted-asc]="sortDirection === 'asc'"
+  [class.sorted-desc]="sortDirection === 'desc'"
+  [class.pinned-left]="column.pinned === 'left'"
+  [class.pinned-right]="column.pinned === 'right'"
+  [class.hidden]="column.visible === false">
+  
+  <div class="column-content" (click)="onHeaderClick()">
+    <span class="column-title">{{ column.header }}</span>
+    <span class="sort-indicator" *ngIf="canSort()">{{ getSortIcon() }}</span>
+  </div>
+  
+  <div 
+    class="resize-handle"
+    *ngIf="canResize()"
+    (mousedown)="onResizeStart($event)">
+  </div>
+</th>

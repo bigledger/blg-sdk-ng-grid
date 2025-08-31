@@ -1,0 +1,165 @@
+{
+  "config": {
+    "configFile": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/playwright.config.ts",
+    "rootDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/global-setup.ts",
+    "globalTeardown": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "test-framework": "Playwright",
+      "app": "BLG Angular Grid Library"
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/junit-results.xml"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "test-framework": "Playwright",
+          "app": "BLG Angular Grid Library"
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "test-framework": "Playwright",
+          "app": "BLG Angular Grid Library"
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "test-framework": "Playwright",
+          "app": "BLG Angular Grid Library"
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "test-framework": "Playwright",
+          "app": "BLG Angular Grid Library"
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "test-framework": "Playwright",
+          "app": "BLG Angular Grid Library"
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 5,
+    "webServer": {
+      "command": "npm run serve",
+      "url": "http://localhost:4200",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "SyntaxError: /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/performance/benchmarks.spec.ts: Did not expect a type annotation here. (468:22)\n\n  466 |\n  467 |   // Helper methods (these would normally be in a separate utility class)\n> 468 |   calculateScore(value: number, thresholds: BenchmarkThresholds): number {\n      |                       ^\n  469 |     if (value <= thresholds.excellent) return 100;\n  470 |     if (value <= thresholds.good) return 80;\n  471 |     if (value <= thresholds.acceptable) return 60;",
+      "stack": "SyntaxError: /Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/performance/benchmarks.spec.ts: Did not expect a type annotation here. (468:22)\n\n  466 |\n  467 |   // Helper methods (these would normally be in a separate utility class)\n> 468 |   calculateScore(value: number, thresholds: BenchmarkThresholds): number {\n      |                       ^\n  469 |     if (value <= thresholds.excellent) return 100;\n  470 |     if (value <= thresholds.good) return 80;\n  471 |     if (value <= thresholds.acceptable) return 60;",
+      "location": {
+        "file": "/Users/vincent/repo/blg-sdk-ng-grid/blg-grid/e2e/performance/benchmarks.spec.ts",
+        "line": 468,
+        "column": 22
+      },
+      "snippet": "\u001b[90m   at \u001b[39mperformance/benchmarks.spec.ts:468\n\n  466 |\n  467 |   // Helper methods (these would normally be in a separate utility class)\n> 468 |   calculateScore(value: number, thresholds: BenchmarkThresholds): number {\n      |                      ^\n  469 |     if (value <= thresholds.excellent) return 100;\n  470 |     if (value <= thresholds.good) return 80;\n  471 |     if (value <= thresholds.acceptable) return 60;"
+    },
+    {
+      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
+      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
+    }
+  ],
+  "stats": {
+    "startTime": "2025-08-31T12:20:21.272Z",
+    "duration": 2186.071,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

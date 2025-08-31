@@ -1,0 +1,49 @@
+// Grid theme variables
+
+// Colors
+$grid-primary-color: #007bff;
+$grid-secondary-color: #6c757d;
+$grid-success-color: #28a745;
+$grid-warning-color: #ffc107;
+$grid-danger-color: #dc3545;
+$grid-info-color: #17a2b8;
+
+// Grid colors
+$grid-background: #ffffff;
+$grid-border-color: #dee2e6;
+$grid-header-background: #f8f9fa;
+$grid-header-text-color: #495057;
+$grid-row-hover-background: #f5f5f5;
+$grid-row-selected-background: #e3f2fd;
+$grid-row-even-background: #ffffff;
+$grid-row-odd-background: #f9f9f9;
+
+// Sizing
+$grid-border-width: 1px;
+$grid-border-radius: 4px;
+$grid-cell-padding: 8px 12px;
+$grid-header-padding: 12px;
+$grid-row-height: 40px;
+$grid-header-height: 44px;
+
+// Typography
+$grid-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$grid-font-size: 14px;
+$grid-font-weight: 400;
+$grid-header-font-weight: 600;
+$grid-line-height: 1.5;
+
+// Transitions
+$grid-transition-duration: 0.15s;
+$grid-transition-timing: ease-in-out;
+
+// Z-index
+$grid-z-index-header: 10;
+$grid-z-index-pinned: 5;
+$grid-z-index-tooltip: 1000;
+
+// Breakpoints
+$grid-breakpoint-sm: 576px;
+$grid-breakpoint-md: 768px;
+$grid-breakpoint-lg: 992px;
+$grid-breakpoint-xl: 1200px;

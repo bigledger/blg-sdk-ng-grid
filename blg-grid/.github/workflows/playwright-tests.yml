@@ -1,0 +1,293 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run Playwright tests
+        run: npm run test:e2e
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.node-version }}
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload test videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-videos-${{ matrix.node-version }}
+          path: test-results/
+          retention-days: 7
+
+  accessibility-tests:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run accessibility tests
+        run: npm run test:accessibility
+
+      - name: Upload accessibility results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accessibility-report
+          path: playwright-report/
+          retention-days: 30
+
+  performance-tests:
+    timeout-minutes: 45
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run performance tests
+        run: npm run ci:performance
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-report
+          path: test-results/performance-results.json
+          retention-days: 30
+
+      - name: Comment performance results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = './test-results/performance-results.json';
+            
+            if (fs.existsSync(path)) {
+              const results = JSON.parse(fs.readFileSync(path, 'utf8'));
+              const comment = `## 🚀 Performance Test Results
+              
+              | Test Category | Average Time | Status |
+              |---------------|--------------|---------|
+              | Render Time | ${results.renderTime || 'N/A'}ms | ${results.renderTime < 3000 ? '✅ Pass' : '⚠️ Slow'} |
+              | Sort Performance | ${results.sortTime || 'N/A'}ms | ${results.sortTime < 2000 ? '✅ Pass' : '⚠️ Slow'} |
+              | Filter Performance | ${results.filterTime || 'N/A'}ms | ${results.filterTime < 2000 ? '✅ Pass' : '⚠️ Slow'} |
+              | Scroll Performance | ${results.scrollTime || 'N/A'}ms | ${results.scrollTime < 500 ? '✅ Pass' : '⚠️ Slow'} |
+              
+              > Performance benchmarks run on Ubuntu latest with Node.js 20.x
+              `;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  visual-regression:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run visual regression tests
+        run: npm run ci:test:visual
+
+      - name: Upload visual diff results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-regression-diffs
+          path: test-results/
+          retention-days: 7
+
+  cross-browser:
+    timeout-minutes: 90
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run cross-browser tests
+        run: npx playwright test --project=${{ matrix.browser }}
+
+      - name: Upload browser-specific results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 7
+
+  mobile-tests:
+    timeout-minutes: 45
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run mobile tests
+        run: npx playwright test --project="Mobile Chrome" --project="Mobile Safari"
+
+      - name: Upload mobile test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-test-report
+          path: playwright-report/
+          retention-days: 7

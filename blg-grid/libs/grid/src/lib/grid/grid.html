@@ -1,0 +1,579 @@
+<div class="blg-grid-container" #gridContainer>
+  <!-- Grouping Toolbar -->
+  @if (gridConfig().grouping) {
+    <blg-grouping-toolbar
+      [columns]="gridColumns()"
+      [groupByColumns]="groupingState().groupByColumns"
+      [aggregations]="groupingState().aggregations"
+      (groupByColumnsChange)="onGroupByColumnsChange($event)"
+      (aggregationsChange)="onAggregationsChange($event)"
+      (expandAllRequested)="expandAllGroups()"
+      (collapseAllRequested)="collapseAllGroups()"
+      class="blg-grid-grouping-toolbar">
+    </blg-grouping-toolbar>
+  }
+
+  <!-- Export Toolbar -->
+  @if (gridConfig().export) {
+    <blg-export-toolbar
+      [enabled]="gridData().length > 0"
+      [availableFormats]="gridConfig().exportConfig?.formats || ['csv', 'excel']"
+      [defaultFilename]="gridConfig().exportConfig?.defaultFilename || 'grid-export'"
+      (exportRequested)="onExportRequested($event)"
+      class="blg-grid-export-toolbar">
+    </blg-export-toolbar>
+  }
+
+  <!-- Grid Header with Column Headers -->
+  <div class="blg-grid-header" 
+       role="row" 
+       cdkDropList 
+       [cdkDropListData]="visibleColumns()"
+       (cdkDropListDropped)="onColumnDrop($event)">
+    
+    <!-- Selection Column Header (when selection is enabled) -->
+    @if (gridConfig().selectable) {
+      <div class="blg-grid-cell blg-grid-cell-header blg-grid-cell-select" 
+           role="columnheader"
+           [style.width.px]="40">
+        @if (gridConfig().selectionMode === 'multiple') {
+          <input type="checkbox" 
+                 class="blg-grid-checkbox-all"
+                 [checked]="selectedRows().size > 0 && selectedRows().size === gridData().length"
+                 [indeterminate]="selectedRows().size > 0 && selectedRows().size < gridData().length"
+                 (change)="selectedRows().size === gridData().length ? clearAllSelection() : selectAllRows()"
+                 aria-label="Select all rows">
+        }
+      </div>
+    }
+    
+    <!-- Column Headers -->
+    @for (column of visibleColumns(); track trackByColumnId($index, column)) {
+      <div class="blg-grid-cell blg-grid-cell-header" 
+           role="columnheader"
+           cdkDrag
+           [cdkDragData]="column"
+           [style.width.px]="column.width || 150"
+           [style.min-width.px]="column.minWidth || 50"
+           [style.max-width.px]="column.maxWidth || 500"
+           [attr.aria-sort]="getAriaSortAttribute(column.id)"
+           [class.blg-grid-cell-sortable]="column.sortable !== false && gridConfig().sortable"
+           [class.blg-grid-cell-sorted]="getSortDirection(column.id) !== null">
+        
+        <!-- Column Header Content -->
+        <div class="blg-grid-cell-header-content"
+             (click)="onColumnHeaderClick(column, $event)">
+          <span class="blg-grid-cell-header-text">{{ column.header }}</span>
+          
+          <!-- Sort Indicator -->
+          @if (getSortDirection(column.id)) {
+            <span class="blg-grid-sort-indicator" 
+                  [class.blg-grid-sort-asc]="getSortDirection(column.id) === 'asc'"
+                  [class.blg-grid-sort-desc]="getSortDirection(column.id) === 'desc'"
+                  aria-hidden="true">
+              @if (getSortDirection(column.id) === 'asc') {
+                ↑
+              } @else {
+                ↓
+              }
+              @if (sortState() && sortState()!.length > 1 && getSortOrder(column.id)) {
+                <span class="blg-grid-sort-order">{{ getSortOrder(column.id) }}</span>
+              }
+            </span>
+          }
+        </div>
+        
+        <!-- Column Filter (if filterable) -->
+        @if (column.filterable !== false && gridConfig().filterable) {
+          <div class="blg-grid-cell-filter">
+            <input type="text"
+                   class="blg-grid-filter-input"
+                   placeholder="Filter..."
+                   [value]="filterState()[column.id] || ''"
+                   (input)="gridState.updateFilter(column.id, $event.target.value)"
+                   (click)="$event.stopPropagation()"
+                   [attr.aria-label]="'Filter ' + column.header">
+          </div>
+        }
+        
+        <!-- Column Resize Handle -->
+        @if (column.resizable !== false && gridConfig().resizable) {
+          <div class="blg-grid-resize-handle"
+               (mousedown)="onResizeStart(column, $event)"
+               aria-label="Resize column">
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Grid Body with Virtual Scrolling -->
+  <div class="blg-grid-body">
+    @if (isGrouped()) {
+      <!-- Grouped Data Display -->
+      <div class="blg-grid-content blg-grid-grouped">
+        @for (groupedRow of groupedRows(); track $index; let rowIndex = $index) {
+          @if (groupedRow.type === 'group') {
+            <!-- Group Header Row -->
+            <div class="blg-grid-row blg-grid-row-group" 
+                 role="row"
+                 [attr.aria-rowindex]="rowIndex + 1"
+                 [attr.aria-expanded]="groupedRow.expanded"
+                 [class.blg-grid-row-expanded]="groupedRow.expanded"
+                 [style.padding-left.px]="groupedRow.level * 20">
+              
+              <div class="blg-grid-cell blg-grid-cell-group-header"
+                   role="gridcell"
+                   [attr.colspan]="visibleColumns().length + (gridConfig().selectable ? 1 : 0)"
+                   (click)="toggleGroupExpansion(groupedRow.group!.id)">
+                
+                <div class="blg-grid-group-content">
+                  <!-- Expand/Collapse Icon -->
+                  <span class="blg-grid-group-toggle" 
+                        [class.expanded]="groupedRow.expanded"
+                        aria-hidden="true">
+                    @if (groupedRow.expanded) {
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7,10L12,15L17,10H7Z"/>
+                      </svg>
+                    } @else {
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                      </svg>
+                    }
+                  </span>
+                  
+                  <!-- Group Label -->
+                  <span class="blg-grid-group-label">
+                    {{ groupedRow.group!.displayValue }}
+                  </span>
+                  
+                  <!-- Group Count -->
+                  @if (gridConfig().groupingConfig?.showGroupCount) {
+                    <span class="blg-grid-group-count">
+                      ({{ groupedRow.group!.count }})
+                    </span>
+                  }
+                  
+                  <!-- Aggregations -->
+                  @if (groupedRow.group!.aggregations) {
+                    <div class="blg-grid-group-aggregations">
+                      @for (columnId of Object.keys(groupedRow.group!.aggregations!); track columnId) {
+                        <div class="blg-grid-group-agg">
+                          @for (funcName of Object.keys(groupedRow.group!.aggregations![columnId]); track funcName) {
+                            <span class="blg-grid-group-agg-item">
+                              {{ funcName }}: {{ groupedRow.group!.aggregations![columnId][funcName] }}
+                            </span>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          } @else if (groupedRow.type === 'data' && groupedRow.data) {
+            <!-- Data Row within Group -->
+            <div class="blg-grid-row" 
+                 role="row"
+                 [attr.aria-rowindex]="rowIndex + 1"
+                 [attr.aria-selected]="isRowSelected(rowIndex)"
+                 [class.blg-grid-row-selected]="isRowSelected(rowIndex)"
+                 [class.blg-grid-row-focused]="focusedCell()?.row === rowIndex"
+                 [style.padding-left.px]="(groupedRow.level + 1) * 20">
+              
+              <!-- Selection Column Cell -->
+              @if (gridConfig().selectable) {
+                <div class="blg-grid-cell blg-grid-cell-select" 
+                     role="gridcell"
+                     [style.width.px]="40"
+                     [attr.aria-describedby]="'select-row-' + rowIndex">
+                  <input type="checkbox" 
+                         class="blg-grid-checkbox"
+                         [checked]="isRowSelected(rowIndex)"
+                         (change)="toggleRowSelection(rowIndex)"
+                         [attr.aria-label]="'Select row ' + (rowIndex + 1)">
+                </div>
+              }
+              
+              <!-- Data Cells -->
+              @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+                <div class="blg-grid-cell" 
+                     role="gridcell"
+                     [style.width.px]="column.width || 150"
+                     [style.min-width.px]="column.minWidth || 50"
+                     [style.max-width.px]="column.maxWidth || 500"
+                     [style.text-align]="column.align || 'left'"
+                     [attr.aria-describedby]="column.id + '-' + rowIndex"
+                     [class.blg-grid-cell-focused]="isCellFocused(rowIndex, colIndex)"
+                     [class.blg-grid-cell-editing]="editingCell()?.rowIndex === rowIndex && editingCell()?.columnId === column.id"
+                     (click)="onCellClick(rowIndex, column.id, getCellValue(groupedRow.data!, column), groupedRow.data!, $event)">
+                  
+                  @if (editingCell()?.rowIndex === rowIndex && editingCell()?.columnId === column.id) {
+                    <!-- Cell Editor -->
+                    <div class="blg-grid-cell-editor" (click)="$event.stopPropagation()">
+                      @switch (column.type) {
+                        @case ('number') {
+                          <input type="number" 
+                                 class="blg-grid-editor-input"
+                                 [value]="editValue()"
+                                 (input)="updateEditValue($any($event.target).value)"
+                                 (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                                 (blur)="cancelEdit()"
+                                 #editorInput>
+                        }
+                        @case ('date') {
+                          <input type="date" 
+                                 class="blg-grid-editor-input"
+                                 [value]="editValue()"
+                                 (input)="updateEditValue($any($event.target).value)"
+                                 (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                                 (blur)="cancelEdit()"
+                                 #editorInput>
+                        }
+                        @case ('boolean') {
+                          <select class="blg-grid-editor-select"
+                                  [value]="editValue()"
+                                  (change)="updateEditValue($any($event.target).value)"
+                                  (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                                  (blur)="cancelEdit()"
+                                  #editorInput>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                          </select>
+                        }
+                        @default {
+                          <input type="text" 
+                                 class="blg-grid-editor-input"
+                                 [value]="editValue()"
+                                 (input)="updateEditValue($any($event.target).value)"
+                                 (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                                 (blur)="cancelEdit()"
+                                 #editorInput>
+                        }
+                      }
+                    </div>
+                  } @else {
+                    @if (column.cellRenderer) {
+                      <!-- Custom Cell Renderer -->
+                      <div class="blg-grid-custom-cell" 
+                           [innerHTML]="renderCustomCell(getCellValue(groupedRow.data!, column), column, groupedRow.data!)"></div>
+                    } @else {
+                      <!-- Default Cell Content -->
+                      <span class="blg-grid-cell-content" 
+                            (dblclick)="startEdit(rowIndex, column.id, getCellValue(groupedRow.data!, column))">{{ formatCellValue(getCellValue(groupedRow.data!, column), column.type) }}</span>
+                    }
+                  }
+                </div>
+              }
+            </div>
+          }
+        }
+      </div>
+    } @else if (gridConfig().virtualScrolling && gridData().length > 50) {
+      <!-- Virtual Scrolling for large datasets -->
+      <cdk-virtual-scroll-viewport 
+        class="blg-grid-viewport"
+        [itemSize]="itemSize()"
+        [minBufferPx]="itemSize() * 10"
+        [maxBufferPx]="itemSize() * 20">
+        
+        @for (item of gridData(); track trackByIndex($index, item); let rowIndex = $index) {
+          <div class="blg-grid-row" 
+               role="row"
+               [attr.aria-rowindex]="rowIndex + 1"
+               [attr.aria-selected]="isRowSelected(rowIndex)"
+               [class.blg-grid-row-selected]="isRowSelected(rowIndex)"
+               [class.blg-grid-row-focused]="focusedCell()?.row === rowIndex">
+            
+            <!-- Selection Column Cell -->
+            @if (gridConfig().selectable) {
+              <div class="blg-grid-cell blg-grid-cell-select" 
+                   role="gridcell"
+                   [style.width.px]="40"
+                   [attr.aria-describedby]="'select-row-' + rowIndex">
+                <input type="checkbox" 
+                       class="blg-grid-checkbox"
+                       [checked]="isRowSelected(rowIndex)"
+                       (change)="toggleRowSelection(rowIndex)"
+                       [attr.aria-label]="'Select row ' + (rowIndex + 1)">
+              </div>
+            }
+            
+            <!-- Data Cells -->
+            @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+              <div class="blg-grid-cell" 
+                   role="gridcell"
+                   [style.width.px]="column.width || 150"
+                   [style.min-width.px]="column.minWidth || 50"
+                   [style.max-width.px]="column.maxWidth || 500"
+                   [style.text-align]="column.align || 'left'"
+                   [attr.aria-describedby]="column.id + '-' + rowIndex"
+                   [class.blg-grid-cell-focused]="isCellFocused(rowIndex, colIndex)"
+                   [class.blg-grid-cell-editing]="editingCell()?.rowIndex === rowIndex && editingCell()?.columnId === column.id"
+                   (click)="onCellClick(rowIndex, column.id, getCellValue(item, column), item, $event)">
+                
+                @if (editingCell()?.rowIndex === rowIndex && editingCell()?.columnId === column.id) {
+                  <!-- Cell Editor -->
+                  <div class="blg-grid-cell-editor" (click)="$event.stopPropagation()">
+                    @switch (column.type) {
+                      @case ('number') {
+                        <input type="number" 
+                               class="blg-grid-editor-input"
+                               [value]="editValue()"
+                               (input)="updateEditValue($any($event.target).value)"
+                               (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                               (blur)="cancelEdit()"
+                               #editorInput>
+                      }
+                      @case ('date') {
+                        <input type="date" 
+                               class="blg-grid-editor-input"
+                               [value]="editValue()"
+                               (input)="updateEditValue($any($event.target).value)"
+                               (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                               (blur)="cancelEdit()"
+                               #editorInput>
+                      }
+                      @case ('boolean') {
+                        <select class="blg-grid-editor-select"
+                                [value]="editValue()"
+                                (change)="updateEditValue($any($event.target).value)"
+                                (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                                (blur)="cancelEdit()"
+                                #editorInput>
+                          <option value="true">True</option>
+                          <option value="false">False</option>
+                        </select>
+                      }
+                      @default {
+                        <input type="text" 
+                               class="blg-grid-editor-input"
+                               [value]="editValue()"
+                               (input)="updateEditValue($any($event.target).value)"
+                               (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                               (blur)="cancelEdit()"
+                               #editorInput>
+                      }
+                    }
+                  </div>
+                } @else {
+                  @if (column.cellRenderer) {
+                    <!-- Custom Cell Renderer -->
+                    <div class="blg-grid-custom-cell" 
+                         [innerHTML]="renderCustomCell(getCellValue(item, column), column, item)"></div>
+                  } @else {
+                    <!-- Default Cell Content -->
+                    <span class="blg-grid-cell-content" 
+                          (dblclick)="startEdit(rowIndex, column.id, getCellValue(item, column))">{{ formatCellValue(getCellValue(item, column), column.type) }}</span>
+                  }
+                }
+              </div>
+            }
+          </div>
+        }
+      </cdk-virtual-scroll-viewport>
+    } @else {
+      <!-- Regular scrolling for smaller datasets -->
+      <div class="blg-grid-content">
+        @for (item of gridData(); track trackByIndex($index, item); let rowIndex = $index) {
+          <div class="blg-grid-row" 
+               role="row"
+               [attr.aria-rowindex]="rowIndex + 1"
+               [attr.aria-selected]="isRowSelected(rowIndex)"
+               [class.blg-grid-row-selected]="isRowSelected(rowIndex)"
+               [class.blg-grid-row-focused]="focusedCell()?.row === rowIndex">
+            
+            <!-- Selection Column Cell -->
+            @if (gridConfig().selectable) {
+              <div class="blg-grid-cell blg-grid-cell-select" 
+                   role="gridcell"
+                   [style.width.px]="40"
+                   [attr.aria-describedby]="'select-row-' + rowIndex">
+                <input type="checkbox" 
+                       class="blg-grid-checkbox"
+                       [checked]="isRowSelected(rowIndex)"
+                       (change)="toggleRowSelection(rowIndex)"
+                       [attr.aria-label]="'Select row ' + (rowIndex + 1)">
+              </div>
+            }
+            
+            <!-- Data Cells -->
+            @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+              <div class="blg-grid-cell" 
+                   role="gridcell"
+                   [style.width.px]="column.width || 150"
+                   [style.min-width.px]="column.minWidth || 50"
+                   [style.max-width.px]="column.maxWidth || 500"
+                   [style.text-align]="column.align || 'left'"
+                   [attr.aria-describedby]="column.id + '-' + rowIndex"
+                   [class.blg-grid-cell-focused]="isCellFocused(rowIndex, colIndex)"
+                   [class.blg-grid-cell-editing]="editingCell()?.rowIndex === rowIndex && editingCell()?.columnId === column.id"
+                   (click)="onCellClick(rowIndex, column.id, getCellValue(item, column), item, $event)">
+                
+                @if (editingCell()?.rowIndex === rowIndex && editingCell()?.columnId === column.id) {
+                  <!-- Cell Editor -->
+                  <div class="blg-grid-cell-editor" (click)="$event.stopPropagation()">
+                    @switch (column.type) {
+                      @case ('number') {
+                        <input type="number" 
+                               class="blg-grid-editor-input"
+                               [value]="editValue()"
+                               (input)="updateEditValue($any($event.target).value)"
+                               (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                               (blur)="cancelEdit()"
+                               #editorInput>
+                      }
+                      @case ('date') {
+                        <input type="date" 
+                               class="blg-grid-editor-input"
+                               [value]="editValue()"
+                               (input)="updateEditValue($any($event.target).value)"
+                               (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                               (blur)="cancelEdit()"
+                               #editorInput>
+                      }
+                      @case ('boolean') {
+                        <select class="blg-grid-editor-select"
+                                [value]="editValue()"
+                                (change)="updateEditValue($any($event.target).value)"
+                                (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                                (blur)="cancelEdit()"
+                                #editorInput>
+                          <option value="true">True</option>
+                          <option value="false">False</option>
+                        </select>
+                      }
+                      @default {
+                        <input type="text" 
+                               class="blg-grid-editor-input"
+                               [value]="editValue()"
+                               (input)="updateEditValue($any($event.target).value)"
+                               (keydown)="onEditorKeyDown($event, rowIndex, column.id)"
+                               (blur)="cancelEdit()"
+                               #editorInput>
+                      }
+                    }
+                  </div>
+                } @else {
+                  @if (column.cellRenderer) {
+                    <!-- Custom Cell Renderer -->
+                    <div class="blg-grid-custom-cell" 
+                         [innerHTML]="renderCustomCell(getCellValue(item, column), column, item)"></div>
+                  } @else {
+                    <!-- Default Cell Content -->
+                    <span class="blg-grid-cell-content" 
+                          (dblclick)="startEdit(rowIndex, column.id, getCellValue(item, column))">{{ formatCellValue(getCellValue(item, column), column.type) }}</span>
+                  }
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Grid Footer (if enabled) -->
+  @if (gridConfig().showFooter) {
+    <div class="blg-grid-footer" role="contentinfo">
+      <div class="blg-grid-footer-info">
+        <span>Total rows: {{ gridData().length }}</span>
+        @if (selectedRows().size > 0) {
+          <span>Selected: {{ selectedRows().size }}</span>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Pagination Controls -->
+  @if (gridConfig().pagination && paginationState()) {
+    <div class="blg-grid-pagination" role="navigation" aria-label="Grid pagination">
+      <div class="blg-grid-pagination-info">
+        @if (paginationState().showPageInfo) {
+          <span class="blg-grid-page-info">
+            {{ getPageInfo() }}
+          </span>
+        }
+        
+        @if (paginationState().showPageSizeSelector) {
+          <div class="blg-grid-page-size-selector">
+            <label for="page-size-select" class="blg-grid-page-size-label">Rows per page:</label>
+            <select id="page-size-select"
+                    class="blg-grid-page-size-select"
+                    [value]="paginationState().pageSize"
+                    (change)="onPageSizeChange($any($event.target).value)">
+              @for (size of paginationState().pageSizeOptions || [10, 25, 50, 100]; track size) {
+                <option [value]="size">{{ size }}</option>
+              }
+            </select>
+          </div>
+        }
+      </div>
+      
+      <div class="blg-grid-pagination-controls">
+        <!-- First Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-first"
+                [disabled]="currentPage() === 0"
+                (click)="goToPage(0)"
+                aria-label="Go to first page">
+          ⟨⟨
+        </button>
+        
+        <!-- Previous Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-prev"
+                [disabled]="currentPage() === 0"
+                (click)="goToPreviousPage()"
+                aria-label="Go to previous page">
+          ⟨
+        </button>
+        
+        <!-- Page Numbers -->
+        @for (page of getVisiblePages(); track page) {
+          @if (page === -1) {
+            <span class="blg-grid-pagination-ellipsis">…</span>
+          } @else {
+            <button class="blg-grid-pagination-btn blg-grid-pagination-page"
+                    [class.blg-grid-pagination-current]="page === currentPage()"
+                    (click)="goToPage(page)"
+                    [attr.aria-label]="'Go to page ' + (page + 1)"
+                    [attr.aria-current]="page === currentPage() ? 'page' : null">
+              {{ page + 1 }}
+            </button>
+          }
+        }
+        
+        <!-- Next Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-next"
+                [disabled]="currentPage() >= totalPages() - 1"
+                (click)="goToNextPage()"
+                aria-label="Go to next page">
+          ⟩
+        </button>
+        
+        <!-- Last Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-last"
+                [disabled]="currentPage() >= totalPages() - 1"
+                (click)="goToPage(totalPages() - 1)"
+                aria-label="Go to last page">
+          ⟩⟩
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Loading Overlay (placeholder for future enhancement) -->
+  @if (false) {
+    <div class="blg-grid-loading-overlay" role="status" aria-live="polite">
+      <div class="blg-grid-loading-spinner"></div>
+      <span>Loading...</span>
+    </div>
+  }
+
+  <!-- No Data Message -->
+  @if (gridData().length === 0) {
+    <div class="blg-grid-no-data" role="status">
+      <span>No data available</span>
+    </div>
+  }
+</div>

@@ -1,0 +1,46 @@
+<div class="demo-app">
+  <header class="demo-header">
+    <h1>{{ title }}</h1>
+    <p>Comprehensive Angular Grid Component with Virtual Scrolling</p>
+  </header>
+
+  <nav class="demo-nav">
+    <div class="nav-tabs">
+      @for (example of examples; track example.id) {
+        <button
+          class="nav-tab"
+          [class.active]="currentExample === example.id"
+          (click)="selectExample(example.id)">
+          <span class="tab-title">{{ example.title }}</span>
+          <span class="tab-description">{{ example.description }}</span>
+        </button>
+      }
+    </div>
+  </nav>
+
+  <main class="demo-content">
+    @switch (currentExample) {
+      @case ('basic') {
+        <app-basic-example></app-basic-example>
+      }
+      @case ('performance') {
+        <app-performance-example></app-performance-example>
+      }
+      @case ('filtering') {
+        <app-filtering-example></app-filtering-example>
+      }
+      @case ('grouping-export') {
+        <app-grouping-export-example></app-grouping-export-example>
+      }
+      @case ('performance-dashboard') {
+        <app-performance-dashboard></app-performance-dashboard>
+      }
+      @default {
+        <div class="example-placeholder">
+          <h2>Select an Example</h2>
+          <p>Choose an example from the tabs above to see the BLG Grid in action.</p>
+        </div>
+      }
+    }
+  </main>
+</div>

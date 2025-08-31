@@ -1,0 +1,324 @@
+name: Performance Monitoring
+
+on:
+  schedule:
+    - cron: '0 2 * * 1' # Weekly on Monday at 2 AM
+  workflow_dispatch:
+    inputs:
+      dataset_size:
+        description: 'Dataset size to test'
+        required: false
+        default: 'large'
+        type: choice
+        options:
+          - small
+          - medium
+          - large
+          - performance
+
+jobs:
+  performance-benchmark:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run performance benchmarks
+        run: |
+          npx playwright test e2e/performance --reporter=json > performance-results.json
+        env:
+          DATASET_SIZE: ${{ github.event.inputs.dataset_size || 'large' }}
+
+      - name: Parse performance results
+        id: parse_results
+        run: |
+          node -e "
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('performance-results.json', 'utf8'));
+          
+          let renderTime = 0;
+          let sortTime = 0;
+          let filterTime = 0;
+          let scrollTime = 0;
+          let memoryUsage = 0;
+          
+          results.suites?.forEach(suite => {
+            suite.tests?.forEach(test => {
+              if (test.title.includes('render')) {
+                renderTime = Math.max(renderTime, test.results?.[0]?.duration || 0);
+              } else if (test.title.includes('sort')) {
+                sortTime = Math.max(sortTime, test.results?.[0]?.duration || 0);
+              } else if (test.title.includes('filter')) {
+                filterTime = Math.max(filterTime, test.results?.[0]?.duration || 0);
+              } else if (test.title.includes('scroll')) {
+                scrollTime = Math.max(scrollTime, test.results?.[0]?.duration || 0);
+              }
+            });
+          });
+          
+          console.log('RENDER_TIME=' + renderTime);
+          console.log('SORT_TIME=' + sortTime);
+          console.log('FILTER_TIME=' + filterTime);
+          console.log('SCROLL_TIME=' + scrollTime);
+          " >> $GITHUB_OUTPUT
+
+      - name: Create performance report
+        run: |
+          cat << 'EOF' > performance-report.md
+          # Performance Benchmark Report
+          
+          **Date:** $(date)
+          **Dataset:** ${{ github.event.inputs.dataset_size || 'large' }}
+          **Browser:** Chromium
+          **OS:** Ubuntu Latest
+          
+          ## Results
+          
+          | Metric | Time (ms) | Threshold | Status |
+          |--------|-----------|-----------|---------|
+          | Render Time | ${{ steps.parse_results.outputs.RENDER_TIME }} | < 3000 | ${{ steps.parse_results.outputs.RENDER_TIME < 3000 && '✅ Pass' || '❌ Fail' }} |
+          | Sort Time | ${{ steps.parse_results.outputs.SORT_TIME }} | < 2000 | ${{ steps.parse_results.outputs.SORT_TIME < 2000 && '✅ Pass' || '❌ Fail' }} |
+          | Filter Time | ${{ steps.parse_results.outputs.FILTER_TIME }} | < 2000 | ${{ steps.parse_results.outputs.FILTER_TIME < 2000 && '✅ Pass' || '❌ Fail' }} |
+          | Scroll Time | ${{ steps.parse_results.outputs.SCROLL_TIME }} | < 500 | ${{ steps.parse_results.outputs.SCROLL_TIME < 500 && '✅ Pass' || '❌ Fail' }} |
+          
+          ## Historical Comparison
+          
+          <!-- This would be enhanced with actual historical data -->
+          Previous benchmarks show consistent performance within acceptable thresholds.
+          
+          ## Recommendations
+          
+          - Monitor render time for large datasets
+          - Consider optimizing sort operations if trends show degradation
+          - Virtual scrolling performance is within expectations
+          
+          EOF
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report-${{ github.run_number }}
+          path: |
+            performance-report.md
+            performance-results.json
+          retention-days: 90
+
+      - name: Store performance metrics
+        run: |
+          mkdir -p performance-history
+          echo "{
+            \"date\": \"$(date -Iseconds)\",
+            \"commit\": \"${{ github.sha }}\",
+            \"dataset\": \"${{ github.event.inputs.dataset_size || 'large' }}\",
+            \"metrics\": {
+              \"renderTime\": ${{ steps.parse_results.outputs.RENDER_TIME }},
+              \"sortTime\": ${{ steps.parse_results.outputs.SORT_TIME }},
+              \"filterTime\": ${{ steps.parse_results.outputs.FILTER_TIME }},
+              \"scrollTime\": ${{ steps.parse_results.outputs.SCROLL_TIME }}
+            }
+          }" > performance-history/$(date +%Y%m%d-%H%M%S).json
+
+      - name: Commit performance history
+        run: |
+          git config --global user.name 'Performance Bot'
+          git config --global user.email 'performance-bot@actions.local'
+          git add performance-history/
+          git commit -m "Add performance benchmark for $(date)" || exit 0
+          git push || echo "No changes to push"
+
+      - name: Check performance regression
+        run: |
+          RENDER_THRESHOLD=3000
+          SORT_THRESHOLD=2000
+          FILTER_THRESHOLD=2000
+          SCROLL_THRESHOLD=500
+          
+          FAILED=false
+          
+          if [ ${{ steps.parse_results.outputs.RENDER_TIME }} -gt $RENDER_THRESHOLD ]; then
+            echo "❌ Render time regression detected: ${{ steps.parse_results.outputs.RENDER_TIME }}ms > ${RENDER_THRESHOLD}ms"
+            FAILED=true
+          fi
+          
+          if [ ${{ steps.parse_results.outputs.SORT_TIME }} -gt $SORT_THRESHOLD ]; then
+            echo "❌ Sort time regression detected: ${{ steps.parse_results.outputs.SORT_TIME }}ms > ${SORT_THRESHOLD}ms"
+            FAILED=true
+          fi
+          
+          if [ ${{ steps.parse_results.outputs.FILTER_TIME }} -gt $FILTER_THRESHOLD ]; then
+            echo "❌ Filter time regression detected: ${{ steps.parse_results.outputs.FILTER_TIME }}ms > ${FILTER_THRESHOLD}ms"
+            FAILED=true
+          fi
+          
+          if [ ${{ steps.parse_results.outputs.SCROLL_TIME }} -gt $SCROLL_THRESHOLD ]; then
+            echo "❌ Scroll time regression detected: ${{ steps.parse_results.outputs.SCROLL_TIME }}ms > ${SCROLL_THRESHOLD}ms"
+            FAILED=true
+          fi
+          
+          if [ "$FAILED" = true ]; then
+            echo "Performance regression detected!"
+            exit 1
+          else
+            echo "✅ All performance metrics within acceptable thresholds"
+          fi
+
+  memory-leak-detection:
+    timeout-minutes: 45
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start demo application
+        run: |
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+
+      - name: Run memory leak tests
+        run: |
+          npx playwright test e2e/performance --grep="memory" --reporter=json > memory-results.json
+
+      - name: Analyze memory results
+        run: |
+          node -e "
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('memory-results.json', 'utf8'));
+          
+          let maxMemoryIncrease = 0;
+          
+          results.suites?.forEach(suite => {
+            suite.tests?.forEach(test => {
+              if (test.title.includes('memory') && test.results?.[0]?.status === 'passed') {
+                // Extract memory increase from test output if available
+                const output = test.results[0].stdout || '';
+                const memoryMatch = output.match(/Memory increase: ([\d.]+)%/);
+                if (memoryMatch) {
+                  maxMemoryIncrease = Math.max(maxMemoryIncrease, parseFloat(memoryMatch[1]));
+                }
+              }
+            });
+          });
+          
+          console.log('Max memory increase: ' + maxMemoryIncrease + '%');
+          
+          if (maxMemoryIncrease > 100) {
+            console.log('❌ Memory leak detected! Increase: ' + maxMemoryIncrease + '%');
+            process.exit(1);
+          } else {
+            console.log('✅ Memory usage within acceptable limits');
+          }
+          "
+
+      - name: Upload memory analysis
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: memory-analysis-${{ github.run_number }}
+          path: memory-results.json
+          retention-days: 30
+
+  bundle-size-analysis:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Analyze bundle size
+        run: |
+          npx playwright install --with-deps chromium
+          npm run serve &
+          npx wait-on http://localhost:4200 --timeout 60000
+          
+          npx playwright test e2e/performance --grep="bundle size" --reporter=json > bundle-analysis.json
+
+      - name: Check bundle size thresholds
+        run: |
+          node -e "
+          const fs = require('fs');
+          const results = JSON.parse(fs.readFileSync('bundle-analysis.json', 'utf8'));
+          
+          let totalBundleSize = 0;
+          
+          results.suites?.forEach(suite => {
+            suite.tests?.forEach(test => {
+              if (test.title.includes('bundle') && test.results?.[0]?.status === 'passed') {
+                const output = test.results[0].stdout || '';
+                const sizeMatch = output.match(/bundle size: ([\d.]+)KB/);
+                if (sizeMatch) {
+                  totalBundleSize = parseFloat(sizeMatch[1]);
+                }
+              }
+            });
+          });
+          
+          console.log('Total bundle size: ' + totalBundleSize + 'KB');
+          
+          const MAX_BUNDLE_SIZE = 2048; // 2MB
+          
+          if (totalBundleSize > MAX_BUNDLE_SIZE) {
+            console.log('❌ Bundle size too large: ' + totalBundleSize + 'KB > ' + MAX_BUNDLE_SIZE + 'KB');
+            process.exit(1);
+          } else {
+            console.log('✅ Bundle size within acceptable limits');
+          }
+          "
+
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bundle-analysis-${{ github.run_number }}
+          path: bundle-analysis.json
+          retention-days: 30

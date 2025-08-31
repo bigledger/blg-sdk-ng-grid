@@ -1,0 +1,16 @@
+<div class="blg-grid-container" [attr.data-theme]="gridConfig.theme">
+  <div class="blg-grid-header">
+    <!-- Header content will be projected by column module -->
+    <ng-content select="[slot=header]"></ng-content>
+  </div>
+  
+  <div class="blg-grid-body">
+    <!-- Grid body content will be projected by row/cell modules -->
+    <ng-content select="[slot=body]"></ng-content>
+  </div>
+  
+  <div class="blg-grid-footer" *ngIf="gridConfig.showFooter">
+    <!-- Footer content will be projected -->
+    <ng-content select="[slot=footer]"></ng-content>
+  </div>
+</div>

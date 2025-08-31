@@ -1,0 +1,115 @@
+@import 'variables';
+@import 'mixins';
+
+// Base grid styles
+.blg-grid-container {
+  @include grid-container;
+  @include responsive-grid;
+  
+  &[data-theme="dark"] {
+    --grid-background: #1e1e1e;
+    --grid-border-color: #404040;
+    --grid-header-background: #2d2d2d;
+    --grid-header-text-color: #ffffff;
+    --grid-row-hover-background: #404040;
+    --grid-row-selected-background: #0d47a1;
+    --grid-row-even-background: #1e1e1e;
+    --grid-row-odd-background: #252525;
+    
+    background: var(--grid-background);
+    border-color: var(--grid-border-color);
+    color: #ffffff;
+  }
+}
+
+.blg-grid-header {
+  @include grid-header;
+}
+
+.blg-grid-body {
+  @include grid-body;
+}
+
+.blg-row {
+  @include grid-row;
+}
+
+.blg-column-header {
+  @include grid-header;
+  
+  &.sortable {
+    @include sortable-column;
+  }
+  
+  &.resizable {
+    @include resizable-column;
+  }
+  
+  &.pinned-left {
+    @include pinned-column(left);
+  }
+  
+  &.pinned-right {
+    @include pinned-column(right);
+  }
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+.blg-cell {
+  &.pinned-left {
+    @include pinned-column(left);
+  }
+  
+  &.pinned-right {
+    @include pinned-column(right);
+  }
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+// Column content layout
+.column-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+// Loading state
+.blg-grid-loading {
+  @include loading-overlay;
+  
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid $grid-primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Utility classes
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
