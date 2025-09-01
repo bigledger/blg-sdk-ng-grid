@@ -1,6 +1,6 @@
-# BLG Angular UI Kit - Documentation Hub
+# BigLedger Angular UI Kit - Documentation Hub
 
-Welcome to the comprehensive documentation for the BLG Angular UI Kit - a complete suite of enterprise-grade Angular components including data grids, rich text editors, and interactive charts.
+Welcome to the comprehensive documentation for the BigLedger Angular UI Kit - a complete suite of enterprise-grade Angular components including data grids, rich text editors, interactive charts, speaking avatars, and unified export systems.
 
 ## 🚀 Quick Start
 
@@ -46,6 +46,17 @@ Modern charting library with 2D/3D visualizations, animations, and business inte
 - **[3D Charts](./components/charts/3d-charts.md)** - Three-dimensional visualizations
 - **[Animations](./components/charts/animations.md)** - Chart animations and transitions
 - **[BI Features](./components/charts/business-intelligence.md)** - Advanced analytics features
+
+### Avatar Components
+Advanced speaking avatar system with 2D/3D rendering, text-to-speech, and real-time interaction capabilities.
+
+- **[Avatar Overview](./components/avatar/README.md)** - Complete avatar system
+- **[2D Avatars](./components/avatar/2d-avatars.md)** - Canvas/SVG avatar rendering
+- **[3D Avatars](./components/avatar/3d-avatars.md)** - Three.js 3D avatar system
+- **[Text-to-Speech](./components/avatar/tts.md)** - Speech synthesis and lip sync
+- **[Facial Animation](./components/avatar/facial-animation.md)** - FACS-based expressions
+- **[Customization](./components/avatar/customization.md)** - Avatar appearance and behavior
+- **[Streaming](./components/avatar/streaming.md)** - WebSocket real-time communication
 
 ## 🎯 Features
 
@@ -100,6 +111,13 @@ Interactive examples and demos for all components:
 - **[Real-time Data](./examples/chart-examples/real-time-data.md)** - Live data visualization
 - **[3D Visualizations](./examples/chart-examples/3d-visualizations.md)** - Three-dimensional charts
 
+### Avatar Examples
+- **[Basic Avatar](./examples/avatar-examples/basic-avatar.md)** - Simple avatar setup
+- **[Speaking Avatar](./examples/avatar-examples/speaking-avatar.md)** - Text-to-speech integration
+- **[3D Avatar](./examples/avatar-examples/3d-avatar.md)** - Three.js 3D avatar implementation
+- **[Custom Expressions](./examples/avatar-examples/expressions.md)** - Facial animation and expressions
+- **[Real-time Streaming](./examples/avatar-examples/streaming.md)** - WebSocket avatar communication
+
 ## 🛠️ Development
 
 ### Contributing
@@ -123,10 +141,11 @@ Interactive examples and demos for all components:
 ## 🔗 Quick Links
 
 ### Live Demos
-- [Grid Demo](https://stackblitz.com/edit/blg-grid-demo) - Interactive grid examples
-- [Editor Demo](https://stackblitz.com/edit/blg-editor-demo) - Rich text editor examples  
-- [Charts Demo](https://stackblitz.com/edit/blg-charts-demo) - Chart visualization examples
-- [Complete Suite](https://stackblitz.com/edit/blg-ui-kit-demo) - All components together
+- [Grid Demo](https://stackblitz.com/edit/bigledger-grid-demo) - Interactive grid examples
+- [Editor Demo](https://stackblitz.com/edit/bigledger-editor-demo) - Rich text editor examples  
+- [Charts Demo](https://stackblitz.com/edit/bigledger-charts-demo) - Chart visualization examples
+- [Avatar Demo](https://stackblitz.com/edit/bigledger-avatar-demo) - Speaking avatar examples
+- [Complete Suite](https://stackblitz.com/edit/bigledger-ui-kit-demo) - All components together
 
 ### Resources
 - [GitHub Repository](https://github.com/your-org/ng-ui-lib)
@@ -150,6 +169,10 @@ Interactive examples and demos for all components:
 | Charts 3D | 1.2.0 | 🚧 Beta | ⚠️ In Progress | 🚧 Limited |
 | Charts BI | 1.0.0 | 🚧 Beta | ⚠️ In Progress | 🚧 Limited |
 | Animations | 1.1.0 | ✅ Stable | ✅ Complete | ✅ Available |
+| Avatar 2D | 1.0.0 | ✅ Stable | ✅ Complete | ✅ Available |
+| Avatar 3D | 1.0.0 | ✅ Stable | ✅ Complete | ✅ Available |
+| Avatar TTS | 1.0.0 | ✅ Stable | ✅ Complete | ✅ Available |
+| Export | 1.3.0 | ✅ Stable | ✅ Complete | ✅ Available |
 
 ## 🎯 Latest Updates
 
