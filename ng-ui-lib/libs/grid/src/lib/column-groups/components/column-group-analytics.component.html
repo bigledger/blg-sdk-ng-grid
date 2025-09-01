@@ -1,0 +1,359 @@
+<!-- Analytics Panel Toggle Button -->
+<button class="blg-analytics-toggle" 
+        [class.active]="isVisible()"
+        (click)="toggleVisibility()"
+        title="Toggle Analytics Panel">
+  <span class="material-icons">analytics</span>
+  <span class="toggle-text">Analytics</span>
+  <span class="notification-badge" *ngIf="insights().length > 0">
+    {{ insights().length }}
+  </span>
+</button>
+
+<!-- Main Analytics Panel -->
+<div class="blg-analytics-panel" 
+     [class.visible]="isVisible()"
+     *ngIf="isVisible()">
+
+  <!-- Panel Header -->
+  <div class="analytics-header">
+    <div class="header-title">
+      <h3>Column Groups Analytics</h3>
+      <p class="header-subtitle">Real-time insights and performance metrics</p>
+    </div>
+    
+    <div class="header-controls">
+      <!-- Auto-refresh toggle -->
+      <button class="control-button" 
+              [class.active]="autoRefresh()"
+              (click)="toggleAutoRefresh()"
+              title="Toggle auto-refresh">
+        <span class="material-icons">
+          {{ autoRefresh() ? 'pause' : 'play_arrow' }}
+        </span>
+      </button>
+      
+      <!-- Refresh button -->
+      <button class="control-button" 
+              (click)="refreshData()"
+              title="Refresh data">
+        <span class="material-icons">refresh</span>
+      </button>
+      
+      <!-- Export dropdown -->
+      <div class="export-dropdown">
+        <button class="control-button" title="Export data">
+          <span class="material-icons">download</span>
+        </button>
+        <div class="dropdown-menu">
+          <button (click)="exportData('json')">Export JSON</button>
+          <button (click)="exportData('csv')">Export CSV</button>
+          <button (click)="exportData('xlsx')">Export Excel</button>
+        </div>
+      </div>
+      
+      <!-- Close button -->
+      <button class="control-button close-button" 
+              (click)="toggleVisibility()"
+              title="Close panel">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="analytics-tabs">
+    <button *ngFor="let metric of availableMetrics"
+            class="tab-button"
+            [class.active]="selectedMetric() === metric.value"
+            (click)="selectMetric(metric.value)">
+      <span class="material-icons">{{ metric.icon }}</span>
+      <span class="tab-label">{{ metric.label }}</span>
+    </button>
+  </div>
+
+  <!-- Timeframe Selector -->
+  <div class="timeframe-selector">
+    <label class="selector-label">Timeframe:</label>
+    <div class="timeframe-buttons">
+      <button *ngFor="let timeframe of availableTimeframes"
+              class="timeframe-button"
+              [class.active]="selectedTimeframe() === timeframe.value"
+              (click)="changeTimeframe(timeframe.value)">
+        {{ timeframe.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="analytics-content">
+    
+    <!-- Real-time Metrics Summary -->
+    <div class="metrics-summary" *ngIf="showRealTimeMetrics">
+      <div class="summary-card performance-card">
+        <div class="card-header">
+          <span class="material-icons">speed</span>
+          <h4>Performance Score</h4>
+        </div>
+        <div class="card-content">
+          <div class="score-display">
+            <div class="score-circle" [style.--score]="performanceScore()">
+              <span class="score-value">{{ performanceScore() }}</span>
+            </div>
+            <div class="score-status" [class]="performanceScore() > 80 ? 'good' : performanceScore() > 60 ? 'warning' : 'poor'">
+              {{ performanceScore() > 80 ? 'Excellent' : performanceScore() > 60 ? 'Good' : 'Poor' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card usage-card">
+        <div class="card-header">
+          <span class="material-icons">trending_up</span>
+          <h4>Top Groups</h4>
+        </div>
+        <div class="card-content">
+          <div class="top-groups-list">
+            <div *ngFor="let groupId of topGroups(); let i = index" 
+                 class="group-item">
+              <div class="group-rank">{{ i + 1 }}</div>
+              <div class="group-info">
+                <div class="group-name">{{ groupId }}</div>
+                <div class="group-trend">
+                  <span class="material-icons" 
+                        [class]="getGroupTrend(groupId)">
+                    {{ getGroupTrend(groupId) === 'up' ? 'trending_up' : 
+                       getGroupTrend(groupId) === 'down' ? 'trending_down' : 'trending_flat' }}
+                  </span>
+                  <span class="score">{{ getGroupScore(groupId) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card interactions-card">
+        <div class="card-header">
+          <span class="material-icons">touch_app</span>
+          <h4>Interactions</h4>
+        </div>
+        <div class="card-content">
+          <div class="interaction-stats">
+            <div class="stat-item">
+              <div class="stat-value">{{ analyticsData().usagePatterns.averageInteractionTime.toFixed(1) }}s</div>
+              <div class="stat-label">Avg Time</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">{{ usageDistribution().length }}</div>
+              <div class="stat-label">Active Groups</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">
+                {{ usageDistribution().reduce((sum, item) => sum + item.interactions, 0) }}
+              </div>
+              <div class="stat-label">Total</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Chart Area -->
+    <div class="chart-section">
+      <div class="chart-container" #chartContainer>
+        <!-- Chart will be rendered here -->
+      </div>
+      
+      <!-- Heatmap -->
+      <div class="heatmap-section" *ngIf="showHeatmap">
+        <div class="heatmap-container" #heatmapContainer>
+          <!-- Heatmap will be rendered here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Analytics -->
+    <div class="detailed-analytics">
+      
+      <!-- Performance Metrics -->
+      <div class="analytics-section" *ngIf="showPerformanceMetrics && selectedMetric() === 'performance'">
+        <h4 class="section-title">
+          <span class="material-icons">speed</span>
+          Performance Details
+        </h4>
+        
+        <div class="performance-grid">
+          <div class="perf-metric">
+            <div class="metric-header">Rendering</div>
+            <div class="metric-details">
+              <div class="detail-item">
+                <span class="detail-label">Average:</span>
+                <span class="detail-value">{{ performanceMetrics().rendering.averageRenderTime.toFixed(2) }}ms</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Max:</span>
+                <span class="detail-value">{{ performanceMetrics().rendering.maxRenderTime.toFixed(2) }}ms</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Count:</span>
+                <span class="detail-value">{{ performanceMetrics().rendering.renderCount }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="perf-metric">
+            <div class="metric-header">Animations</div>
+            <div class="metric-details">
+              <div class="detail-item">
+                <span class="detail-label">FPS:</span>
+                <span class="detail-value">{{ performanceMetrics().animations.averageFrameRate.toFixed(1) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Dropped:</span>
+                <span class="detail-value">{{ performanceMetrics().animations.droppedFrames }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Total:</span>
+                <span class="detail-value">{{ performanceMetrics().animations.animationCount }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="perf-metric">
+            <div class="metric-header">Memory</div>
+            <div class="metric-details">
+              <div class="detail-item">
+                <span class="detail-label">Current:</span>
+                <span class="detail-value">{{ (performanceMetrics().memory.currentUsage / 1024 / 1024).toFixed(1) }}MB</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Peak:</span>
+                <span class="detail-value">{{ (performanceMetrics().memory.peakUsage / 1024 / 1024).toFixed(1) }}MB</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">GC Events:</span>
+                <span class="detail-value">{{ performanceMetrics().memory.gcEvents }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Usage Insights -->
+      <div class="analytics-section" *ngIf="showUsageInsights">
+        <h4 class="section-title">
+          <span class="material-icons">insights</span>
+          Usage Insights
+        </h4>
+        
+        <div class="insights-grid">
+          <!-- Most Used Groups -->
+          <div class="insight-card">
+            <h5>Most Active Groups</h5>
+            <div class="group-list">
+              <div *ngFor="let item of usageDistribution().slice(0, 5)" 
+                   class="usage-item">
+                <div class="item-name">{{ item.groupId }}</div>
+                <div class="item-bar">
+                  <div class="bar-fill" [style.width.%]="item.percentage"></div>
+                </div>
+                <div class="item-value">{{ item.percentage.toFixed(1) }}%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Least Used Groups -->
+          <div class="insight-card" *ngIf="bottomGroups().length > 0">
+            <h5>Underused Groups</h5>
+            <div class="group-list">
+              <div *ngFor="let groupId of bottomGroups()" class="unused-item">
+                <span class="item-name">{{ groupId }}</span>
+                <span class="material-icons warning">warning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insights and Recommendations -->
+    <div class="insights-section" *ngIf="insights().length > 0 || recommendations().length > 0">
+      
+      <!-- Insights -->
+      <div class="insights-container" *ngIf="insights().length > 0">
+        <h4 class="section-title">
+          <span class="material-icons">lightbulb</span>
+          Insights
+        </h4>
+        
+        <div class="insight-items">
+          <div *ngFor="let insight of insights()" 
+               class="insight-item"
+               [class]="'insight-' + insight.type">
+            <div class="insight-icon">
+              <span class="material-icons">
+                {{ insight.type === 'warning' ? 'warning' : 
+                   insight.type === 'error' ? 'error' :
+                   insight.type === 'success' ? 'check_circle' : 'info' }}
+              </span>
+            </div>
+            <div class="insight-content">
+              <div class="insight-title">{{ insight.title }}</div>
+              <div class="insight-description">{{ insight.description }}</div>
+              <div class="insight-recommendation">{{ insight.recommendation }}</div>
+              <div class="insight-impact" [class]="'impact-' + insight.impact">
+                Impact: {{ insight.impact }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="recommendations-container" *ngIf="recommendations().length > 0">
+        <h4 class="section-title">
+          <span class="material-icons">recommend</span>
+          Recommendations
+        </h4>
+        
+        <div class="recommendation-items">
+          <div *ngFor="let rec of recommendations()" 
+               class="recommendation-item"
+               [class]="'priority-' + rec.priority">
+            <div class="recommendation-header">
+              <div class="rec-title">{{ rec.title }}</div>
+              <div class="rec-priority" [class]="'priority-' + rec.priority">
+                {{ rec.priority }} priority
+              </div>
+            </div>
+            <div class="rec-description">{{ rec.description }}</div>
+            <div class="rec-meta">
+              <div class="rec-effort">Effort: {{ rec.effort }}</div>
+              <div class="rec-impact">{{ rec.impact }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="analytics-footer">
+    <div class="footer-info">
+      Last updated: {{ new Date().toLocaleString() }}
+    </div>
+    <div class="footer-controls">
+      <span class="auto-refresh-indicator" *ngIf="autoRefresh()">
+        <span class="material-icons pulse">sync</span>
+        Auto-refresh active
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="analytics-overlay" 
+     *ngIf="isVisible()"
+     (click)="toggleVisibility()">
+</div>

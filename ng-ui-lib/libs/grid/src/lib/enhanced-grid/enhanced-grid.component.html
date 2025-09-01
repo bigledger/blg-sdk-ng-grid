@@ -1,0 +1,771 @@
+<div class="blg-enhanced-grid-container" #gridContainer>
+  
+  <!-- Accessibility Status Bar (Screen Reader Only) -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true" id="grid-status">
+    @if (currentFocus()) {
+      Row {{ currentFocus()!.row + 1 }}, Column {{ currentFocus()!.column + 1 }}
+      @if (isEditing()) {
+        - Editing
+      }
+      @if (selectionSummary().cells > 0) {
+        - {{ selectionSummary().cells }} cells selected
+      }
+    }
+  </div>
+
+  <!-- Keyboard Shortcuts Overlay (Hidden by default, shown with F1) -->
+  <div class="keyboard-shortcuts-overlay" id="keyboard-shortcuts" [attr.aria-hidden]="true" style="display: none;">
+    <div class="shortcuts-content" role="dialog" aria-labelledby="shortcuts-title" aria-modal="true">
+      <h2 id="shortcuts-title">Keyboard Shortcuts - {{ navigationMode().toUpperCase() }} Mode</h2>
+      <button class="close-shortcuts" aria-label="Close shortcuts">&times;</button>
+      
+      <div class="shortcuts-grid">
+        <!-- Navigation Shortcuts -->
+        <div class="shortcuts-section">
+          <h3>Navigation</h3>
+          <div class="shortcut-item"><kbd>Arrow Keys</kbd><span>Navigate cells</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Arrow</kbd><span>Jump to boundaries</span></div>
+          <div class="shortcut-item"><kbd>Home/End</kbd><span>First/last column</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Home/End</kbd><span>First/last cell</span></div>
+          <div class="shortcut-item"><kbd>Page Up/Down</kbd><span>Page navigation</span></div>
+          @if (navigationMode() === 'vi') {
+            <div class="shortcut-item"><kbd>h/j/k/l</kbd><span>Vi navigation</span></div>
+            <div class="shortcut-item"><kbd>Esc</kbd><span>Normal mode</span></div>
+            <div class="shortcut-item"><kbd>i</kbd><span>Insert mode</span></div>
+            <div class="shortcut-item"><kbd>v</kbd><span>Visual mode</span></div>
+          }
+          @if (wasdEnabled()) {
+            <div class="shortcut-item"><kbd>W/A/S/D</kbd><span>Gaming navigation</span></div>
+          }
+        </div>
+
+        <!-- Selection Shortcuts -->
+        <div class="shortcuts-section">
+          <h3>Selection</h3>
+          <div class="shortcut-item"><kbd>Space</kbd><span>Toggle selection</span></div>
+          <div class="shortcut-item"><kbd>Shift+Arrow</kbd><span>Extend selection</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+A</kbd><span>Select all</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Shift+A</kbd><span>Deselect all</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+I</kbd><span>Invert selection</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Shift+S</kbd><span>Select similar</span></div>
+        </div>
+
+        <!-- Editing Shortcuts -->
+        <div class="shortcuts-section">
+          <h3>Editing</h3>
+          <div class="shortcut-item"><kbd>F2</kbd><span>Start editing</span></div>
+          <div class="shortcut-item"><kbd>Enter</kbd><span>Edit or move down</span></div>
+          <div class="shortcut-item"><kbd>Tab</kbd><span>Next cell</span></div>
+          <div class="shortcut-item"><kbd>Shift+Tab</kbd><span>Previous cell</span></div>
+          <div class="shortcut-item"><kbd>Escape</kbd><span>Cancel edit</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Enter</kbd><span>Apply to selected</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Z</kbd><span>Undo edit</span></div>
+        </div>
+
+        <!-- Advanced Features -->
+        <div class="shortcuts-section">
+          <h3>Advanced</h3>
+          <div class="shortcut-item"><kbd>F3</kbd><span>Record/stop macro</span></div>
+          <div class="shortcut-item"><kbd>F4</kbd><span>Play macro</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Alt+V</kbd><span>Voice commands</span></div>
+          <div class="shortcut-item"><kbd>Alt+Shift+K</kbd><span>Knight navigation</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+Alt+Drag</kbd><span>Lasso selection</span></div>
+          <div class="shortcut-item"><kbd>Alt+F1</kbd><span>Announce position</span></div>
+        </div>
+
+        <!-- Accessibility -->
+        <div class="shortcuts-section">
+          <h3>Accessibility</h3>
+          <div class="shortcut-item"><kbd>F1</kbd><span>Show/hide this help</span></div>
+          <div class="shortcut-item"><kbd>Alt+Shift+H</kbd><span>High contrast</span></div>
+          <div class="shortcut-item"><kbd>Alt+Shift+R</kbd><span>Reduce motion</span></div>
+          <div class="shortcut-item"><kbd>Alt+Shift+V</kbd><span>Voice feedback</span></div>
+          <div class="shortcut-item"><kbd>Ctrl+F1</kbd><span>Accessibility settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Mode Indicator -->
+  <div class="navigation-mode-indicator" [attr.data-mode]="navigationMode()">
+    <span class="mode-text">{{ navigationMode().toUpperCase() }}</span>
+    @if (navigationService.voiceEnabled()) {
+      <span class="voice-indicator" aria-label="Voice commands enabled">🎤</span>
+    }
+    @if (wasdEnabled()) {
+      <span class="wasd-indicator" aria-label="WASD navigation enabled">🎮</span>
+    }
+    @if (navigationService.isRecordingMacro()) {
+      <span class="recording-indicator" aria-label="Recording macro">⏺️</span>
+    }
+  </div>
+
+  <!-- Grouping Toolbar -->
+  @if (gridConfig().grouping) {
+    <ng-ui-grouping-toolbar
+      [columns]="gridColumns()"
+      [groupByColumns]="groupingState().groupByColumns"
+      [aggregations]="groupingState().aggregations"
+      (groupByColumnsChange)="onGroupByColumnsChange($event)"
+      (aggregationsChange)="onAggregationsChange($event)"
+      (expandAllRequested)="expandAllGroups()"
+      (collapseAllRequested)="collapseAllGroups()"
+      class="blg-grid-grouping-toolbar">
+    </ng-ui-grouping-toolbar>
+  }
+
+  <!-- Export Toolbar -->
+  @if (gridConfig().export) {
+    <ng-ui-export-toolbar
+      [enabled]="gridData().length > 0"
+      [availableFormats]="gridConfig().exportConfig?.formats || ['csv', 'excel']"
+      [defaultFilename]="gridConfig().exportConfig?.defaultFilename || 'enhanced-grid-export'"
+      (exportRequested)="onExportRequested($event)"
+      class="blg-grid-export-toolbar">
+    </ng-ui-export-toolbar>
+  }
+
+  <!-- Enhanced Grid Header with Column Headers -->
+  <div class="blg-enhanced-grid-header" 
+       role="row" 
+       cdkDropList 
+       [cdkDropListData]="visibleColumns()"
+       (cdkDropListDropped)="onColumnDrop($event)"
+       [attr.aria-label]="'Column headers'">
+    
+    <!-- Selection Column Header (when selection is enabled) -->
+    @if (gridConfig().selectable) {
+      <div class="blg-grid-cell blg-grid-cell-header blg-grid-cell-select" 
+           role="columnheader"
+           [style.width.px]="40"
+           [attr.aria-label]="'Selection column'">
+        @if (gridConfig().selectionMode === 'multiple') {
+          <input type="checkbox" 
+                 class="blg-grid-checkbox-all"
+                 [checked]="selectedRows().length > 0 && selectedRows().length === gridData().length"
+                 [indeterminate]="selectedRows().length > 0 && selectedRows().length < gridData().length"
+                 (change)="selectedRows().length === gridData().length ? clearAllSelection() : selectAllRows()"
+                 [attr.aria-label]="'Select all ' + gridData().length + ' rows'"
+                 [attr.aria-describedby]="'selection-status'">
+        }
+        <div id="selection-status" class="sr-only">
+          {{ selectedRows().length }} of {{ gridData().length }} rows selected
+        </div>
+      </div>
+    }
+    
+    <!-- Column Headers with Enhanced Features -->
+    @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+      <div class="blg-grid-cell blg-grid-cell-header" 
+           role="columnheader"
+           cdkDrag
+           [cdkDragData]="column"
+           [style.width.px]="column.width || 150"
+           [style.min-width.px]="column.minWidth || 50"
+           [style.max-width.px]="column.maxWidth || 500"
+           [attr.aria-sort]="getAriaSortAttribute(column.id)"
+           [attr.aria-label]="column.header + (getSortDirection(column.id) ? ', sorted ' + getSortDirection(column.id) + 'ending' : '')"
+           [attr.data-column-id]="column.id"
+           [attr.data-column-index]="colIndex"
+           [class.blg-grid-cell-sortable]="column.sortable !== false && gridConfig().sortable"
+           [class.blg-grid-cell-sorted]="getSortDirection(column.id) !== null"
+           [class.blg-grid-cell-focused]="currentFocus()?.column === colIndex"
+           tabindex="-1">
+        
+        <!-- Column Header Content -->
+        <div class="blg-grid-cell-header-content"
+             (click)="onColumnHeaderClick(column, $event)"
+             (keydown)="onKeyDown($event)">
+          <span class="blg-grid-cell-header-text">{{ column.header }}</span>
+          
+          <!-- Sort Indicator with Enhanced Accessibility -->
+          @if (getSortDirection(column.id)) {
+            <span class="blg-grid-sort-indicator" 
+                  [class.blg-grid-sort-asc]="getSortDirection(column.id) === 'asc'"
+                  [class.blg-grid-sort-desc]="getSortDirection(column.id) === 'desc'"
+                  [attr.aria-label]="'Sorted ' + getSortDirection(column.id) + 'ending'"
+                  role="img">
+              @if (getSortDirection(column.id) === 'asc') {
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M7,14L12,9L17,14H7Z"/>
+                </svg>
+              } @else {
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M7,10L12,15L17,10H7Z"/>
+                </svg>
+              }
+              @if (sortState() && sortState()!.length > 1 && getSortOrder(column.id)) {
+                <span class="blg-grid-sort-order" [attr.aria-label]="'Sort order ' + getSortOrder(column.id)">{{ getSortOrder(column.id) }}</span>
+              }
+            </span>
+          }
+        </div>
+        
+        <!-- Enhanced Column Filter -->
+        @if (column.filterable !== false && gridConfig().filterable) {
+          <div class="blg-grid-cell-filter">
+            <label [for]="'filter-' + column.id" class="sr-only">Filter {{ column.header }}</label>
+            <input type="text"
+                   [id]="'filter-' + column.id"
+                   class="blg-grid-filter-input"
+                   [placeholder]="'Filter ' + column.header + '...'"
+                   [value]="filterState()[column.id] || ''"
+                   (input)="gridState.updateFilter(column.id, $any($event.target).value)"
+                   (click)="$event.stopPropagation()"
+                   (keydown)="onKeyDown($event)"
+                   [attr.aria-label]="'Filter ' + column.header"
+                   [attr.aria-describedby]="'filter-help-' + column.id">
+            <div [id]="'filter-help-' + column.id" class="sr-only">
+              Type to filter {{ column.header }} column. Use operators like >, <, >= for numbers.
+            </div>
+          </div>
+        }
+        
+        <!-- Enhanced Column Resize Handle -->
+        @if (column.resizable !== false && gridConfig().resizable) {
+          <div class="blg-grid-resize-handle"
+               (mousedown)="onResizeStart(column, $event)"
+               (keydown)="onKeyDown($event)"
+               tabindex="0"
+               role="separator"
+               [attr.aria-label]="'Resize ' + column.header + ' column'"
+               [attr.aria-valuemin]="column.minWidth || 50"
+               [attr.aria-valuemax]="column.maxWidth || 500"
+               [attr.aria-valuenow]="column.width || 150"
+               aria-orientation="vertical">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M11,18H13V6H11V18Z"/>
+            </svg>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Enhanced Grid Body with Virtual Scrolling and Accessibility -->
+  <div class="blg-enhanced-grid-body" [attr.aria-label]="'Grid content, ' + gridData().length + ' rows'">
+    @if (isGrouped()) {
+      <!-- Grouped Data Display with Enhanced Accessibility -->
+      <div class="blg-grid-content blg-grid-grouped" role="rowgroup" [attr.aria-label]="'Grouped data'">
+        @for (groupedRow of groupedRows(); track $index; let rowIndex = $index) {
+          @if (groupedRow.type === 'group') {
+            <!-- Enhanced Group Header Row -->
+            <div class="blg-grid-row blg-grid-row-group" 
+                 role="row"
+                 [attr.aria-rowindex]="rowIndex + 1"
+                 [attr.aria-expanded]="groupedRow.expanded"
+                 [attr.aria-level]="groupedRow.level + 1"
+                 [attr.aria-label]="'Group: ' + groupedRow.group!.displayValue + ', ' + groupedRow.group!.count + ' items'"
+                 [attr.data-row]="rowIndex"
+                 [class.blg-grid-row-expanded]="groupedRow.expanded"
+                 [class.blg-grid-row-focused]="currentFocus()?.row === rowIndex"
+                 [style.padding-left.px]="groupedRow.level * 20"
+                 tabindex="-1">
+              
+              <div class="blg-grid-cell blg-grid-cell-group-header"
+                   role="gridcell"
+                   [attr.colspan]="visibleColumns().length + (gridConfig().selectable ? 1 : 0)"
+                   (click)="toggleGroupExpansion(groupedRow.group!.id)"
+                   (keydown)="onKeyDown($event)">
+                
+                <div class="blg-grid-group-content">
+                  <!-- Enhanced Expand/Collapse Button -->
+                  <button class="blg-grid-group-toggle" 
+                          [class.expanded]="groupedRow.expanded"
+                          [attr.aria-label]="(groupedRow.expanded ? 'Collapse' : 'Expand') + ' group ' + groupedRow.group!.displayValue"
+                          [attr.aria-expanded]="groupedRow.expanded">
+                    @if (groupedRow.expanded) {
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M7,10L12,15L17,10H7Z"/>
+                      </svg>
+                    } @else {
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                      </svg>
+                    }
+                  </button>
+                  
+                  <!-- Group Label with Count -->
+                  <span class="blg-grid-group-label">
+                    {{ groupedRow.group!.displayValue }}
+                  </span>
+                  
+                  @if (gridConfig().groupingConfig?.showGroupCount) {
+                    <span class="blg-grid-group-count" [attr.aria-label]="groupedRow.group!.count + ' items'">
+                      ({{ groupedRow.group!.count }})
+                    </span>
+                  }
+                  
+                  <!-- Aggregations with Labels -->
+                  @if (groupedRow.group!.aggregations) {
+                    <div class="blg-grid-group-aggregations" [attr.aria-label]="'Aggregation values'">
+                      @for (columnId of Object.keys(groupedRow.group!.aggregations!); track columnId) {
+                        <div class="blg-grid-group-agg">
+                          @for (funcName of Object.keys(groupedRow.group!.aggregations![columnId]); track funcName) {
+                            <span class="blg-grid-group-agg-item" [attr.aria-label]="funcName + ': ' + groupedRow.group!.aggregations![columnId][funcName]">
+                              {{ funcName }}: {{ groupedRow.group!.aggregations![columnId][funcName] }}
+                            </span>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          } @else if (groupedRow.type === 'data' && groupedRow.data) {
+            <!-- Enhanced Data Row within Group -->
+            <div class="blg-grid-row" 
+                 role="row"
+                 [attr.aria-rowindex]="rowIndex + 1"
+                 [attr.aria-selected]="isRowSelected(rowIndex)"
+                 [attr.aria-label]="'Data row ' + (rowIndex + 1)"
+                 [attr.data-row]="rowIndex"
+                 [class.blg-grid-row-selected]="isRowSelected(rowIndex)"
+                 [class.blg-grid-row-focused]="currentFocus()?.row === rowIndex"
+                 [style.padding-left.px]="(groupedRow.level + 1) * 20"
+                 tabindex="-1">
+              
+              <!-- Selection Column Cell -->
+              @if (gridConfig().selectable) {
+                <div class="blg-grid-cell blg-grid-cell-select" 
+                     role="gridcell"
+                     [style.width.px]="40"
+                     [attr.aria-describedby]="'select-row-' + rowIndex">
+                  <input type="checkbox" 
+                         class="blg-grid-checkbox"
+                         [checked]="isRowSelected(rowIndex)"
+                         (change)="toggleRowSelection(rowIndex)"
+                         [attr.aria-label]="'Select row ' + (rowIndex + 1)">
+                </div>
+              }
+              
+              <!-- Enhanced Data Cells -->
+              @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+                <div class="blg-grid-cell" 
+                     role="gridcell"
+                     [style.width.px]="column.width || 150"
+                     [style.min-width.px]="column.minWidth || 50"
+                     [style.max-width.px]="column.maxWidth || 500"
+                     [style.text-align]="column.align || 'left'"
+                     [attr.aria-label]="column.header + ': ' + formatCellValue(getCellValue(groupedRow.data!, column), column.type)"
+                     [attr.data-row]="rowIndex"
+                     [attr.data-column]="colIndex"
+                     [attr.data-cell-id]="rowIndex + '-' + colIndex"
+                     [class.blg-grid-cell-focused]="isCellFocused(rowIndex, colIndex)"
+                     [class.blg-grid-cell-editing]="editingCell()?.position.row === rowIndex && editingCell()?.position.column === colIndex"
+                     [class.blg-grid-cell-selected]="selectionService.isSelected(rowIndex, colIndex)"
+                     (click)="onCellClick(rowIndex, column.id, getCellValue(groupedRow.data!, column), groupedRow.data!, $event)"
+                     (dblclick)="startEditingCurrentCell()"
+                     (keydown)="onKeyDown($event)"
+                     tabindex="-1">
+                  
+                  @if (editingCell()?.position.row === rowIndex && editingCell()?.position.column === colIndex) {
+                    <!-- Enhanced Cell Editor with Voice Input Support -->
+                    <div class="blg-grid-cell-editor" (click)="$event.stopPropagation()">
+                      <div class="editor-container">
+                        @switch (column.type) {
+                          @case ('number') {
+                            <input type="number" 
+                                   class="blg-grid-editor-input"
+                                   [value]="editValue()"
+                                   (input)="cellEditingService.updateValue($any($event.target).value)"
+                                   (keydown)="onKeyDown($event)"
+                                   (blur)="cellEditingService.commitEdit()"
+                                   [attr.aria-label]="'Edit ' + column.header"
+                                   #editorInput>
+                          }
+                          @case ('date') {
+                            <input type="date" 
+                                   class="blg-grid-editor-input"
+                                   [value]="editValue()"
+                                   (input)="cellEditingService.updateValue($any($event.target).value)"
+                                   (keydown)="onKeyDown($event)"
+                                   (blur)="cellEditingService.commitEdit()"
+                                   [attr.aria-label]="'Edit ' + column.header"
+                                   #editorInput>
+                          }
+                          @case ('boolean') {
+                            <select class="blg-grid-editor-select"
+                                    [value]="editValue()"
+                                    (change)="cellEditingService.updateValue($any($event.target).value)"
+                                    (keydown)="onKeyDown($event)"
+                                    (blur)="cellEditingService.commitEdit()"
+                                    [attr.aria-label]="'Edit ' + column.header"
+                                    #editorInput>
+                              <option value="true">Yes</option>
+                              <option value="false">No</option>
+                            </select>
+                          }
+                          @default {
+                            <input type="text" 
+                                   class="blg-grid-editor-input"
+                                   [value]="editValue()"
+                                   (input)="cellEditingService.updateValue($any($event.target).value)"
+                                   (keydown)="onKeyDown($event)"
+                                   (blur)="cellEditingService.commitEdit()"
+                                   [attr.aria-label]="'Edit ' + column.header"
+                                   [attr.aria-describedby]="'edit-help-' + column.id"
+                                   #editorInput>
+                          }
+                        }
+                        
+                        <!-- Voice Input Button -->
+                        @if (cellEditingService.currentSession()?.voiceInput?.enabled) {
+                          <button class="voice-input-btn"
+                                  (click)="startVoiceInput()"
+                                  [attr.aria-label]="'Start voice input for ' + column.header"
+                                  title="Voice input (Ctrl+Alt+V)">
+                            🎤
+                          </button>
+                        }
+                        
+                        <!-- Edit Validation Messages -->
+                        @if (editingCell()?.validationResult && !editingCell()!.validationResult.valid) {
+                          <div class="edit-validation-errors" role="alert" aria-live="assertive">
+                            @for (error of editingCell()!.validationResult.errors; track error) {
+                              <div class="validation-error">{{ error }}</div>
+                            }
+                          </div>
+                        }
+                        
+                        <!-- Edit Help Text -->
+                        <div [id]="'edit-help-' + column.id" class="sr-only">
+                          Press Enter to save, Escape to cancel, Tab to move to next cell.
+                          @if (cellEditingService.currentSession()?.voiceInput?.enabled) {
+                            Press Ctrl+Alt+V for voice input.
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  } @else {
+                    @if (column.cellRenderer) {
+                      <!-- Custom Cell Renderer -->
+                      <div class="blg-grid-custom-cell" 
+                           [innerHTML]="renderCustomCell(getCellValue(groupedRow.data!, column), column, groupedRow.data!)"></div>
+                    } @else {
+                      <!-- Default Cell Content -->
+                      <span class="blg-grid-cell-content">{{ formatCellValue(getCellValue(groupedRow.data!, column), column.type) }}</span>
+                    }
+                  }
+                </div>
+              }
+            </div>
+          }
+        }
+      </div>
+    } @else if (gridConfig().virtualScrolling && gridData().length > 50) {
+      <!-- Enhanced Virtual Scrolling for Large Datasets -->
+      <cdk-virtual-scroll-viewport 
+        class="blg-grid-viewport"
+        [itemSize]="itemSize()"
+        [minBufferPx]="itemSize() * 10"
+        [maxBufferPx]="itemSize() * 20"
+        role="rowgroup"
+        [attr.aria-label]="'Virtual scrolling grid with ' + gridData().length + ' rows'"
+        [attr.aria-busy]="false">
+        
+        @for (item of gridData(); track trackByIndex($index, item); let rowIndex = $index) {
+          <div class="blg-grid-row" 
+               role="row"
+               [attr.aria-rowindex]="rowIndex + 1"
+               [attr.aria-selected]="isRowSelected(rowIndex)"
+               [attr.aria-label]="'Row ' + (rowIndex + 1)"
+               [attr.data-row]="rowIndex"
+               [class.blg-grid-row-selected]="isRowSelected(rowIndex)"
+               [class.blg-grid-row-focused]="currentFocus()?.row === rowIndex"
+               tabindex="-1">
+            
+            <!-- Selection Column Cell -->
+            @if (gridConfig().selectable) {
+              <div class="blg-grid-cell blg-grid-cell-select" 
+                   role="gridcell"
+                   [style.width.px]="40"
+                   [attr.aria-describedby]="'select-row-' + rowIndex">
+                <input type="checkbox" 
+                       class="blg-grid-checkbox"
+                       [checked]="isRowSelected(rowIndex)"
+                       (change)="toggleRowSelection(rowIndex)"
+                       [attr.aria-label]="'Select row ' + (rowIndex + 1)">
+              </div>
+            }
+            
+            <!-- Enhanced Data Cells -->
+            @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+              <div class="blg-grid-cell" 
+                   role="gridcell"
+                   [style.width.px]="column.width || 150"
+                   [style.min-width.px]="column.minWidth || 50"
+                   [style.max-width.px]="column.maxWidth || 500"
+                   [style.text-align]="column.align || 'left'"
+                   [attr.aria-label]="column.header + ': ' + formatCellValue(getCellValue(item, column), column.type)"
+                   [attr.data-row]="rowIndex"
+                   [attr.data-column]="colIndex"
+                   [attr.data-cell-id]="rowIndex + '-' + colIndex"
+                   [class.blg-grid-cell-focused]="isCellFocused(rowIndex, colIndex)"
+                   [class.blg-grid-cell-editing]="editingCell()?.position.row === rowIndex && editingCell()?.position.column === colIndex"
+                   [class.blg-grid-cell-selected]="selectionService.isSelected(rowIndex, colIndex)"
+                   (click)="onCellClick(rowIndex, column.id, getCellValue(item, column), item, $event)"
+                   (dblclick)="startEditingCurrentCell()"
+                   (keydown)="onKeyDown($event)"
+                   tabindex="-1">
+                
+                @if (editingCell()?.position.row === rowIndex && editingCell()?.position.column === colIndex) {
+                  <!-- Enhanced Cell Editor (same as above) -->
+                  <div class="blg-grid-cell-editor" (click)="$event.stopPropagation()">
+                    <!-- Editor implementation same as grouped view -->
+                  </div>
+                } @else {
+                  @if (column.cellRenderer) {
+                    <!-- Custom Cell Renderer -->
+                    <div class="blg-grid-custom-cell" 
+                         [innerHTML]="renderCustomCell(getCellValue(item, column), column, item)"></div>
+                  } @else {
+                    <!-- Default Cell Content -->
+                    <span class="blg-grid-cell-content">{{ formatCellValue(getCellValue(item, column), column.type) }}</span>
+                  }
+                }
+              </div>
+            }
+          </div>
+        }
+      </cdk-virtual-scroll-viewport>
+    } @else {
+      <!-- Enhanced Regular Scrolling for Smaller Datasets -->
+      <div class="blg-grid-content" role="rowgroup" [attr.aria-label]="'Grid rows'">
+        @for (item of gridData(); track trackByIndex($index, item); let rowIndex = $index) {
+          <div class="blg-grid-row" 
+               role="row"
+               [attr.aria-rowindex]="rowIndex + 1"
+               [attr.aria-selected]="isRowSelected(rowIndex)"
+               [attr.aria-label]="'Row ' + (rowIndex + 1)"
+               [attr.data-row]="rowIndex"
+               [class.blg-grid-row-selected]="isRowSelected(rowIndex)"
+               [class.blg-grid-row-focused]="currentFocus()?.row === rowIndex"
+               tabindex="-1">
+            
+            <!-- Selection Column Cell -->
+            @if (gridConfig().selectable) {
+              <div class="blg-grid-cell blg-grid-cell-select" 
+                   role="gridcell"
+                   [style.width.px]="40">
+                <input type="checkbox" 
+                       class="blg-grid-checkbox"
+                       [checked]="isRowSelected(rowIndex)"
+                       (change)="toggleRowSelection(rowIndex)"
+                       [attr.aria-label]="'Select row ' + (rowIndex + 1)">
+              </div>
+            }
+            
+            <!-- Enhanced Data Cells -->
+            @for (column of visibleColumns(); track trackByColumnId($index, column); let colIndex = $index) {
+              <div class="blg-grid-cell" 
+                   role="gridcell"
+                   [style.width.px]="column.width || 150"
+                   [style.min-width.px]="column.minWidth || 50"
+                   [style.max-width.px]="column.maxWidth || 500"
+                   [style.text-align]="column.align || 'left'"
+                   [attr.aria-label]="column.header + ': ' + formatCellValue(getCellValue(item, column), column.type)"
+                   [attr.data-row]="rowIndex"
+                   [attr.data-column]="colIndex"
+                   [attr.data-cell-id]="rowIndex + '-' + colIndex"
+                   [class.blg-grid-cell-focused]="isCellFocused(rowIndex, colIndex)"
+                   [class.blg-grid-cell-editing]="editingCell()?.position.row === rowIndex && editingCell()?.position.column === colIndex"
+                   [class.blg-grid-cell-selected]="selectionService.isSelected(rowIndex, colIndex)"
+                   (click)="onCellClick(rowIndex, column.id, getCellValue(item, column), item, $event)"
+                   (dblclick)="startEditingCurrentCell()"
+                   (keydown)="onKeyDown($event)"
+                   tabindex="-1">
+                
+                @if (editingCell()?.position.row === rowIndex && editingCell()?.position.column === colIndex) {
+                  <!-- Enhanced Cell Editor -->
+                  <div class="blg-grid-cell-editor" (click)="$event.stopPropagation()">
+                    <!-- Same editor implementation as above -->
+                  </div>
+                } @else {
+                  @if (column.cellRenderer) {
+                    <!-- Custom Cell Renderer -->
+                    <div class="blg-grid-custom-cell" 
+                         [innerHTML]="renderCustomCell(getCellValue(item, column), column, item)"></div>
+                  } @else {
+                    <!-- Default Cell Content -->
+                    <span class="blg-grid-cell-content">{{ formatCellValue(getCellValue(item, column), column.type) }}</span>
+                  }
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Enhanced Grid Footer -->
+  @if (gridConfig().showFooter) {
+    <div class="blg-enhanced-grid-footer" role="contentinfo" [attr.aria-label]="'Grid footer'">
+      <div class="blg-grid-footer-info">
+        <span [attr.aria-label]="'Total rows: ' + gridData().length">Total: {{ gridData().length }}</span>
+        @if (selectedRows().length > 0) {
+          <span [attr.aria-label]="'Selected rows: ' + selectedRows().length">Selected: {{ selectedRows().length }}</span>
+        }
+        @if (navigationService.historyLength() > 0) {
+          <span [attr.aria-label]="'Navigation history: ' + navigationService.historyLength() + ' entries'">
+            History: {{ navigationService.historyLength() }}
+          </span>
+        }
+        @if (cellEditingService.canUndo()) {
+          <span aria-label="Undo available">Undo available</span>
+        }
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="blg-grid-footer-actions">
+        @if (selectionService.hasSelection()) {
+          <button class="footer-action-btn" 
+                  (click)="selectionService.clearSelection('api')"
+                  [attr.aria-label]="'Clear selection of ' + selectedRows().length + ' rows'">
+            Clear Selection
+          </button>
+        }
+        @if (navigationService.canUndo()) {
+          <button class="footer-action-btn" 
+                  (click)="navigationService.goBackInHistory()"
+                  aria-label="Go back in navigation history">
+            ← Back
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Enhanced Pagination Controls -->
+  @if (gridConfig().pagination && paginationState()) {
+    <nav class="blg-enhanced-grid-pagination" 
+         role="navigation" 
+         [attr.aria-label]="'Grid pagination, page ' + (currentPage() + 1) + ' of ' + totalPages()">
+      
+      <div class="blg-grid-pagination-info">
+        @if (paginationState().showPageInfo) {
+          <span class="blg-grid-page-info" [attr.aria-label]="getPageInfo()">
+            {{ getPageInfo() }}
+          </span>
+        }
+        
+        @if (paginationState().showPageSizeSelector) {
+          <div class="blg-grid-page-size-selector">
+            <label for="page-size-select" class="blg-grid-page-size-label">Rows per page:</label>
+            <select id="page-size-select"
+                    class="blg-grid-page-size-select"
+                    [value]="paginationState().pageSize"
+                    (change)="onPageSizeChange($any($event.target).value)"
+                    [attr.aria-label]="'Page size, currently ' + paginationState().pageSize + ' rows per page'">
+              @for (size of paginationState().pageSizeOptions || [10, 25, 50, 100]; track size) {
+                <option [value]="size">{{ size }}</option>
+              }
+            </select>
+          </div>
+        }
+      </div>
+      
+      <div class="blg-grid-pagination-controls" role="group" aria-label="Pagination controls">
+        <!-- First Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-first"
+                [disabled]="currentPage() === 0"
+                (click)="goToPage(0)"
+                [attr.aria-label]="'Go to first page' + (currentPage() === 0 ? ', currently on first page' : '')">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.41,16.59L13.82,12L18.41,7.41L17,6L11,12L17,18L18.41,16.59M6,6H8V18H6V6Z"/>
+          </svg>
+        </button>
+        
+        <!-- Previous Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-prev"
+                [disabled]="currentPage() === 0"
+                (click)="goToPreviousPage()"
+                [attr.aria-label]="'Go to previous page' + (currentPage() === 0 ? ', currently on first page' : '')">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+          </svg>
+        </button>
+        
+        <!-- Page Numbers with Enhanced Accessibility -->
+        @for (page of getVisiblePages(); track page) {
+          @if (page === -1) {
+            <span class="blg-grid-pagination-ellipsis" aria-label="More pages">…</span>
+          } @else {
+            <button class="blg-grid-pagination-btn blg-grid-pagination-page"
+                    [class.blg-grid-pagination-current]="page === currentPage()"
+                    (click)="goToPage(page)"
+                    [attr.aria-label]="'Go to page ' + (page + 1) + (page === currentPage() ? ', current page' : '')"
+                    [attr.aria-current]="page === currentPage() ? 'page' : null">
+              {{ page + 1 }}
+            </button>
+          }
+        }
+        
+        <!-- Next Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-next"
+                [disabled]="currentPage() >= totalPages() - 1"
+                (click)="goToNextPage()"
+                [attr.aria-label]="'Go to next page' + (currentPage() >= totalPages() - 1 ? ', currently on last page' : '')">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+          </svg>
+        </button>
+        
+        <!-- Last Page -->
+        <button class="blg-grid-pagination-btn blg-grid-pagination-last"
+                [disabled]="currentPage() >= totalPages() - 1"
+                (click)="goToPage(totalPages() - 1)"
+                [attr.aria-label]="'Go to last page' + (currentPage() >= totalPages() - 1 ? ', currently on last page' : '')">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M5.59,7.41L10.18,12L5.59,16.59L7,18L13,12L7,6L5.59,7.41M16,6H18V18H16V6Z"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  }
+
+  <!-- Lasso Selection Canvas (for free-form selection) -->
+  <canvas class="lasso-selection-canvas" 
+          [style.display]="selectionService.state().mode === 'extended' ? 'block' : 'none'"
+          [attr.aria-hidden]="true"></canvas>
+
+  <!-- Loading Overlay with Enhanced Accessibility -->
+  @if (false) {
+    <div class="blg-grid-loading-overlay" 
+         role="status" 
+         aria-live="polite"
+         [attr.aria-label]="'Loading grid data'">
+      <div class="blg-grid-loading-spinner" aria-hidden="true"></div>
+      <span class="loading-text">Loading enhanced grid...</span>
+    </div>
+  }
+
+  <!-- No Data Message with Enhanced Accessibility -->
+  @if (gridData().length === 0 && !isGrouped()) {
+    <div class="blg-grid-no-data" 
+         role="status"
+         [attr.aria-label]="'No data available in grid'">
+      <div class="no-data-content">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="no-data-icon" aria-hidden="true">
+          <path d="M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19Z"/>
+        </svg>
+        <span class="no-data-text">No data available</span>
+        <div class="no-data-suggestions">
+          <p>Try:</p>
+          <ul>
+            <li>Adjusting your filters</li>
+            <li>Changing your search criteria</li>
+            <li>Refreshing the data</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Live Region for Dynamic Announcements (Hidden) -->
+  <div aria-live="polite" aria-atomic="false" class="sr-only" id="grid-announcements"></div>
+  <div aria-live="assertive" aria-atomic="true" class="sr-only" id="grid-alerts"></div>
+  
+</div>

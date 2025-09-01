@@ -1,0 +1,284 @@
+<!-- Main Column Group Container -->
+<div 
+  #headerElement
+  class="blg-column-group-container"
+  [class]="groupClasses()"
+  [ngStyle]="groupStyles()"
+  [attr.role]="'columnheader'"
+  [attr.aria-expanded]="!collapsed()"
+  [attr.aria-level]="level + 1"
+  [attr.aria-label]="group.headerName"
+  [attr.tabindex]="readonly ? -1 : 0"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  (keydown)="onKeyDown($event)"
+  (contextmenu)="onRightClick($event)"
+  [@groupHover]="hovered() ? 'hover' : 'normal'"
+  [@fadeInOut]>
+
+  <!-- Group Header -->
+  <div class="blg-column-group-header" 
+       [style.height.px]="group.headerHeight || 40">
+    
+    <!-- Drag Handle (if drag is enabled) -->
+    <div *ngIf="dragEnabled && !readonly" 
+         class="blg-group-drag-handle"
+         cdkDragHandle
+         [attr.aria-label]="'Drag ' + group.headerName">
+      <ng-container [ngSwitch]="true">
+        <svg *ngSwitchDefault width="16" height="16" viewBox="0 0 16 16" class="drag-icon">
+          <path d="M3 7h10v2H3V7zM3 3h10v2H3V3zM3 11h10v2H3v-2z" fill="currentColor"/>
+        </svg>
+      </ng-container>
+    </div>
+
+    <!-- Expand/Collapse Icon -->
+    <button *ngIf="showExpandIcon()" 
+            class="blg-group-expand-button"
+            [attr.aria-label]="collapsed() ? 'Expand group' : 'Collapse group'"
+            [disabled]="readonly"
+            (click)="toggleCollapsed()">
+      <ng-container [ngSwitch]="collapsed()">
+        <svg *ngSwitchCase="true" width="16" height="16" viewBox="0 0 16 16" class="expand-icon">
+          <path d="M6 4l4 4-4 4V4z" fill="currentColor"/>
+        </svg>
+        <svg *ngSwitchDefault width="16" height="16" viewBox="0 0 16 16" class="collapse-icon">
+          <path d="M4 6l4 4 4-4H4z" fill="currentColor"/>
+        </svg>
+      </ng-container>
+    </button>
+
+    <!-- Group Icon (if configured) -->
+    <div *ngIf="group.visual?.icon" class="blg-group-icon">
+      <ng-container *ngIf="group.visual.icon.customTemplate; else defaultIcon">
+        <ng-container *ngTemplateOutlet="group.visual.icon.customTemplate"></ng-container>
+      </ng-container>
+      <ng-template #defaultIcon>
+        <span class="material-icons" 
+              [style.color]="group.visual.icon.color"
+              [style.font-size.px]="group.visual.icon.size || 20">
+          {{ group.visual.icon.name }}
+        </span>
+      </ng-template>
+    </div>
+
+    <!-- Custom Header Template -->
+    <div *ngIf="customHeaderTemplate; else defaultHeader" class="blg-group-custom-header">
+      <ng-container *ngTemplateOutlet="customHeaderTemplate; context: { $implicit: headerParams() }">
+      </ng-container>
+    </div>
+
+    <!-- Default Header Template -->
+    <ng-template #defaultHeader>
+      <div class="blg-group-header-content">
+        <!-- Group Title -->
+        <h3 class="blg-group-title" 
+            [title]="group.headerTooltip || group.headerName">
+          {{ group.headerName }}
+          
+          <!-- Group Count Badge -->
+          <span *ngIf="showGroupCount && childColumns().length > 0" 
+                class="blg-group-count-badge"
+                [attr.aria-label]="childColumns().length + ' columns'">
+            {{ childColumns().length }}
+          </span>
+        </h3>
+
+        <!-- Group Description -->
+        <p *ngIf="group.headerTooltip" class="blg-group-description">
+          {{ group.headerTooltip }}
+        </p>
+      </div>
+    </ng-template>
+
+    <!-- Progress Indicator -->
+    <div *ngIf="group.visual?.progressIndicator?.enabled" 
+         class="blg-group-progress" 
+         [class.progress-top]="group.visual.progressIndicator.position === 'top'"
+         [class.progress-bottom]="group.visual.progressIndicator.position === 'bottom'">
+      <div class="progress-bar" 
+           [style.width.%]="(group.visual.progressIndicator.value! / group.visual.progressIndicator.max!) * 100"
+           [style.background-color]="group.visual.progressIndicator.color || '#007bff'">
+      </div>
+    </div>
+
+    <!-- Badge -->
+    <div *ngIf="group.visual?.badge?.visible" 
+         class="blg-group-badge"
+         [class]="'badge-' + (group.visual.badge.position || 'top-right')"
+         [style.color]="group.visual.badge.color"
+         [style.background-color]="group.visual.badge.backgroundColor">
+      {{ group.visual.badge.text }}
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading()" class="blg-group-loading" [@bounceIn]>
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Error Indicator -->
+    <div *ngIf="error()" class="blg-group-error" 
+         [title]="error()!"
+         [@slideInOut]>
+      <svg width="16" height="16" viewBox="0 0 16 16" class="error-icon">
+        <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zM7 4h2v5H7V4zM7 11h2v2H7v-2z" fill="#dc3545"/>
+      </svg>
+    </div>
+
+    <!-- Action Menu Button -->
+    <div *ngIf="showGroupActions && !readonly && availableActions().length > 0" class="blg-group-actions">
+      <button class="blg-group-actions-button"
+              [attr.aria-label]="'Group actions for ' + group.headerName"
+              (click)="actionMenuOpen.set(!actionMenuOpen())">
+        <svg width="16" height="16" viewBox="0 0 16 16" class="actions-icon">
+          <path d="M8 4a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM8 15a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Action Menu Dropdown -->
+      <div *ngIf="actionMenuOpen()" 
+           class="blg-group-actions-menu"
+           [@fadeInOut]>
+        <button *ngFor="let action of availableActions()" 
+                class="blg-group-action-item"
+                [disabled]="loading()"
+                [title]="action.tooltip"
+                (click)="executeAction(action); actionMenuOpen.set(false)">
+          <span *ngIf="action.icon" class="material-icons action-icon">{{ action.icon }}</span>
+          <span class="action-text">{{ action.name }}</span>
+          <kbd *ngIf="action.shortcuts && action.shortcuts.length > 0" class="action-shortcut">
+            {{ action.shortcuts[0] }}
+          </kbd>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Group Content (Children) -->
+  <div #contentElement 
+       *ngIf="hasChildren() && visible()"
+       class="blg-column-group-content"
+       [@expandCollapse]="collapsed() ? 'collapsed' : 'expanded'"
+       [attr.aria-hidden]="collapsed()">
+
+    <!-- Child Groups (Recursive) -->
+    <div *ngIf="childGroups$().length > 0" 
+         class="blg-child-groups"
+         cdkDropList
+         [cdkDropListData]="childGroups$()"
+         [cdkDropListDisabled]="!dragEnabled || readonly"
+         (cdkDropListDropped)="onDragEnd($event)">
+      
+      <div *ngFor="let childGroup of childGroups$(); trackBy: trackByGroupId"
+           cdkDrag
+           [cdkDragData]="childGroup"
+           [cdkDragDisabled]="!dragEnabled || readonly"
+           (cdkDragStarted)="onDragStart($event)">
+        
+        <blg-column-group 
+          #childGroups
+          [group]="childGroup"
+          [level]="level + 1"
+          [maxDepth]="maxDepth"
+          [dragEnabled]="dragEnabled"
+          [animationsEnabled]="animationsEnabled"
+          [showGroupCount]="showGroupCount"
+          [showGroupActions]="showGroupActions"
+          [customHeaderTemplate]="customHeaderTemplate"
+          [readonly]="readonly"
+          (groupToggled)="groupToggled.emit($event)"
+          (groupAction)="groupAction.emit($event)"
+          (groupDragged)="groupDragged.emit($event)"
+          (groupHovered)="groupHovered.emit($event)"
+          (groupFocused)="groupFocused.emit($event)"
+          (groupRightClick)="groupRightClick.emit($event)">
+        </blg-column-group>
+      </div>
+    </div>
+
+    <!-- Child Columns -->
+    <div *ngIf="childColumns().length > 0" class="blg-child-columns">
+      <div *ngFor="let column of childColumns(); trackBy: trackByColumnId" 
+           class="blg-column-item"
+           [attr.data-column-id]="column.id">
+        
+        <!-- Column header content -->
+        <div class="blg-column-header" 
+             [style.width.px]="column.width"
+             [style.min-width.px]="column.minWidth"
+             [style.max-width.px]="column.maxWidth"
+             [style.text-align]="column.align || 'left'">
+          
+          <span class="column-title">{{ column.header }}</span>
+          
+          <!-- Column type indicator -->
+          <span *ngIf="column.type && column.type !== 'string'" 
+                class="column-type-indicator"
+                [title]="'Type: ' + column.type">
+            <ng-container [ngSwitch]="column.type">
+              <span *ngSwitchCase="'number'" class="material-icons type-icon">numbers</span>
+              <span *ngSwitchCase="'date'" class="material-icons type-icon">calendar_today</span>
+              <span *ngSwitchCase="'boolean'" class="material-icons type-icon">check_box</span>
+              <span *ngSwitchDefault class="material-icons type-icon">text_fields</span>
+            </ng-container>
+          </span>
+          
+          <!-- Sortable indicator -->
+          <span *ngIf="column.sortable" 
+                class="column-sortable-indicator"
+                title="Sortable">
+            <svg width="12" height="12" viewBox="0 0 12 12" class="sort-icon">
+              <path d="M6 3l3 3H3l3-3zM6 9L3 6h6l-3 3z" fill="currentColor"/>
+            </svg>
+          </span>
+          
+          <!-- Filterable indicator -->
+          <span *ngIf="column.filterable" 
+                class="column-filterable-indicator"
+                title="Filterable">
+            <svg width="12" height="12" viewBox="0 0 12 12" class="filter-icon">
+              <path d="M1 2h10l-4 4v4l-2-1V6L1 2z" fill="currentColor"/>
+            </svg>
+          </span>
+          
+          <!-- Pinned indicator -->
+          <span *ngIf="column.pinned" 
+                class="column-pinned-indicator"
+                [title]="'Pinned ' + column.pinned">
+            <svg width="12" height="12" viewBox="0 0 12 12" class="pin-icon">
+              <path d="M6 2L4 4H2l4 4 4-4H8L6 2z" fill="currentColor"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resize Handle -->
+  <div *ngIf="group.advanced?.operations?.customActions?.some(a => a.id === 'resize')" 
+       class="blg-group-resize-handle"
+       [attr.aria-label]="'Resize ' + group.headerName">
+    <div class="resize-grip"></div>
+  </div>
+
+  <!-- Group Separators -->
+  <div *ngIf="level === 0" class="blg-group-separator"></div>
+</div>
+
+<!-- Drag Preview Template -->
+<ng-template #dragPreview>
+  <div class="blg-group-drag-preview">
+    <div class="drag-preview-header">
+      <span class="material-icons">drag_indicator</span>
+      <span class="preview-title">{{ group.headerName }}</span>
+      <span class="preview-count">({{ childColumns().length }} columns)</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Action Menu Overlay -->
+<div *ngIf="actionMenuOpen()" 
+     class="blg-group-actions-overlay"
+     (click)="actionMenuOpen.set(false)"></div>

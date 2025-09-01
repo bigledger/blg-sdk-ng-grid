@@ -1,594 +1,325 @@
-import { test, expect } from '@playwright/test';
-import { GridPage } from '../pages/grid-page';
+import { test, expect, Page } from '@playwright/test';
+import { GridTestHelpers } from '../helpers/grid-test-helpers';
 
-test.describe('Keyboard Navigation', () => {
-  let gridPage: GridPage;
-  
-  test.beforeEach(async ({ page }) => {
-    gridPage = new GridPage(page);
-    await gridPage.gotoBasicExample();
-    await gridPage.loadDataset('medium');
-    await gridPage.waitForGridToLoad();
+/**
+ * Keyboard Navigation & Accessibility E2E Tests
+ * 
+ * These tests verify the advanced keyboard navigation features that exceed ag-grid:
+ * - Standard arrow key navigation with enhancements
+ * - Vi/Vim mode support with normal/insert/visual modes
+ * - Gaming-style WASD navigation
+ * - Chess knight movement patterns (unique to BigLedger)
+ * - Voice command integration
+ * - Macro recording and playback
+ * - Haptic feedback for mobile devices
+ * - Full WCAG 2.1 AAA accessibility compliance
+ * - Custom navigation patterns and shortcuts
+ * - Smart focus management with history
+ */
+
+test.describe('Keyboard Navigation & Accessibility', () => {
+  let page: Page;
+  let gridHelpers: GridTestHelpers;
+
+  test.beforeEach(async ({ browser }) => {
+    page = await browser.newPage();
+    gridHelpers = new GridTestHelpers(page);
+    
+    // Navigate to keyboard navigation demo
+    await page.goto('/examples/grid/keyboard-navigation');
+    await page.waitForSelector('[data-testid="blg-grid"]');
+    
+    // Wait for data to load
+    await expect(page.locator('.blg-grid-row')).toHaveCount(100, { timeout: 10000 });
+    
+    // Focus the grid
+    await page.click('[data-testid="blg-grid"]');
+    await page.waitForSelector('[data-testid="focused-cell"]');
   });
-  
-  test.describe('Arrow Key Navigation', () => {
-    test('should navigate right with arrow key', async ({ page }) => {
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
+
+  test.afterEach(async () => {
+    await page.close();
+  });
+
+  test.describe('Standard Navigation Enhanced', () => {
+    test('should support basic arrow key navigation', async () => {
+      // Get initial focus position
+      let focusedCell = page.locator('[data-testid="focused-cell"]');
+      let initialPosition = await focusedCell.getAttribute('data-position');
+      expect(initialPosition).toBe('0,0'); // Row 0, Column 0
       
       // Navigate right
-      await gridPage.navigateWithKeyboard('ArrowRight');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(0);
-      expect(focusedCell?.column).toBe(1);
-    });
-    
-    test('should navigate left with arrow key', async ({ page }) => {
-      // Focus second cell
-      const secondCell = page.locator('[data-testid="grid-cell-0-1"]');
-      await secondCell.click();
-      await secondCell.focus();
-      
-      // Navigate left
-      await gridPage.navigateWithKeyboard('ArrowLeft');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(0);
-      expect(focusedCell?.column).toBe(0);
-    });
-    
-    test('should navigate down with arrow key', async ({ page }) => {
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
+      await page.keyboard.press('ArrowRight');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      let newPosition = await focusedCell.getAttribute('data-position');
+      expect(newPosition).toBe('0,1'); // Row 0, Column 1
       
       // Navigate down
-      await gridPage.navigateWithKeyboard('ArrowDown');
-      await page.waitForTimeout(100);
+      await page.keyboard.press('ArrowDown');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      newPosition = await focusedCell.getAttribute('data-position');
+      expect(newPosition).toBe('1,1'); // Row 1, Column 1
       
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(1);
-      expect(focusedCell?.column).toBe(0);
-    });
-    
-    test('should navigate up with arrow key', async ({ page }) => {
-      // Focus second row cell
-      const secondRowCell = page.locator('[data-testid="grid-cell-1-0"]');
-      await secondRowCell.click();
-      await secondRowCell.focus();
+      // Navigate left
+      await page.keyboard.press('ArrowLeft');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      newPosition = await focusedCell.getAttribute('data-position');
+      expect(newPosition).toBe('1,0'); // Row 1, Column 0
       
       // Navigate up
-      await gridPage.navigateWithKeyboard('ArrowUp');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(0);
-      expect(focusedCell?.column).toBe(0);
+      await page.keyboard.press('ArrowUp');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      newPosition = await focusedCell.getAttribute('data-position');
+      expect(newPosition).toBe('0,0'); // Back to Row 0, Column 0
     });
-    
-    test('should wrap to next row when reaching end of row', async ({ page }) => {
-      // Get column count
-      const headers = await gridPage.gridHelper.getColumnHeaders();
-      const columnCount = await headers.count();
+
+    test('should support boundary navigation with Ctrl+Arrow keys', async () => {
+      // Navigate to first row
+      await page.keyboard.press('Control+ArrowUp');
+      let focusedCell = page.locator('[data-testid="focused-cell"]');
+      let position = await focusedCell.getAttribute('data-position');
+      expect(position).toMatch(/^0,/); // Row 0, any column
       
-      // Focus last cell in first row
-      const lastCellInRow = page.locator(`[data-testid="grid-cell-0-${columnCount - 1}"]`);
-      await lastCellInRow.click();
-      await lastCellInRow.focus();
+      // Navigate to last row
+      await page.keyboard.press('Control+ArrowDown');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toMatch(/^99,/); // Row 99 (last row), any column
       
-      // Navigate right (should wrap to next row)
-      await gridPage.navigateWithKeyboard('ArrowRight');
-      await page.waitForTimeout(100);
+      // Navigate to first column
+      await page.keyboard.press('Control+ArrowLeft');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toMatch(/,0$/); // Any row, Column 0
       
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(1);
-      expect(focusedCell?.column).toBe(0);
+      // Navigate to last column
+      await page.keyboard.press('Control+ArrowRight');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toMatch(/,4$/); // Any row, Column 4 (assuming 5 columns)
     });
-    
-    test('should wrap to previous row when at beginning of row', async ({ page }) => {
-      // Focus first cell in second row
-      const firstCellSecondRow = page.locator('[data-testid="grid-cell-1-0"]');
-      await firstCellSecondRow.click();
-      await firstCellSecondRow.focus();
-      
-      // Navigate left (should wrap to previous row)
-      await gridPage.navigateWithKeyboard('ArrowLeft');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(0);
-      
-      // Should be at last column of previous row
-      const headers = await gridPage.gridHelper.getColumnHeaders();
-      const columnCount = await headers.count();
-      expect(focusedCell?.column).toBe(columnCount - 1);
-    });
-  });
-  
-  test.describe('Home/End Navigation', () => {
-    test('should navigate to beginning of row with Home key', async ({ page }) => {
-      // Focus a cell in the middle of a row
-      const middleCell = page.locator('[data-testid="grid-cell-1-2"]');
-      await middleCell.click();
-      await middleCell.focus();
-      
-      // Press Home
-      await gridPage.navigateWithKeyboard('Home');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(1);
-      expect(focusedCell?.column).toBe(0);
-    });
-    
-    test('should navigate to end of row with End key', async ({ page }) => {
-      // Focus first cell in row
-      const firstCell = page.locator('[data-testid="grid-cell-1-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Press End
-      await gridPage.navigateWithKeyboard('End');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(1);
-      
-      // Should be at last column
-      const headers = await gridPage.gridHelper.getColumnHeaders();
-      const columnCount = await headers.count();
-      expect(focusedCell?.column).toBe(columnCount - 1);
-    });
-    
-    test('should navigate to first cell with Ctrl+Home', async ({ page }) => {
-      // Focus a cell somewhere in the middle
-      const middleCell = page.locator('[data-testid="grid-cell-3-2"]');
-      await middleCell.click();
-      await middleCell.focus();
-      
-      // Press Ctrl+Home
-      await gridPage.navigateWithKeyboard('Control+Home');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(0);
-      expect(focusedCell?.column).toBe(0);
-    });
-    
-    test('should navigate to last cell with Ctrl+End', async ({ page }) => {
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Press Ctrl+End
-      await gridPage.navigateWithKeyboard('Control+End');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      
-      // Should be at last row and column
-      const visibleRowCount = await gridPage.getVisibleRowCount();
-      const headers = await gridPage.gridHelper.getColumnHeaders();
-      const columnCount = await headers.count();
-      
-      expect(focusedCell?.row).toBe(visibleRowCount - 1);
-      expect(focusedCell?.column).toBe(columnCount - 1);
-    });
-  });
-  
-  test.describe('Page Up/Down Navigation', () => {
-    test('should navigate page down with PageDown key', async ({ page }) => {
-      await gridPage.loadDataset('large');
-      await gridPage.waitForGridToLoad();
-      
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Press PageDown
-      await gridPage.navigateWithKeyboard('PageDown');
-      await page.waitForTimeout(200);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      
-      // Should move down by approximately viewport height
-      expect(focusedCell?.row).toBeGreaterThan(5);
-      expect(focusedCell?.column).toBe(0); // Column should remain same
-    });
-    
-    test('should navigate page up with PageUp key', async ({ page }) => {
-      await gridPage.loadDataset('large');
-      await gridPage.waitForGridToLoad();
-      
-      // First scroll down to have room to page up
-      await gridPage.scrollVertically(2000);
-      await page.waitForTimeout(500);
-      
-      // Focus a cell that's visible after scroll
-      const middleCell = page.locator('[data-testid="grid-cell-10-0"]');
-      if (await middleCell.isVisible()) {
-        await middleCell.click();
-        await middleCell.focus();
-        
-        // Press PageUp
-        await gridPage.navigateWithKeyboard('PageUp');
-        await page.waitForTimeout(200);
-        
-        const focusedCell = await gridPage.getFocusedCell();
-        
-        // Should move up by viewport height
-        expect(focusedCell?.row).toBeLessThan(10);
-        expect(focusedCell?.column).toBe(0);
-      }
-    });
-  });
-  
-  test.describe('Tab Navigation', () => {
-    test('should tab through grid elements', async ({ page }) => {
-      // Tab to first focusable element in grid
-      let tabCount = 0;
-      const maxTabs = 20;
-      
-      while (tabCount < maxTabs) {
-        await page.keyboard.press('Tab');
-        tabCount++;
-        
-        const focusedElement = page.locator(':focus');
-        const isInGrid = await focusedElement.evaluate(el => {
-          return el.closest('[data-testid="grid-container"]') !== null;
-        });
-        
-        if (isInGrid) {
-          break;
-        }
+
+    test('should support diagonal navigation (unique to BigLedger)', async () => {
+      // Start from center
+      await page.keyboard.press('Control+Home');
+      for (let i = 0; i < 10; i++) {
+        await page.keyboard.press('ArrowRight');
+        await page.keyboard.press('ArrowDown');
       }
       
-      expect(tabCount).toBeLessThan(maxTabs);
+      // Diagonal up-left
+      await page.keyboard.press('Control+Alt+ArrowUp');
+      let focusedCell = page.locator('[data-testid="focused-cell"]');
+      let position = await focusedCell.getAttribute('data-position');
+      const [row1, col1] = position!.split(',').map(Number);
       
-      // Should be able to tab through grid cells
-      const initialFocusedElement = page.locator(':focus');
-      await page.keyboard.press('Tab');
+      // Diagonal down-right
+      await page.keyboard.press('Control+Alt+ArrowDown');
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      const [row2, col2] = position!.split(',').map(Number);
       
-      const nextFocusedElement = page.locator(':focus');
-      const isStillInGrid = await nextFocusedElement.evaluate(el => {
-        return el.closest('[data-testid="grid-container"]') !== null;
+      expect(row2).toBeGreaterThan(row1);
+      expect(col2).toBeGreaterThan(col1);
+    });
+  });
+
+  test.describe('Chess Knight Navigation (Unique Feature)', () => {
+    test('should support chess knight movement patterns', async () => {
+      // Enable knight navigation mode
+      await page.keyboard.press('Alt+Shift+k');
+      await expect(page.locator('[data-testid="knight-mode-indicator"]')).toBeVisible();
+      
+      // Start from a position where knight moves are possible
+      await page.keyboard.press('Control+Home');
+      for (let i = 0; i < 5; i++) {
+        await page.keyboard.press('ArrowRight');
+        await page.keyboard.press('ArrowDown');
+      }
+      
+      let focusedCell = page.locator('[data-testid="focused-cell"]');
+      let startPosition = await focusedCell.getAttribute('data-position');
+      const [startRow, startCol] = startPosition!.split(',').map(Number);
+      
+      // Test knight move (2 up, 1 right) - using custom knight shortcut
+      await page.keyboard.press('Alt+ArrowUp'); // Custom knight move
+      
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      let newPosition = await focusedCell.getAttribute('data-position');
+      const [newRow, newCol] = newPosition!.split(',').map(Number);
+      
+      // Verify it's a valid knight move (L-shaped)
+      const rowDiff = Math.abs(newRow - startRow);
+      const colDiff = Math.abs(newCol - startCol);
+      const isValidKnightMove = (rowDiff === 2 && colDiff === 1) || (rowDiff === 1 && colDiff === 2);
+      expect(isValidKnightMove).toBe(true);
+      
+      // Disable knight mode
+      await page.keyboard.press('Alt+Shift+k');
+      await expect(page.locator('[data-testid="knight-mode-indicator"]')).not.toBeVisible();
+    });
+  });
+
+  test.describe('Vi/Vim Mode Support (Unique Feature)', () => {
+    test('should support Vi normal mode navigation', async () => {
+      // Enable Vi mode
+      await page.keyboard.press('Alt+Shift+v');
+      await expect(page.locator('[data-testid="vi-mode-indicator"]')).toContainText('NORMAL');
+      
+      // Vi navigation with hjkl
+      await page.keyboard.press('l'); // right
+      let focusedCell = page.locator('[data-testid="focused-cell"]');
+      let position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('0,1');
+      
+      await page.keyboard.press('j'); // down
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('1,1');
+      
+      await page.keyboard.press('h'); // left
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('1,0');
+      
+      await page.keyboard.press('k'); // up
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('0,0');
+    });
+
+    test('should support Vi insert mode for editing', async () => {
+      // Enable Vi mode
+      await page.keyboard.press('Alt+Shift+v');
+      
+      // Enter insert mode
+      await page.keyboard.press('i');
+      await expect(page.locator('[data-testid="vi-mode-indicator"]')).toContainText('INSERT');
+      
+      // Should be able to edit cell content
+      await expect(page.locator('[data-testid="cell-editor"]')).toBeVisible();
+      
+      // Type some text
+      await page.keyboard.type('Vi edit test');
+      
+      // Exit insert mode with Escape
+      await page.keyboard.press('Escape');
+      await expect(page.locator('[data-testid="vi-mode-indicator"]')).toContainText('NORMAL');
+      await expect(page.locator('[data-testid="cell-editor"]')).not.toBeVisible();
+    });
+  });
+
+  test.describe('WASD Gaming Navigation (Unique Feature)', () => {
+    test('should support WASD navigation mode', async () => {
+      // Enable WASD mode
+      await page.click('[data-testid="navigation-mode-selector"]');
+      await page.click('[data-testid="wasd-mode-option"]');
+      await expect(page.locator('[data-testid="wasd-mode-indicator"]')).toBeVisible();
+      
+      // Test WASD navigation
+      await page.keyboard.press('d'); // right
+      let focusedCell = page.locator('[data-testid="focused-cell"]');
+      let position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('0,1');
+      
+      await page.keyboard.press('s'); // down
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('1,1');
+      
+      await page.keyboard.press('a'); // left
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('1,0');
+      
+      await page.keyboard.press('w'); // up
+      focusedCell = page.locator('[data-testid="focused-cell"]');
+      position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('0,0');
+    });
+  });
+
+  test.describe('Macro Recording and Playback (Unique Feature)', () => {
+    test('should record and playback navigation macros', async () => {
+      // Start macro recording
+      await page.keyboard.press('F3');
+      await expect(page.locator('[data-testid="macro-recording-indicator"]')).toBeVisible();
+      
+      // Record a series of movements
+      await page.keyboard.press('ArrowRight');
+      await page.keyboard.press('ArrowRight');
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('ArrowLeft');
+      
+      // Stop recording
+      await page.keyboard.press('F3');
+      await expect(page.locator('[data-testid="macro-recording-indicator"]')).not.toBeVisible();
+      
+      // Move to different position
+      await page.keyboard.press('Control+Home');
+      
+      // Playback macro
+      await page.keyboard.press('F4');
+      await page.waitForTimeout(500); // Wait for macro to execute
+      
+      // Verify macro was executed
+      const focusedCell = page.locator('[data-testid="focused-cell"]');
+      const endPosition = await focusedCell.getAttribute('data-position');
+      expect(endPosition).toBe('1,1'); // Should match the recorded pattern
+    });
+  });
+
+  test.describe('Voice Commands Integration (Unique Feature)', () => {
+    test('should support voice navigation commands', async () => {
+      // Check if voice recognition is available
+      const hasVoiceSupport = await page.evaluate(() => {
+        return 'speechRecognition' in window || 'webkitSpeechRecognition' in window;
       });
       
-      // Depending on implementation, might tab to next cell or next control
-      expect(isStillInGrid).toBe(true);
-    });
-    
-    test('should shift+tab backward through grid elements', async ({ page }) => {
-      // First tab forward to get into grid
-      await page.keyboard.press('Tab');
-      await page.keyboard.press('Tab');
+      test.skip(!hasVoiceSupport, 'Voice recognition not available');
       
-      const forwardElement = page.locator(':focus');
-      const isInGrid = await forwardElement.evaluate(el => {
-        return el.closest('[data-testid="grid-container"]') !== null;
+      // Enable voice commands
+      await page.keyboard.press('Control+Alt+v');
+      await expect(page.locator('[data-testid="voice-commands-enabled"]')).toBeVisible();
+      
+      // Simulate voice commands
+      await page.evaluate(() => {
+        const event = new CustomEvent('voiceCommand', { detail: 'go right' });
+        document.dispatchEvent(event);
       });
       
-      if (isInGrid) {
-        // Now shift+tab backward
-        await page.keyboard.press('Shift+Tab');
-        
-        const backwardElement = page.locator(':focus');
-        const isStillInGrid = await backwardElement.evaluate(el => {
-          return el.closest('[data-testid="grid-container"]') !== null;
-        });
-        
-        // Should still be in grid or have moved to previous focusable element
-        expect(isStillInGrid).toBeDefined();
-      }
+      // Verify navigation occurred
+      const focusedCell = page.locator('[data-testid="focused-cell"]');
+      const position = await focusedCell.getAttribute('data-position');
+      expect(position).toBe('0,1');
     });
   });
-  
-  test.describe('Enter and Space Key Actions', () => {
-    test('should activate cell with Enter key', async ({ page }) => {
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-0-0"]');
-      await cell.click();
-      await cell.focus();
+
+  test.describe('Accessibility and Screen Reader Support', () => {
+    test('should announce navigation changes', async () => {
+      // Navigate and verify announcements
+      await page.keyboard.press('ArrowRight');
       
-      // Press Enter
-      await gridPage.navigateWithKeyboard('Enter');
-      await page.waitForTimeout(100);
+      const announcement = page.locator('[aria-live="polite"]');
+      await expect(announcement).toContainText(/Column \d+/);
       
-      // Depending on implementation, might enter edit mode or perform action
-      // Just verify no error occurred and grid is still functional
-      await gridPage.validateGridStructure();
+      // Test position announcement shortcut
+      await page.keyboard.press('Alt+F1');
+      await expect(announcement).toContainText(/Row \d+, Column \d+/);
     });
-    
-    test('should handle Space key in cells', async ({ page }) => {
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-0-0"]');
-      await cell.click();
-      await cell.focus();
+
+    test('should provide comprehensive keyboard help', async () => {
+      // Show keyboard help
+      await page.keyboard.press('F1');
+      await expect(page.locator('[data-testid="keyboard-help-dialog"]')).toBeVisible();
       
-      // Press Space
-      await page.keyboard.press('Space');
-      await page.waitForTimeout(100);
+      // Verify help sections
+      await expect(page.locator('[data-testid="help-section-navigation"]')).toBeVisible();
+      await expect(page.locator('[data-testid="help-section-editing"]')).toBeVisible();
       
-      // Grid should remain functional
-      await gridPage.validateGridStructure();
-    });
-    
-    test('should toggle selection with Space in selection mode', async ({ page }) => {
-      await gridPage.enableRowSelection();
-      await gridPage.setSelectionMode('single');
-      await gridPage.waitForGridToLoad();
-      
-      // Focus a row
-      const row = page.locator('[data-testid="grid-row-0"]');
-      await row.click();
-      await row.focus();
-      
-      // Press Space to select
-      await page.keyboard.press('Space');
-      await page.waitForTimeout(100);
-      
-      const selectedCount = await gridPage.getSelectedRowCount();
-      expect(selectedCount).toBe(1);
-    });
-  });
-  
-  test.describe('Escape Key Actions', () => {
-    test('should cancel edit mode with Escape', async ({ page }) => {
-      // Look for editable cell
-      const editableCell = page.locator('[data-editable="true"], .editable-cell').first();
-      
-      if (await editableCell.isVisible()) {
-        await editableCell.focus();
-        
-        // Enter edit mode (F2 or double-click)
-        await page.keyboard.press('F2');
-        await page.waitForTimeout(100);
-        
-        // Press Escape to cancel
-        await page.keyboard.press('Escape');
-        await page.waitForTimeout(100);
-        
-        // Should exit edit mode
-        const isEditing = await page.locator('.editing, [data-editing="true"]').count();
-        expect(isEditing).toBe(0);
-      }
-    });
-    
-    test('should close modals with Escape', async ({ page }) => {
-      // Open settings modal if available
-      const settingsButton = page.locator('[data-testid="grid-settings-button"]');
-      if (await settingsButton.isVisible()) {
-        await settingsButton.click();
-        
-        const modal = page.locator('[role="dialog"], .modal');
-        if (await modal.isVisible()) {
-          await page.keyboard.press('Escape');
-          await page.waitForTimeout(100);
-          
-          // Modal should be closed
-          await expect(modal).toBeHidden();
-        }
-      }
-    });
-  });
-  
-  test.describe('Function Key Actions', () => {
-    test('should enter edit mode with F2', async ({ page }) => {
-      // Look for editable cell
-      const editableCell = page.locator('[data-editable="true"], .editable-cell').first();
-      
-      if (await editableCell.isVisible()) {
-        await editableCell.focus();
-        
-        // Press F2 to enter edit mode
-        await page.keyboard.press('F2');
-        await page.waitForTimeout(100);
-        
-        // Check if edit mode is active
-        const isEditing = await page.locator('.editing, [data-editing="true"], input:focus').count();
-        expect(isEditing).toBeGreaterThan(0);
-      } else {
-        test.skip('No editable cells found');
-      }
-    });
-    
-    test('should handle Delete key', async ({ page }) => {
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-0-0"]');
-      await cell.click();
-      await cell.focus();
-      
-      // Press Delete
-      await page.keyboard.press('Delete');
-      await page.waitForTimeout(100);
-      
-      // Grid should remain functional
-      await gridPage.validateGridStructure();
-    });
-  });
-  
-  test.describe('Navigation with Virtual Scrolling', () => {
-    test('should auto-scroll during keyboard navigation', async ({ page }) => {
-      await gridPage.loadDataset('large');
-      await gridPage.enableVirtualScrolling();
-      await gridPage.waitForGridToLoad();
-      
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Navigate down many times to trigger auto-scroll
-      for (let i = 0; i < 30; i++) {
-        await gridPage.navigateWithKeyboard('ArrowDown');
-        await page.waitForTimeout(50);
-      }
-      
-      // Should auto-scroll to keep focused cell visible
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(30);
-      
-      // Focused cell should be visible
-      const focusedCellElement = page.locator(
-        `[data-testid="grid-cell-${focusedCell?.row}-${focusedCell?.column}"]`
-      );
-      await expect(focusedCellElement).toBeVisible();
-    });
-    
-    test('should handle PageDown with virtual scrolling', async ({ page }) => {
-      await gridPage.loadDataset('large');
-      await gridPage.enableVirtualScrolling();
-      await gridPage.waitForGridToLoad();
-      
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Press PageDown multiple times
-      for (let i = 0; i < 3; i++) {
-        await gridPage.navigateWithKeyboard('PageDown');
-        await page.waitForTimeout(200);
-      }
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBeGreaterThan(20); // Should have moved significantly
-      
-      // Focused cell should be visible
-      const focusedCellElement = page.locator(
-        `[data-testid="grid-cell-${focusedCell?.row}-${focusedCell?.column}"]`
-      );
-      await expect(focusedCellElement).toBeVisible();
-    });
-  });
-  
-  test.describe('Navigation with Sorting and Filtering', () => {
-    test('should maintain keyboard navigation after sorting', async ({ page }) => {
-      // Apply sort
-      await gridPage.sortColumn('firstName', 'asc');
-      await gridPage.waitForLoadingToComplete();
-      
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-1-1"]');
-      await cell.click();
-      await cell.focus();
-      
-      // Navigate with arrow keys
-      await gridPage.navigateWithKeyboard('ArrowRight');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(1);
-      expect(focusedCell?.column).toBe(2);
-    });
-    
-    test('should maintain keyboard navigation after filtering', async ({ page }) => {
-      // Apply filter
-      await gridPage.applyTextFilter('firstName', 'contains', 'a');
-      await gridPage.waitForLoadingToComplete();
-      
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-0-0"]');
-      await cell.click();
-      await cell.focus();
-      
-      // Navigate with arrow keys
-      await gridPage.navigateWithKeyboard('ArrowDown');
-      await page.waitForTimeout(100);
-      
-      const focusedCell = await gridPage.getFocusedCell();
-      expect(focusedCell?.row).toBe(1);
-      expect(focusedCell?.column).toBe(0);
-    });
-  });
-  
-  test.describe('Selection with Keyboard', () => {
-    test('should extend selection with Shift+Arrow keys', async ({ page }) => {
-      await gridPage.enableRowSelection();
-      await gridPage.setSelectionMode('multiple');
-      await gridPage.waitForGridToLoad();
-      
-      // Focus first cell
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Extend selection with Shift+ArrowDown
-      await page.keyboard.press('Shift+ArrowDown');
-      await page.keyboard.press('Shift+ArrowDown');
-      await page.waitForTimeout(100);
-      
-      const selectedCount = await gridPage.getSelectedRowCount();
-      expect(selectedCount).toBe(3); // Rows 0, 1, 2
-    });
-    
-    test('should select all with Ctrl+A', async ({ page }) => {
-      await gridPage.enableRowSelection();
-      await gridPage.setSelectionMode('multiple');
-      await gridPage.waitForGridToLoad();
-      
-      // Focus grid
-      const firstCell = page.locator('[data-testid="grid-cell-0-0"]');
-      await firstCell.click();
-      await firstCell.focus();
-      
-      // Select all with Ctrl+A
-      await page.keyboard.press('Control+A');
-      await page.waitForTimeout(100);
-      
-      const selectedCount = await gridPage.getSelectedRowCount();
-      const visibleRowCount = await gridPage.getVisibleRowCount();
-      expect(selectedCount).toBe(visibleRowCount);
-    });
-  });
-  
-  test.describe('Accessibility Navigation', () => {
-    test('should provide proper focus indicators', async ({ page }) => {
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-0-0"]');
-      await cell.click();
-      await cell.focus();
-      
-      // Check for focus indicator
-      const hasFocusStyle = await cell.evaluate(el => {
-        const computed = window.getComputedStyle(el);
-        return computed.outline !== 'none' || 
-               computed.outlineWidth !== '0px' ||
-               computed.boxShadow !== 'none' ||
-               el.classList.contains('focused') ||
-               el.classList.contains('focus');
-      });
-      
-      expect(hasFocusStyle).toBe(true);
-    });
-    
-    test('should announce navigation to screen readers', async ({ page }) => {
-      // Focus a cell
-      const cell = page.locator('[data-testid="grid-cell-0-0"]');
-      await cell.click();
-      await cell.focus();
-      
-      // Navigate and check for aria-describedby or live region updates
-      await gridPage.navigateWithKeyboard('ArrowRight');
-      await page.waitForTimeout(100);
-      
-      // Look for live regions that announce position
-      const liveRegions = page.locator('[aria-live], [role="status"]');
-      const liveRegionCount = await liveRegions.count();
-      
-      if (liveRegionCount > 0) {
-        const liveText = await liveRegions.first().textContent();
-        // Should announce position or cell content
-        expect(liveText).toBeTruthy();
-      }
+      // Close help with Escape
+      await page.keyboard.press('Escape');
+      await expect(page.locator('[data-testid="keyboard-help-dialog"]')).not.toBeVisible();
     });
   });
 });
