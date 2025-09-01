@@ -5,7 +5,7 @@ A comprehensive enterprise-grade Angular component library featuring data grid, 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Angular](https://img.shields.io/badge/Angular-20%2B-red)](https://angular.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5%2B-blue)](https://www.typescriptlang.org/)
-[![Build Status](https://github.com/bigledger/ng-ui-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/bigledger/ng-ui-kit/actions)
+[![Build Status](https://github.com/bigledger/blg-sdk-ng-ui-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/bigledger/blg-sdk-ng-ui-kit/actions)
 
 ## 📦 Complete UI Component Suite
 
@@ -206,45 +206,44 @@ export class AvatarExampleComponent {
 
 ### 🏁 Getting Started
 - **[Installation Guide](./docs/getting-started/installation.md)** - Complete setup instructions
-- **[Architecture Overview](./docs/getting-started/architecture.md)** - Understanding the component structure
-- **[Migration from ag-Grid](./docs/migration/ag-grid-migration.md)** - Painless migration guide
+- **[Basic Configuration](./docs/getting-started/basic-configuration.md)** - Initial setup guide
+- **[Angular Setup](./docs/getting-started/angular-setup.md)** - Angular-specific configuration
+- **[Migration from ag-Grid](./docs/migration/from-ag-grid.md)** - Painless migration guide
 
 ### 📊 Data Grid Documentation
-- **[Grid Features](./docs/grid/README.md)** - Complete grid documentation
-- **[Column Configuration](./docs/grid/columns.md)** - Advanced column setup
-- **[Data Binding](./docs/grid/data-binding.md)** - Working with different data sources
-- **[Virtual Scrolling](./docs/grid/virtual-scrolling.md)** - Performance optimization
-- **[ag-Grid Compatibility](./docs/grid/ag-grid-compatibility.md)** - Migration and compatibility
+- **[Grid Component](./ng-ui-lib/docs/components/grid/README.md)** - Complete grid documentation
+- **[Grid API Reference](./docs/api/grid-api.md)** - Comprehensive API documentation
+- **[Simple Grid Example](./docs/examples/basic/simple-grid.md)** - Basic implementation
+- **[Data Binding](./docs/examples/basic/data-binding.md)** - Working with different data sources
+- **[ag-Grid Migration](./docs/migration/ag-grid-cookbook.md)** - Migration examples
 
 ### ✏️ Editor Documentation  
-- **[Editor Features](./docs/editor/README.md)** - Rich text editing capabilities
-- **[Plugins & Extensions](./docs/editor/plugins.md)** - Extending editor functionality
-- **[Collaboration](./docs/editor/collaboration.md)** - Real-time editing setup
-- **[Export Options](./docs/editor/export.md)** - Document export formats
+- **[Editor Component](./ng-ui-lib/docs/components/editor/README.md)** - Rich text editing capabilities
+- **[Getting Started](./docs/editor/getting-started/quick-start.md)** - Quick start guide
+- **[Editor Features](./docs/editor/features/text-formatting/README.md)** - Text formatting features
+- **[Editor API Reference](./docs/editor/api-reference/core/README.md)** - Complete API documentation
 
 ### 📈 Charts Documentation
-- **[Chart Types](./docs/charts/README.md)** - All available chart types
-- **[2D Charts](./docs/charts/2d-charts.md)** - Line, bar, pie, scatter charts
-- **[3D Charts](./docs/charts/3d-charts.md)** - 3D visualizations and WebGL
-- **[Interactions](./docs/charts/interactions.md)** - User interactions and events
-- **[Performance](./docs/charts/performance.md)** - Optimizing large datasets
+- **[Charts Component](./ng-ui-lib/docs/components/charts/README.md)** - All available chart types
+- **[Charts Architecture](./ng-ui-lib/docs/charts/architecture.md)** - Understanding chart system
+- **[Chart Examples](./ng-ui-lib/docs/examples/grid-examples/README.md)** - Interactive examples
 
 ### 👤 Avatar Documentation
-- **[Avatar System](./docs/avatar/README.md)** - Complete avatar documentation
-- **[2D Avatars](./docs/avatar/2d-avatars.md)** - Canvas/SVG avatar rendering
-- **[3D Avatars](./docs/avatar/3d-avatars.md)** - Three.js 3D avatar system
-- **[Text-to-Speech](./docs/avatar/tts.md)** - Speech synthesis and lip sync
-- **[Customization](./docs/avatar/customization.md)** - Avatar appearance and behavior
+- **[Avatar System](./ng-ui-lib/docs/avatar/README.md)** - Complete avatar documentation
+- **[2D Avatars](./ng-ui-lib/docs/avatar/features/2d-avatars.md)** - Canvas/SVG avatar rendering
+- **[3D Avatars](./ng-ui-lib/docs/avatar/features/3d-avatars.md)** - Three.js 3D avatar system
+- **[Text-to-Speech](./ng-ui-lib/docs/avatar/features/lip-sync.md)** - Speech synthesis and lip sync
+- **[Customization](./ng-ui-lib/docs/avatar/features/customization.md)** - Avatar appearance and behavior
 
 ### 📤 Export Documentation
-- **[Export System](./docs/export/README.md)** - Unified export functionality
-- **[Export Formats](./docs/export/formats.md)** - Supported export formats
-- **[Cloud Integration](./docs/export/cloud-integration.md)** - Google Workspace integration
+- **[Export System](./ng-ui-lib/docs/features/export/README.md)** - Unified export functionality
+- **[CSV Export](./docs/features/data/csv-export.md)** - CSV export capabilities
+- **[Excel Export](./docs/features/data/excel-export.md)** - Excel export features
 
 ### 🎯 Examples & Demos
-- **[Live Examples](./examples/README.md)** - Interactive examples and demos
-- **[Enterprise Examples](./examples/enterprise/README.md)** - Real-world business applications
-- **[Integration Examples](./examples/integration/README.md)** - Framework integration guides
+- **[Examples Overview](./docs/examples/README.md)** - Interactive examples and demos
+- **[ag-Grid Migration Examples](./docs/examples/ag-grid-migration/01-basic-data-grid.md)** - Step-by-step migration
+- **[Advanced Examples](./docs/examples/advanced/large-datasets.md)** - Performance optimization examples
 
 ## 🏗️ Architecture
 
@@ -303,7 +302,7 @@ const gridOptions = {
 };
 ```
 
-**[📖 Complete Migration Guide](./docs/migration/ag-grid-migration.md)**
+**[📖 Complete Migration Guide](./docs/migration/from-ag-grid.md)**
 
 ## 🌟 Key Features
 
@@ -342,8 +341,8 @@ const gridOptions = {
 
 ```bash
 # Clone the repository
-git clone https://github.com/bigledger/ng-ui-kit.git
-cd ng-ui-kit
+git clone https://github.com/bigledger/blg-sdk-ng-ui-kit.git
+cd blg-sdk-ng-ui-kit/ng-ui-lib
 
 # Install dependencies
 npm install
@@ -421,7 +420,7 @@ npm run lint                  # Run linting
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
+We welcome contributions! Please see our Contributing Guide (coming soon) for details.
 
 ### Development Workflow
 1. Fork the repository
@@ -438,7 +437,7 @@ We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md)
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
@@ -450,8 +449,8 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 ## 🆘 Support & Community
 
 ### 📞 Getting Help
-- **[GitHub Issues](https://github.com/bigledger/ng-ui-kit/issues)** - Bug reports and feature requests
-- **[GitHub Discussions](https://github.com/bigledger/ng-ui-kit/discussions)** - Questions and community support
+- **[GitHub Issues](https://github.com/bigledger/blg-sdk-ng-ui-kit/issues)** - Bug reports and feature requests
+- **[GitHub Discussions](https://github.com/bigledger/blg-sdk-ng-ui-kit/discussions)** - Questions and community support
 - **[Stack Overflow](https://stackoverflow.com/questions/tagged/bigledger-ui-kit)** - Technical questions
 - **[Documentation](./docs/README.md)** - Comprehensive guides and API reference
 
@@ -462,8 +461,8 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 - **SLA Agreements** - Service level agreements for critical applications
 
 ### 📢 Stay Updated
-- **[Release Notes](./CHANGELOG.md)** - Latest features and bug fixes
-- **[Roadmap](./ROADMAP.md)** - Upcoming features and timeline
+- **Release Notes** (coming soon) - Latest features and bug fixes
+- **Roadmap** (coming soon) - Upcoming features and timeline
 - **[Blog](https://blog.bigledger.com)** - Technical articles and tutorials
 
 ---
@@ -472,11 +471,11 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 Choose your path:
 
-- **📊 Data Grid**: [Get started with the grid component](./docs/grid/README.md)
-- **✏️ Rich Editor**: [Set up the text editor](./docs/editor/README.md) 
-- **📈 Charts**: [Create your first chart](./docs/charts/README.md)
-- **👤 Avatars**: [Build a speaking avatar](./docs/avatar/README.md)
-- **🔄 Migration**: [Migrate from ag-Grid](./docs/migration/ag-grid-migration.md)
-- **💡 Examples**: [Browse live examples](./examples/README.md)
+- **📊 Data Grid**: [Get started with the grid component](./ng-ui-lib/docs/components/grid/README.md)
+- **✏️ Rich Editor**: [Set up the text editor](./ng-ui-lib/docs/components/editor/README.md) 
+- **📈 Charts**: [Create your first chart](./ng-ui-lib/docs/components/charts/README.md)
+- **👤 Avatars**: [Build a speaking avatar](./ng-ui-lib/docs/avatar/README.md)
+- **🔄 Migration**: [Migrate from ag-Grid](./docs/guides/migration-from-ag-grid.md)
+- **💡 Examples**: [Browse live examples](./docs/examples/README.md)
 
-**Questions?** [Join our community](https://github.com/bigledger/ng-ui-kit/discussions) or check our [troubleshooting guide](./docs/troubleshooting.md).
+**Questions?** [Join our community](https://github.com/bigledger/blg-sdk-ng-ui-kit/discussions) or check our [troubleshooting guide](./docs/guides/troubleshooting.md).
