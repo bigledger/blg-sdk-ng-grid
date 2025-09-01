@@ -4,7 +4,7 @@
 
 import { AgGridOptions, AgGridColumn } from './ag-grid-types.js';
 
-export interface BlgGridConfig {
+export interface BigLedgerGridConfig {
   data?: any[];
   columns?: BlgColumnDefinition[];
   pagination?: {
@@ -75,8 +75,8 @@ export class MigrationMapper {
   /**
    * Main migration function - converts ag-Grid options to BigLedger Grid config
    */
-  static migrateGridOptions(agGridOptions: AgGridOptions): BlgGridConfig {
-    const blgConfig: BlgGridConfig = {};
+  static migrateGridOptions(agGridOptions: AgGridOptions): BigLedgerGridConfig {
+    const blgConfig: BigLedgerGridConfig = {};
 
     // Data mapping
     if (agGridOptions.rowData) {
@@ -282,32 +282,32 @@ export class MigrationMapper {
 
     // Check for unsupported row model types
     if (agOptions.rowModelType && agOptions.rowModelType !== 'clientSide') {
-      warnings.push(`Row model type '${agOptions.rowModelType}' may require manual implementation. BLG Grid primarily supports client-side data.`);
+      warnings.push(`Row model type '${agOptions.rowModelType}' may require manual implementation. BigLedger Grid primarily supports client-side data.`);
     }
 
     // Check for master-detail
     if (agOptions.masterDetail) {
-      warnings.push('Master-Detail functionality requires custom implementation in BLG Grid.');
+      warnings.push('Master-Detail functionality requires custom implementation in BigLedger Grid.');
     }
 
     // Check for tree data
     if (agOptions.treeData) {
-      warnings.push('Tree data functionality is planned for BLG Grid v2.0.');
+      warnings.push('Tree data functionality is planned for BigLedger Grid v2.0.');
     }
 
     // Check for pivot mode
     if (agOptions.columnDefs?.some(col => col.pivot)) {
-      warnings.push('Pivot mode is not yet supported in BLG Grid.');
+      warnings.push('Pivot mode is not yet supported in BigLedger Grid.');
     }
 
     // Check for grouping
     if (agOptions.columnDefs?.some(col => col.rowGroup)) {
-      warnings.push('Row grouping requires manual implementation in BLG Grid.');
+      warnings.push('Row grouping requires manual implementation in BigLedger Grid.');
     }
 
     // Check for aggregation
     if (agOptions.columnDefs?.some(col => col.aggFunc)) {
-      warnings.push('Column aggregation functions require manual implementation in BLG Grid.');
+      warnings.push('Column aggregation functions require manual implementation in BigLedger Grid.');
     }
 
     return warnings;

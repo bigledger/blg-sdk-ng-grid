@@ -23,7 +23,7 @@ A comprehensive test suite has been created for validating the migration from ag
 
 #### `api-compatibility-layer.ts`
 - Complete API wrapper providing ag-Grid-like methods for BigLedger Grid
-- Implements BlgGridApiWrapper and BlgColumnApiWrapper classes
+- Implements BigLedgerGridApiWrapper and BlgColumnApiWrapper classes
 - Covers 50+ API methods with Playwright automation
 - Provides graceful fallbacks for unsupported features
 - **Lines of Code**: 600+
@@ -72,7 +72,7 @@ A comprehensive test suite has been created for validating the migration from ag
 ### 5. **Performance Benchmarking** (`/performance/`)
 
 #### `migration-performance-comparison.spec.ts`
-- Comprehensive performance comparison between ag-Grid and BLG Grid
+- Comprehensive performance comparison between ag-Grid and BigLedger Grid
 - Tests rendering, scrolling, sorting, filtering performance
 - Memory usage analysis and scaling patterns
 - Bundle size impact and throughput measurements

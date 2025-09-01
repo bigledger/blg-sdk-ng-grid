@@ -26,18 +26,18 @@ npm install @bigledger/ng-ui-grid @bigledger/ng-ui-core
 
 ```typescript
 import { Component } from '@angular/core';
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 
 @Component({
   selector: 'app-example',
   standalone: true,
-  imports: [BlgGridComponent],
+  imports: [BigLedgerGridComponent],
   template: `
-    <blg-grid 
+    <bigledger-grid 
       [data]="data" 
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </bigledger-grid>
   `
 })
 export class ExampleComponent {

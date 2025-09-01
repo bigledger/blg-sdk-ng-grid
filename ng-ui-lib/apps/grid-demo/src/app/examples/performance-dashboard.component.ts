@@ -31,7 +31,7 @@ interface BenchmarkResult {
  * Performance Dashboard Component
  * 
  * Provides comprehensive performance monitoring and benchmarking
- * for the BLG Grid with various dataset sizes and operations.
+ * for the BigLedger Grid with various dataset sizes and operations.
  */
 @Component({
   selector: 'app-performance-dashboard',

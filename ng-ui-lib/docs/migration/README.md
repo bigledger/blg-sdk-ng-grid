@@ -26,7 +26,7 @@ This section provides comprehensive migration guides to help you move from other
 
 ### Feature Comparison Matrix
 
-| Feature | ag-Grid | Angular Material | PrimeNG | BLG Grid | Migration Effort |
+| Feature | ag-Grid | Angular Material | PrimeNG | BigLedger Grid | Migration Effort |
 |---------|---------|------------------|---------|----------|------------------|
 | **Basic Grid** | ✅ | ✅ | ✅ | ✅ | Low |
 | **Virtual Scrolling** | ✅ | Limited | ✅ | ✅ | Medium |
@@ -373,7 +373,7 @@ const program = new Command();
 
 program
   .command('migrate-ag-grid')
-  .description('Migrate ag-Grid implementation to BLG Grid')
+  .description('Migrate ag-Grid implementation to BigLedger Grid')
   .option('-i, --input <path>', 'Input directory path')
   .option('-o, --output <path>', 'Output directory path')
   .option('--dry-run', 'Preview changes without writing files')
@@ -386,7 +386,7 @@ class AgGridMigrator {
   constructor(private options: any) {}
   
   migrate() {
-    console.log('🚀 Starting ag-Grid to BLG Grid migration...');
+    console.log('🚀 Starting ag-Grid to BigLedger Grid migration...');
     
     // 1. Analyze current implementation
     const analysis = this.analyzeFiles();

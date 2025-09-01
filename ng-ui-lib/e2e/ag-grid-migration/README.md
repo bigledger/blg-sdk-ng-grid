@@ -213,7 +213,7 @@ Provides ag-Grid-like APIs for smooth transition:
 
 ```typescript
 // Use familiar ag-Grid APIs
-const gridApi = new BlgGridApiWrapper(page);
+const gridApi = new BigLedgerGridApiWrapper(page);
 
 await gridApi.setRowData(newData);
 await gridApi.selectAll();

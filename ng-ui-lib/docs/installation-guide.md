@@ -49,17 +49,17 @@ Add the components to your Angular application:
 ```typescript
 // app.component.ts
 import { Component } from '@angular/core';
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [BlgGridComponent],
+  imports: [BigLedgerGridComponent],
   template: `
-    <blg-grid 
+    <bigledger-grid 
       [data]="data" 
       [columns]="columns">
-    </blg-grid>
+    </bigledger-grid>
   `
 })
 export class AppComponent {
@@ -165,14 +165,14 @@ npm install \
 ```typescript
 // app.component.ts
 import { Component } from '@angular/core';
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 import { GridConfig } from '@bigledger/ng-ui-core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [BlgGridComponent],
-  template: `<blg-grid [config]="gridConfig"></blg-grid>`
+  imports: [BigLedgerGridComponent],
+  template: `<bigledger-grid [config]="gridConfig"></bigledger-grid>`
 })
 export class AppComponent {
   gridConfig: GridConfig = {
@@ -309,9 +309,9 @@ Add to your `styles.scss` or in `angular.json`:
   --blg-info-color: #17a2b8;
   
   // Grid specific variables
-  --blg-grid-header-bg: #f8f9fa;
-  --blg-grid-border-color: #dee2e6;
-  --blg-grid-row-hover: #f5f5f5;
+  --bigledger-grid-header-bg: #f8f9fa;
+  --bigledger-grid-border-color: #dee2e6;
+  --bigledger-grid-row-hover: #f5f5f5;
 }
 ```
 
@@ -321,9 +321,9 @@ Add to your `styles.scss` or in `angular.json`:
 // Dark theme
 [data-theme='dark'] {
   --blg-primary-color: #0d6efd;
-  --blg-grid-header-bg: #343a40;
-  --blg-grid-border-color: #495057;
-  --blg-grid-row-hover: #495057;
+  --bigledger-grid-header-bg: #343a40;
+  --bigledger-grid-border-color: #495057;
+  --bigledger-grid-row-hover: #495057;
 }
 ```
 
@@ -370,12 +370,12 @@ Update your `tsconfig.json`:
 ```typescript
 // app.module.ts
 import { NgModule } from '@angular/core';
-import { BlgGridModule } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridModule } from '@bigledger/ng-ui-grid';
 import { BlgThemeModule } from '@bigledger/ng-ui-theme';
 
 @NgModule({
   imports: [
-    BlgGridModule,
+    BigLedgerGridModule,
     BlgThemeModule
   ],
   // ... rest of module configuration
@@ -402,11 +402,11 @@ module.exports = {
 ```typescript
 // test-utils.ts
 import { TestBed } from '@angular/core/testing';
-import { BlgGridModule } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridModule } from '@bigledger/ng-ui-grid';
 
 export function setupTestBed() {
   TestBed.configureTestingModule({
-    imports: [BlgGridModule]
+    imports: [BigLedgerGridModule]
   });
 }
 ```
@@ -447,10 +447,10 @@ Ensure you're using the correct import paths:
 
 ```typescript
 // ✅ Correct
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 
 // ❌ Incorrect
-import { BlgGridComponent } from '@bigledger/ng-ui-grid/lib/grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid/lib/grid';
 ```
 
 ## 📚 Next Steps

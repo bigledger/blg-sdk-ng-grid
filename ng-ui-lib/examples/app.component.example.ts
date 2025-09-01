@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 // BigLedger UI Components
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 import { BlgChart2DComponent } from '@bigledger/ng-ui-charts-2d';
 import { BlgEditorComponent } from '@bigledger/ng-ui-editor-core';
 
@@ -32,7 +32,7 @@ interface Employee {
   imports: [
     CommonModule,
     RouterOutlet,
-    BlgGridComponent,
+    BigLedgerGridComponent,
     BlgChart2DComponent,
     BlgEditorComponent
   ],

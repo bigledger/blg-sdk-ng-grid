@@ -6,15 +6,15 @@
 import { test, expect, Page } from '@playwright/test';
 import { MigrationMapper } from '../utils/migration-mapper.js';
 import { MigrationTestData } from '../test-data/migration-test-data.js';
-import { BlgGridApiWrapper } from '../utils/api-compatibility-layer.js';
+import { BigLedgerGridApiWrapper } from '../utils/api-compatibility-layer.js';
 
 test.describe('ag-Grid to BigLedger Grid - Advanced Features Migration', () => {
   let page: Page;
-  let gridApi: BlgGridApiWrapper;
+  let gridApi: BigLedgerGridApiWrapper;
 
   test.beforeEach(async ({ page: testPage }) => {
     page = testPage;
-    gridApi = new BlgGridApiWrapper(page);
+    gridApi = new BigLedgerGridApiWrapper(page);
     await page.goto('/grid-demo');
   });
 

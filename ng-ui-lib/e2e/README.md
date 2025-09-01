@@ -1,4 +1,4 @@
-# BLG Grid - Playwright Test Infrastructure
+# BigLedger Grid - Playwright Test Infrastructure
 
 This directory contains a comprehensive end-to-end testing suite for the BLG Angular Grid Library using Playwright.
 

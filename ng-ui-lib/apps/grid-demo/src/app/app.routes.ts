@@ -16,6 +16,6 @@ export const appRoutes: Route[] = [
     path: 'grid-demo',
     loadComponent: () => 
       import('./examples/basic-example.component').then(m => m.BasicExampleComponent),
-    title: 'BLG Grid Demo'
+    title: 'BigLedger Grid Demo'
   }
 ];

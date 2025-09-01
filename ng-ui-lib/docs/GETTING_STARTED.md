@@ -545,7 +545,7 @@ Now that you have the basics working, explore more advanced features:
 ## 🔗 Live Examples
 
 Try these interactive examples:
-- [Basic Grid](https://stackblitz.com/edit/blg-grid-basic)
+- [Basic Grid](https://stackblitz.com/edit/bigledger-grid-basic)
 - [Rich Text Editor](https://stackblitz.com/edit/blg-editor-basic)
 - [Chart Visualization](https://stackblitz.com/edit/blg-chart-basic)
 - [Complete Example](https://stackblitz.com/edit/blg-ui-kit-complete)

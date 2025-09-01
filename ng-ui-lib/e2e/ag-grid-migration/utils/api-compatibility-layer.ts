@@ -6,7 +6,7 @@
 import { Page } from '@playwright/test';
 import { AgGridApi, AgColumnApi } from './ag-grid-types.js';
 
-export class BlgGridApiWrapper implements AgGridApi {
+export class BigLedgerGridApiWrapper implements AgGridApi {
   constructor(private page: Page, private gridSelector: string = '[data-testid="blg-grid"]') {}
 
   // Selection methods
@@ -19,7 +19,7 @@ export class BlgGridApiWrapper implements AgGridApi {
   }
 
   async selectAllFiltered(): Promise<void> {
-    // BLG Grid automatically selects only filtered rows when using select all
+    // BigLedger Grid automatically selects only filtered rows when using select all
     await this.selectAll();
   }
 
@@ -130,7 +130,7 @@ export class BlgGridApiWrapper implements AgGridApi {
 
   async ensureNodeVisible(comparator: any): Promise<void> {
     // Implementation would depend on the specific node comparison logic
-    console.warn('ensureNodeVisible not yet implemented for BLG Grid');
+    console.warn('ensureNodeVisible not yet implemented for BigLedger Grid');
   }
 
   // Column methods
@@ -336,14 +336,14 @@ export class BlgGridApiWrapper implements AgGridApi {
   }
 
   // Stub implementations for methods that don't have direct equivalents
-  onFilterChanged(): void { /* Implementation depends on BLG Grid event system */ }
-  onSortChanged(): void { /* Implementation depends on BLG Grid event system */ }
-  refreshInMemoryRowModel(): void { /* BLG Grid handles this automatically */ }
-  purgeInfiniteCache(): void { /* Not applicable to BLG Grid's virtual scrolling */ }
+  onFilterChanged(): void { /* Implementation depends on BigLedger Grid event system */ }
+  onSortChanged(): void { /* Implementation depends on BigLedger Grid event system */ }
+  refreshInMemoryRowModel(): void { /* BigLedger Grid handles this automatically */ }
+  purgeInfiniteCache(): void { /* Not applicable to BigLedger Grid's virtual scrolling */ }
   getInfiniteRowCount(): number { return 0; /* Not applicable */ }
   isMaxRowFound(): boolean { return true; /* Not applicable */ }
-  setDatasource(datasource: any): void { /* Different implementation in BLG Grid */ }
-  setCacheBlockSize(blockSize: number): void { /* Handled differently in BLG Grid */ }
+  setDatasource(datasource: any): void { /* Different implementation in BigLedger Grid */ }
+  setCacheBlockSize(blockSize: number): void { /* Handled differently in BigLedger Grid */ }
   getRenderedNodes(): any[] { return []; /* Implementation needed */ }
   forEachNode(callback: (node: any, index: number) => void): void { /* Implementation needed */ }
   forEachNodeAfterFilter(callback: (node: any, index: number) => void): void { /* Implementation needed */ }

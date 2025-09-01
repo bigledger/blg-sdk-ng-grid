@@ -6,7 +6,7 @@ import { ColumnDefinition } from '@ng-ui/core';
 import { GridConfig } from '@ng-ui/core';
 
 /**
- * Test utilities for the BlgGrid library
+ * Test utilities for the BigLedgerGrid library
  */
 
 /**

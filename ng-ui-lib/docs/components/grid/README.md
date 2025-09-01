@@ -1,6 +1,6 @@
-# BLG Grid Component
+# BigLedger Grid Component
 
-The BLG Grid is an enterprise-grade Angular data grid component that rivals ag-Grid in functionality while being specifically optimized for Angular applications. Built from scratch using modern Angular 20+ with Signals and standalone components.
+The BigLedger Grid is an enterprise-grade Angular data grid component that rivals ag-Grid in functionality while being specifically optimized for Angular applications. Built from scratch using modern Angular 20+ with Signals and standalone components.
 
 ## 🚀 Features
 
@@ -431,7 +431,7 @@ const config: GridConfig = {
 ### Custom Theme
 ```scss
 // custom-grid-theme.scss
-.blg-grid.theme-custom {
+.bigledger-grid.theme-custom {
   --blg-primary-color: #2196F3;
   --blg-background-color: #fafafa;
   --blg-header-background: #f5f5f5;
@@ -563,7 +563,7 @@ describe('GridComponent', () => {
     ];
     fixture.detectChanges();
     
-    const cells = fixture.debugElement.queryAll(By.css('.blg-grid__cell'));
+    const cells = fixture.debugElement.queryAll(By.css('.bigledger-grid__cell'));
     expect(cells.length).toBe(2); // id and name columns
   });
 
@@ -586,15 +586,15 @@ test('grid basic functionality', async ({ page }) => {
   await page.goto('/grid-demo');
   
   // Check grid renders
-  await expect(page.locator('.blg-grid')).toBeVisible();
+  await expect(page.locator('.bigledger-grid')).toBeVisible();
   
   // Test sorting
-  await page.click('.blg-grid__header [data-col="name"]');
-  await expect(page.locator('.blg-grid__header .sort-asc')).toBeVisible();
+  await page.click('.bigledger-grid__header [data-col="name"]');
+  await expect(page.locator('.bigledger-grid__header .sort-asc')).toBeVisible();
   
   // Test filtering
-  await page.fill('.blg-grid__filter input', 'John');
-  await expect(page.locator('.blg-grid__row')).toHaveCount(1);
+  await page.fill('.bigledger-grid__filter input', 'John');
+  await expect(page.locator('.bigledger-grid__row')).toHaveCount(1);
   
   // Test export
   await page.click('.export-button');
@@ -646,7 +646,7 @@ test('grid basic functionality', async ({ page }) => {
 
 ## 🔗 Related Documentation
 
-- **[Installation Guide](../../GETTING_STARTED.md)** - Getting started with BLG Grid
+- **[Installation Guide](../../GETTING_STARTED.md)** - Getting started with BigLedger Grid
 - **[Column Configuration](./columns.md)** - Advanced column setup
 - **[Export Features](../../features/export/grid-export.md)** - Detailed export documentation
 - **[Theming Guide](../../features/themes/)** - Custom theme creation

@@ -1,30 +1,30 @@
-# BLG Grid Examples
+# BigLedger Grid Examples
 
-This section provides comprehensive examples and live demos for the BLG Grid component, ranging from basic implementations to advanced enterprise scenarios.
+This section provides comprehensive examples and live demos for the BigLedger Grid component, ranging from basic implementations to advanced enterprise scenarios.
 
 ## 🚀 Live Interactive Examples
 
 ### Basic Examples
-- **[Simple Grid](https://stackblitz.com/edit/blg-grid-simple)** - Basic grid with data display
-- **[Sortable Grid](https://stackblitz.com/edit/blg-grid-sortable)** - Grid with column sorting
-- **[Filterable Grid](https://stackblitz.com/edit/blg-grid-filterable)** - Grid with built-in filters
-- **[Selectable Grid](https://stackblitz.com/edit/blg-grid-selectable)** - Grid with row selection
+- **[Simple Grid](https://stackblitz.com/edit/bigledger-grid-simple)** - Basic grid with data display
+- **[Sortable Grid](https://stackblitz.com/edit/bigledger-grid-sortable)** - Grid with column sorting
+- **[Filterable Grid](https://stackblitz.com/edit/bigledger-grid-filterable)** - Grid with built-in filters
+- **[Selectable Grid](https://stackblitz.com/edit/bigledger-grid-selectable)** - Grid with row selection
 
 ### Advanced Examples
-- **[Virtual Scrolling](https://stackblitz.com/edit/blg-grid-virtual)** - Handle 100k+ rows
-- **[Custom Cell Renderers](https://stackblitz.com/edit/blg-grid-custom-cells)** - Custom cell components
-- **[Editable Grid](https://stackblitz.com/edit/blg-grid-editable)** - Inline editing capabilities
-- **[Master-Detail](https://stackblitz.com/edit/blg-grid-master-detail)** - Expandable row details
+- **[Virtual Scrolling](https://stackblitz.com/edit/bigledger-grid-virtual)** - Handle 100k+ rows
+- **[Custom Cell Renderers](https://stackblitz.com/edit/bigledger-grid-custom-cells)** - Custom cell components
+- **[Editable Grid](https://stackblitz.com/edit/bigledger-grid-editable)** - Inline editing capabilities
+- **[Master-Detail](https://stackblitz.com/edit/bigledger-grid-master-detail)** - Expandable row details
 
 ### Export Examples
-- **[Excel Export](https://stackblitz.com/edit/blg-grid-excel-export)** - Export to Excel with formatting
-- **[PDF Reports](https://stackblitz.com/edit/blg-grid-pdf-reports)** - Generate PDF reports
-- **[Multi-Format Export](https://stackblitz.com/edit/blg-grid-multi-export)** - Export to multiple formats
+- **[Excel Export](https://stackblitz.com/edit/bigledger-grid-excel-export)** - Export to Excel with formatting
+- **[PDF Reports](https://stackblitz.com/edit/bigledger-grid-pdf-reports)** - Generate PDF reports
+- **[Multi-Format Export](https://stackblitz.com/edit/bigledger-grid-multi-export)** - Export to multiple formats
 
 ### Enterprise Examples
-- **[Real-time Dashboard](https://stackblitz.com/edit/blg-grid-realtime)** - Live data updates
-- **[Financial Data Grid](https://stackblitz.com/edit/blg-grid-financial)** - Financial data with formatting
-- **[HR Management System](https://stackblitz.com/edit/blg-grid-hr-system)** - Complete HR application
+- **[Real-time Dashboard](https://stackblitz.com/edit/bigledger-grid-realtime)** - Live data updates
+- **[Financial Data Grid](https://stackblitz.com/edit/bigledger-grid-financial)** - Financial data with formatting
+- **[HR Management System](https://stackblitz.com/edit/bigledger-grid-hr-system)** - Complete HR application
 
 ## 📊 Example Code Snippets
 
@@ -910,10 +910,10 @@ export class RealtimeGridExampleComponent implements OnInit, OnDestroy {
 
 For a complete development environment, check out these CodeSandbox examples:
 
-- **[Full Grid Implementation](https://codesandbox.io/s/blg-grid-complete)** - Complete grid with all features
-- **[Performance Testing](https://codesandbox.io/s/blg-grid-performance)** - Test with large datasets
-- **[Custom Theme Example](https://codesandbox.io/s/blg-grid-custom-theme)** - Custom styling and theming
-- **[Integration Example](https://codesandbox.io/s/blg-grid-integration)** - Integration with other libraries
+- **[Full Grid Implementation](https://codesandbox.io/s/bigledger-grid-complete)** - Complete grid with all features
+- **[Performance Testing](https://codesandbox.io/s/bigledger-grid-performance)** - Test with large datasets
+- **[Custom Theme Example](https://codesandbox.io/s/bigledger-grid-custom-theme)** - Custom styling and theming
+- **[Integration Example](https://codesandbox.io/s/bigledger-grid-integration)** - Integration with other libraries
 
 ## 🎯 Tutorial Series
 

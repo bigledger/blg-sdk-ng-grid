@@ -1,7 +1,7 @@
 /**
  * Grid Filter Components
  * 
- * This module exports all the filter components available for the BLG Grid.
+ * This module exports all the filter components available for the BigLedger Grid.
  * Each component provides specialized filtering functionality for different data types.
  */
 

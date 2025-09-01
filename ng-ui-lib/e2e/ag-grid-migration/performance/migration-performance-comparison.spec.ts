@@ -6,7 +6,7 @@
 import { test, expect, Page } from '@playwright/test';
 import { MigrationMapper } from '../utils/migration-mapper.js';
 import { MigrationTestData } from '../test-data/migration-test-data.js';
-import { BlgGridApiWrapper } from '../utils/api-compatibility-layer.js';
+import { BigLedgerGridApiWrapper } from '../utils/api-compatibility-layer.js';
 
 interface PerformanceMetrics {
   renderTime: number;
@@ -20,9 +20,9 @@ interface PerformanceMetrics {
 
 test.describe('ag-Grid to BigLedger Grid - Performance Comparison', () => {
   let page: Page;
-  let gridApi: BlgGridApiWrapper;
+  let gridApi: BigLedgerGridApiWrapper;
 
-  // Performance thresholds (BLG Grid should meet or exceed these)
+  // Performance thresholds (BigLedger Grid should meet or exceed these)
   const PERFORMANCE_THRESHOLDS = {
     renderTime: 3000,      // 3 seconds max for initial render
     sortTime: 2000,        // 2 seconds max for sorting
@@ -34,7 +34,7 @@ test.describe('ag-Grid to BigLedger Grid - Performance Comparison', () => {
 
   test.beforeEach(async ({ page: testPage }) => {
     page = testPage;
-    gridApi = new BlgGridApiWrapper(page);
+    gridApi = new BigLedgerGridApiWrapper(page);
     await page.goto('/grid-demo');
   });
 
@@ -42,7 +42,7 @@ test.describe('ag-Grid to BigLedger Grid - Performance Comparison', () => {
     const agGridOptions = MigrationTestData.getPerformanceAgGridOptions(1000);
     const blgConfig = MigrationMapper.migrateGridOptions(agGridOptions);
 
-    // Measure BLG Grid rendering performance
+    // Measure BigLedger Grid rendering performance
     const startTime = Date.now();
     
     await page.evaluate((config) => {
@@ -71,8 +71,8 @@ test.describe('ag-Grid to BigLedger Grid - Performance Comparison', () => {
       };
     });
 
-    console.log(`BLG Grid render time: ${renderTime}ms`);
-    console.log(`BLG Grid performance measure: ${performanceMetrics.renderTime}ms`);
+    console.log(`BigLedger Grid render time: ${renderTime}ms`);
+    console.log(`BigLedger Grid performance measure: ${performanceMetrics.renderTime}ms`);
 
     // Performance assertions
     expect(renderTime).toBeLessThan(PERFORMANCE_THRESHOLDS.renderTime);

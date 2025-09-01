@@ -13,10 +13,10 @@ New to BLG UI Kit? Start here:
 ## 📦 Components
 
 ### Grid Components
-The BLG Grid is an enterprise-grade Angular data grid with virtual scrolling, advanced filtering, and export capabilities.
+The BigLedger Grid is an enterprise-grade Angular data grid with virtual scrolling, advanced filtering, and export capabilities.
 
 - **[Grid Overview](./components/grid/README.md)** - Main grid component
-- **[Installation & Setup](./components/grid/installation.md)** - Getting started with BLG Grid
+- **[Installation & Setup](./components/grid/installation.md)** - Getting started with BigLedger Grid
 - **[Configuration](./components/grid/configuration.md)** - Grid configuration options
 - **[Data Handling](./components/grid/data-handling.md)** - Working with data sources
 - **[Column Management](./components/grid/columns.md)** - Column configuration and features

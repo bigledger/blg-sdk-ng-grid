@@ -235,12 +235,12 @@ npm install @bigledger/ng-ui-theme @bigledger/ng-ui-charts-core
 ### 3. Angular Configuration
 ```typescript
 // app.component.ts
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 import { GridConfig } from '@bigledger/ng-ui-core';
 
 @Component({
-  imports: [BlgGridComponent],
-  template: `<blg-grid [config]="gridConfig"></blg-grid>`
+  imports: [BigLedgerGridComponent],
+  template: `<bigledger-grid [config]="gridConfig"></bigledger-grid>`
 })
 export class AppComponent {
   gridConfig: GridConfig = {

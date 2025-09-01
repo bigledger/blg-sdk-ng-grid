@@ -4,17 +4,17 @@
  */
 
 import { test, expect, Page } from '@playwright/test';
-import { BlgGridApiWrapper, BlgColumnApiWrapper } from '../utils/api-compatibility-layer.js';
+import { BigLedgerGridApiWrapper, BlgColumnApiWrapper } from '../utils/api-compatibility-layer.js';
 import { MigrationTestData } from '../test-data/migration-test-data.js';
 
 test.describe('ag-Grid API Compatibility - Grid API', () => {
   let page: Page;
-  let gridApi: BlgGridApiWrapper;
+  let gridApi: BigLedgerGridApiWrapper;
   let columnApi: BlgColumnApiWrapper;
 
   test.beforeEach(async ({ page: testPage }) => {
     page = testPage;
-    gridApi = new BlgGridApiWrapper(page);
+    gridApi = new BigLedgerGridApiWrapper(page);
     columnApi = new BlgColumnApiWrapper(page);
     
     await page.goto('/grid-demo');
@@ -323,7 +323,7 @@ test.describe('ag-Grid API Compatibility - Grid API', () => {
     expect(model).toBeDefined();
     
     // Model should provide access to the underlying data structure
-    // Implementation would depend on how BLG Grid exposes its model
+    // Implementation would depend on how BigLedger Grid exposes its model
     expect(typeof model).toBe('object');
   });
 

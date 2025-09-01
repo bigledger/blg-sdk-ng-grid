@@ -10,7 +10,7 @@ import { PerformanceDashboardComponent } from './examples/performance-dashboard.
 /**
  * Main Demo Application Component
  * 
- * Showcases the BLG Grid component with various examples:
+ * Showcases the BigLedger Grid component with various examples:
  * - Basic grid functionality
  * - Performance with large datasets
  * - Advanced filtering capabilities
@@ -30,7 +30,7 @@ import { PerformanceDashboardComponent } from './examples/performance-dashboard.
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'BLG Grid Demo';
+  protected title = 'BigLedger Grid Demo';
   currentExample = 'basic';
 
   examples = [

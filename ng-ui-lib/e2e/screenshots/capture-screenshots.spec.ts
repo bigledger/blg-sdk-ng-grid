@@ -3,14 +3,14 @@ import { test, expect, Page } from '@playwright/test';
 /**
  * Screenshot Capture Test Suite
  * 
- * This test suite is designed to capture comprehensive screenshots of the BLG Grid
+ * This test suite is designed to capture comprehensive screenshots of the BigLedger Grid
  * in various states and configurations for documentation purposes.
  * 
  * Screenshots are saved to docs/images/ directory and can be referenced
  * in documentation files.
  */
 
-test.describe('BLG Grid Documentation Screenshots', () => {
+test.describe('BigLedger Grid Documentation Screenshots', () => {
   
   // Configure test behavior
   test.beforeEach(async ({ page }) => {

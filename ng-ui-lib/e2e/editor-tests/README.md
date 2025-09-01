@@ -310,4 +310,4 @@ npm run test:editor:comprehensive -- --reporter=junit
 
 ## 📄 License
 
-This test suite is part of the BLG Grid project and is licensed under the MIT License.
+This test suite is part of the BigLedger Grid project and is licensed under the MIT License.

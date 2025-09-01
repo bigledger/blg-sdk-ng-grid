@@ -1,6 +1,6 @@
-# BLG Export System - Comprehensive Export Functionality
+# BigLedger Export System - Comprehensive Export Functionality
 
-The BLG Export System provides unified export capabilities across all components (Grid, Editor, Charts) with support for multiple formats, custom templates, and advanced configuration options.
+The BigLedger Export System provides unified export capabilities across all components (Grid, Editor, Charts, Avatar) with support for multiple formats, custom templates, and advanced configuration options.
 
 ## 🚀 Overview
 
@@ -239,7 +239,7 @@ exportToPDF() {
     author: 'HR Department',
     subject: 'Employee Data',
     keywords: 'employees, hr, report',
-    creator: 'BLG Grid Export',
+    creator: 'BigLedger Grid Export',
     
     // Header and footer
     header: {

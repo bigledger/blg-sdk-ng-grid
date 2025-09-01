@@ -101,14 +101,14 @@ npm start
 
 ```typescript
 import { Component } from '@angular/core';
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 import { GridConfig } from '@bigledger/ng-ui-core';
 
 @Component({
   selector: 'app-grid-example',
   standalone: true,
-  imports: [BlgGridComponent],
-  template: `<blg-grid [config]="gridConfig"></blg-grid>`
+  imports: [BigLedgerGridComponent],
+  template: `<bigledger-grid [config]="gridConfig"></bigledger-grid>`
 })
 export class GridExampleComponent {
   gridConfig: GridConfig = {
@@ -203,8 +203,8 @@ export class EditorExampleComponent {
 :root {
   --blg-primary: #your-primary-color;
   --blg-secondary: #your-secondary-color;
-  --blg-grid-header-bg: #your-header-bg;
-  --blg-grid-row-hover: #your-hover-color;
+  --bigledger-grid-header-bg: #your-header-bg;
+  --bigledger-grid-row-hover: #your-hover-color;
 }
 ```
 
@@ -313,7 +313,7 @@ gridConfig: GridConfig = {
 
 ```typescript
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BlgGridComponent } from '@bigledger/ng-ui-grid';
+import { BigLedgerGridComponent } from '@bigledger/ng-ui-grid';
 
 describe('GridComponent', () => {
   let component: GridExampleComponent;
@@ -321,7 +321,7 @@ describe('GridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BlgGridComponent, GridExampleComponent]
+      imports: [BigLedgerGridComponent, GridExampleComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(GridExampleComponent);
@@ -332,7 +332,7 @@ describe('GridComponent', () => {
   it('should render grid with data', () => {
     expect(component.gridConfig.data.length).toBeGreaterThan(0);
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('blg-grid')).toBeTruthy();
+    expect(compiled.querySelector('bigledger-grid')).toBeTruthy();
   });
 });
 ```

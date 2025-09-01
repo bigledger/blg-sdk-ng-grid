@@ -39,7 +39,7 @@ import { ColumnDefinition } from '@ng-ui-lib/core';
 import { RichTextEditor } from '@ng-ui-lib/editor-core';
 
 // ❌ Incorrect
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@bigledger-grid/grid';
 import { ColumnDefinition } from '@blg/core';
 ```
 
@@ -246,13 +246,13 @@ Use BEM methodology with `blg-` prefix:
 
 ```scss
 // Grid styles
-.blg-grid { }
-.blg-grid__header { }
-.blg-grid__body { }
-.blg-grid__row { }
-.blg-grid__row--selected { }
-.blg-grid__cell { }
-.blg-grid__cell--editable { }
+.bigledger-grid { }
+.bigledger-grid__header { }
+.bigledger-grid__body { }
+.bigledger-grid__row { }
+.bigledger-grid__row--selected { }
+.bigledger-grid__cell { }
+.bigledger-grid__cell--editable { }
 
 // Editor styles
 .blg-editor { }
@@ -281,9 +281,9 @@ Use descriptive kebab-case names with `blg-` prefix:
   --blg-border-color: #dee2e6;
   
   // Grid variables
-  --blg-grid-row-height: 32px;
-  --blg-grid-header-height: 40px;
-  --blg-grid-border-width: 1px;
+  --bigledger-grid-row-height: 32px;
+  --bigledger-grid-header-height: 40px;
+  --bigledger-grid-border-width: 1px;
   
   // Editor variables
   --blg-editor-toolbar-height: 48px;
@@ -481,7 +481,7 @@ Use hierarchical dot notation:
 
 ```typescript
 // ❌ Incorrect naming
-@Component({ selector: 'blg-grid' })           // Missing ng-ui-lib prefix
+@Component({ selector: 'bigledger-grid' })           // Missing ng-ui-lib prefix
 export class Grid { }                          // Missing Component suffix
 @Output() rowClick = new EventEmitter();       // Not descriptive enough
 exportExcel(): void { }                        // Inconsistent with pattern
