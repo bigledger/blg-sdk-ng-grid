@@ -6,7 +6,7 @@ Common issues and solutions when working with BlgGrid. This guide covers install
 
 ### Package Not Found
 
-**Problem:** `Cannot resolve dependency '@blg-grid/core'`
+**Problem:** `Cannot resolve dependency '@ng-ui-lib/core'`
 
 **Causes:**
 - Package not installed
@@ -16,11 +16,11 @@ Common issues and solutions when working with BlgGrid. This guide covers install
 **Solutions:**
 ```bash
 # Verify installation
-npm list @blg-grid/core @blg-grid/grid @blg-grid/theme
+npm list @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
 
 # Reinstall packages
-npm uninstall @blg-grid/core @blg-grid/grid @blg-grid/theme
-npm install @blg-grid/core @blg-grid/grid @blg-grid/theme
+npm uninstall @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
+npm install @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
 
 # Clear npm cache
 npm cache clean --force
@@ -34,7 +34,7 @@ npm install
 
 **Common Errors:**
 ```
-Could not find a declaration file for module '@blg-grid/core'
+Could not find a declaration file for module '@ng-ui-lib/core'
 ```
 
 **Solutions:**
@@ -74,11 +74,11 @@ rm -rf .angular/cache
 1. **Container Height:**
 ```html
 <!-- ❌ Incorrect - no height set -->
-<blg-grid [data]="data" [columns]="columns"></blg-grid>
+<ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>
 
 <!-- ✅ Correct - explicit height -->
 <div style="height: 500px;">
-  <blg-grid [data]="data" [columns]="columns"></blg-grid>
+  <ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>
 </div>
 ```
 
@@ -117,7 +117,7 @@ columns: ColumnDefinition[] = [
   template: `
     <div>Data count: {{ data?.length || 0 }}</div>
     <div>Columns count: {{ columns?.length || 0 }}</div>
-    <blg-grid [data]="data" [columns]="columns"></blg-grid>
+    <ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>
   `
 })
 export class DebugGridComponent {
@@ -155,7 +155,7 @@ columns = [
 1. **Import Theme Styles:**
 ```scss
 // styles.scss
-@import '@blg-grid/theme/styles/default-theme.scss';
+@import '@ng-ui-lib/theme/styles/default-theme.scss';
 ```
 
 2. **Or add to angular.json:**
@@ -168,7 +168,7 @@ columns = [
           "options": {
             "styles": [
               "src/styles.scss",
-              "node_modules/@blg-grid/theme/styles/default-theme.css"
+              "node_modules/@ng-ui-lib/theme/styles/default-theme.css"
             ]
           }
         }
@@ -240,7 +240,7 @@ columns = [
 ```typescript
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<blg-grid [data]="data" [columns]="columns"></blg-grid>`
+  template: `<ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>`
 })
 export class OptimizedGridComponent {
   // Use immutable data updates
@@ -313,7 +313,7 @@ addMoreData() {
   template: `
     <div>Data loading: {{ loading }}</div>
     <div>Data items: {{ (data$ | async)?.length || 0 }}</div>
-    <blg-grid [data]="data$ | async || []" [columns]="columns"></blg-grid>
+    <ng-ui-lib [data]="data$ | async || []" [columns]="columns"></ng-ui-lib>
   `
 })
 export class ObservableGridComponent {
@@ -328,7 +328,7 @@ export class ObservableGridComponent {
 1. **Use AsyncPipe:**
 ```typescript
 // ✅ Correct - AsyncPipe handles subscription
-template: `<blg-grid [data]="data$ | async || []" [columns]="columns"></blg-grid>`
+template: `<ng-ui-lib [data]="data$ | async || []" [columns]="columns"></ng-ui-lib>`
 ```
 
 2. **Handle Loading States:**
@@ -403,16 +403,16 @@ export class NestedCellRenderer {
 1. **Event Names:**
 ```html
 <!-- ❌ Incorrect event names -->
-<blg-grid 
+<ng-ui-lib 
   (onRowSelect)="handler($event)"
   (onCellClick)="handler($event)">
-</blg-grid>
+</ng-ui-lib>
 
 <!-- ✅ Correct event names -->
-<blg-grid 
+<ng-ui-lib 
   (rowSelect)="handler($event)"
   (cellClick)="handler($event)">
-</blg-grid>
+</ng-ui-lib>
 ```
 
 2. **Selection Configuration:**
@@ -545,12 +545,12 @@ columns = [
 3. **Keyboard Navigation:**
 ```html
 <!-- Ensure grid is focusable -->
-<blg-grid 
+<ng-ui-lib 
   tabindex="0"
   [data]="data" 
   [columns]="columns"
   [config]="config">
-</blg-grid>
+</ng-ui-lib>
 ```
 
 ## Browser Compatibility
@@ -576,7 +576,7 @@ import 'intersection-observer'; // For virtual scrolling
 @Component({
   template: `
     <div *ngIf="browserSupported; else unsupportedBrowser">
-      <blg-grid [data]="data" [columns]="columns"></blg-grid>
+      <ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>
     </div>
     <ng-template #unsupportedBrowser>
       <div class="browser-warning">
@@ -633,7 +633,7 @@ describe('GridComponent', () => {
   });
   
   it('should display data', () => {
-    const rows = fixture.debugElement.queryAll(By.css('.blg-grid__row'));
+    const rows = fixture.debugElement.queryAll(By.css('.ng-ui-lib__row'));
     expect(rows.length).toBe(1);
   });
 });
@@ -646,11 +646,11 @@ describe('GridComponent', () => {
 **Stable Selectors:**
 ```typescript
 // Use stable data attributes for testing
-<blg-grid 
+<ng-ui-lib 
   data-testid="user-grid"
   [data]="data" 
   [columns]="columns">
-</blg-grid>
+</ng-ui-lib>
 ```
 
 **Wait for Grid Loading:**
@@ -661,9 +661,9 @@ test('should display grid data', async ({ page }) => {
   
   // Wait for grid to be visible and loaded
   await page.waitForSelector('[data-testid="user-grid"]');
-  await page.waitForSelector('[data-testid="user-grid"] .blg-grid__row');
+  await page.waitForSelector('[data-testid="user-grid"] .ng-ui-lib__row');
   
-  const rowCount = await page.locator('[data-testid="user-grid"] .blg-grid__row').count();
+  const rowCount = await page.locator('[data-testid="user-grid"] .ng-ui-lib__row').count();
   expect(rowCount).toBeGreaterThan(0);
 });
 ```
@@ -678,12 +678,12 @@ Enable detailed logging:
 @Component({
   template: `
     <button (click)="toggleDebugMode()">Toggle Debug</button>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DebugGridComponent {
@@ -712,7 +712,7 @@ export class MonitoredGridComponent implements AfterViewInit {
     // Monitor performance
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        if (entry.name.includes('blg-grid')) {
+        if (entry.name.includes('ng-ui-lib')) {
           console.log('Grid Performance:', entry.name, entry.duration);
         }
       }
@@ -728,7 +728,7 @@ export class MonitoredGridComponent implements AfterViewInit {
 ### Community Support
 - **GitHub Issues**: Report bugs and request features
 - **Discord**: Real-time community support
-- **Stack Overflow**: Tag questions with `blg-grid`
+- **Stack Overflow**: Tag questions with `ng-ui-lib`
 
 ### Professional Support
 - **Enterprise Support**: Priority support for business customers
@@ -781,7 +781,7 @@ console.log('Diagnostic Info:', JSON.stringify(diagnosticInfo, null, 2));
 - **Cause:** Computed properties changing during rendering
 - **Solution:** Use pure pipes or memoization
 
-### "Cannot find module '@blg-grid/core'"
+### "Cannot find module '@ng-ui-lib/core'"
 - **Cause:** Package not installed or incorrect import
 - **Solution:** Verify installation and import paths
 

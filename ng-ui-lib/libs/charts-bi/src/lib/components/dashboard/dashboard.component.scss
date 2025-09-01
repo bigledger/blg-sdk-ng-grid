@@ -1,0 +1,499 @@
+.bi-dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bi-background-color, #ffffff);
+  color: var(--bi-text-color, #333333);
+  font-family: var(--bi-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  position: relative;
+
+  // Dashboard Header
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--bi-border-color, #e1e5e9);
+    background: var(--bi-header-background, #f8f9fa);
+    flex-shrink: 0;
+  }
+
+  &-title {
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--bi-title-color, #2c3e50);
+    }
+  }
+
+  &-description {
+    margin: 0.25rem 0 0;
+    color: var(--bi-subtitle-color, #6c757d);
+    font-size: 0.875rem;
+  }
+
+  &-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  // Filter Bar
+  .bi-filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--bi-filter-background, #f1f3f4);
+    border-bottom: 1px solid var(--bi-border-color, #e1e5e9);
+    flex-shrink: 0;
+  }
+
+  .bi-filter-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex: 1;
+  }
+
+  .bi-filter-control {
+    min-width: 200px;
+  }
+
+  .bi-filter-actions {
+    flex-shrink: 0;
+  }
+
+  // Breadcrumb
+  .bi-breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: var(--bi-breadcrumb-background, #e9ecef);
+    border-bottom: 1px solid var(--bi-border-color, #e1e5e9);
+    font-size: 0.875rem;
+    flex-shrink: 0;
+
+    &-item {
+      background: none;
+      border: none;
+      color: var(--bi-link-color, #007bff);
+      cursor: pointer;
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: var(--bi-hover-background, rgba(0, 123, 255, 0.1));
+      }
+    }
+
+    &-separator {
+      margin: 0 0.5rem;
+      color: var(--bi-muted-color, #6c757d);
+    }
+
+    &-current {
+      color: var(--bi-text-color, #333333);
+      font-weight: 500;
+    }
+  }
+
+  // Dashboard Grid
+  &-grid {
+    flex: 1;
+    display: grid;
+    padding: 1rem;
+    overflow: auto;
+    grid-auto-rows: 100px;
+    min-height: 0;
+  }
+
+  // Widget Container
+  .bi-widget-container {
+    position: relative;
+    background: var(--bi-widget-background, #ffffff);
+    border: 1px solid var(--bi-widget-border, #e1e5e9);
+    border-radius: 8px;
+    box-shadow: var(--bi-widget-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--bi-widget-shadow-hover, 0 4px 12px rgba(0, 0, 0, 0.15));
+    }
+  }
+
+  // Edit Mode Styles
+  &.bi-edit-mode {
+    .bi-widget-container {
+      cursor: move;
+      
+      &:hover .bi-widget-edit-overlay {
+        opacity: 1;
+      }
+    }
+
+    .bi-widget-edit-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 123, 255, 0.1);
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      border: 2px solid var(--bi-edit-border, #007bff);
+      border-radius: 8px;
+
+      .bi-widget-edit-controls {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        gap: 4px;
+        pointer-events: all;
+      }
+    }
+
+    .bi-resize-handles {
+      pointer-events: all;
+
+      .bi-resize-handle {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: var(--bi-primary-color, #007bff);
+        border: 2px solid white;
+        border-radius: 2px;
+
+        &.bi-resize-se {
+          bottom: -6px;
+          right: -6px;
+          cursor: nw-resize;
+        }
+      }
+    }
+  }
+
+  // Add Widget
+  .bi-add-widget {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bi-add-widget-background, #f8f9fa);
+    border: 2px dashed var(--bi-border-color, #dee2e6);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 200px;
+
+    &:hover {
+      background: var(--bi-add-widget-hover, #e9ecef);
+      border-color: var(--bi-primary-color, #007bff);
+    }
+
+    &-content {
+      text-align: center;
+      color: var(--bi-muted-color, #6c757d);
+
+      .bi-icon {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  // Loading States
+  .bi-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+    .bi-loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--bi-border-color, #e1e5e9);
+      border-top: 4px solid var(--bi-primary-color, #007bff);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--bi-muted-color, #6c757d);
+    }
+  }
+
+  // Error Messages
+  .bi-error-list {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 400px;
+    z-index: 1100;
+  }
+
+  .bi-error-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bi-error-background, #f8d7da);
+    border: 1px solid var(--bi-error-border, #f5c6cb);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    color: var(--bi-error-color, #721c24);
+
+    .bi-error-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .bi-error-message {
+      flex: 1;
+      font-size: 0.875rem;
+    }
+
+    .bi-error-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--bi-error-color, #721c24);
+      opacity: 0.7;
+      line-height: 1;
+      padding: 0;
+      margin-left: auto;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Button Styles
+.bi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  background: var(--bi-button-background, #f8f9fa);
+  color: var(--bi-button-color, #333333);
+  border-color: var(--bi-button-border, #dee2e6);
+
+  &:hover:not(:disabled) {
+    background: var(--bi-button-hover-background, #e9ecef);
+    border-color: var(--bi-button-hover-border, #adb5bd);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &-primary {
+    background: var(--bi-primary-color, #007bff);
+    color: white;
+    border-color: var(--bi-primary-color, #007bff);
+
+    &:hover:not(:disabled) {
+      background: var(--bi-primary-hover, #0056b3);
+      border-color: var(--bi-primary-hover, #0056b3);
+    }
+  }
+
+  &-danger {
+    background: var(--bi-danger-color, #dc3545);
+    color: white;
+    border-color: var(--bi-danger-color, #dc3545);
+
+    &:hover:not(:disabled) {
+      background: var(--bi-danger-hover, #c82333);
+      border-color: var(--bi-danger-hover, #c82333);
+    }
+  }
+
+  &-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  &-icon {
+    padding: 0.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+
+    .bi-icon {
+      font-size: 1rem;
+
+      &.bi-loading {
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}
+
+// Dropdown Styles
+.bi-dropdown {
+  position: relative;
+  display: inline-block;
+
+  &-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 160px;
+    padding: 0.5rem 0;
+    background: white;
+    border: 1px solid var(--bi-border-color, #e1e5e9);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    margin-top: 4px;
+  }
+
+  &-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--bi-text-color, #333333);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: var(--bi-hover-background, #f8f9fa);
+    }
+  }
+}
+
+// Icon Styles
+.bi-icon {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+// Animations
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .bi-dashboard {
+    &-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    &-actions {
+      justify-content: center;
+    }
+
+    .bi-filter-bar {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .bi-filter-controls {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &-grid {
+      grid-template-columns: 1fr !important;
+      gap: 0.75rem;
+      padding: 0.75rem;
+    }
+  }
+
+  .bi-widget-container {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    min-height: 300px;
+  }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .bi-dashboard {
+    --bi-background-color: #1a1a1a;
+    --bi-text-color: #ffffff;
+    --bi-header-background: #2d2d2d;
+    --bi-widget-background: #2d2d2d;
+    --bi-widget-border: #404040;
+    --bi-border-color: #404040;
+    --bi-muted-color: #aaaaaa;
+    --bi-filter-background: #252525;
+    --bi-breadcrumb-background: #333333;
+    --bi-button-background: #404040;
+    --bi-button-color: #ffffff;
+    --bi-button-border: #555555;
+    --bi-button-hover-background: #555555;
+  }
+}
+
+// Print Styles
+@media print {
+  .bi-dashboard {
+    &-actions,
+    .bi-filter-bar,
+    .bi-breadcrumb {
+      display: none !important;
+    }
+
+    &-grid {
+      display: block !important;
+      padding: 0;
+    }
+
+    .bi-widget-container {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      box-shadow: none;
+      border: 1px solid #000;
+    }
+
+    .bi-widget-edit-overlay,
+    .bi-add-widget {
+      display: none !important;
+    }
+  }
+}

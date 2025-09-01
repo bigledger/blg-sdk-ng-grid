@@ -162,32 +162,32 @@ export interface DataResponse<T> {
 
 ```typescript
 @Component({
-  selector: 'blg-grid',
+  selector: 'ng-ui-lib',
   standalone: true,
   template: `
-    <div class="blg-grid" 
+    <div class="ng-ui-lib" 
          [attr.role]="'grid'"
          [attr.aria-label]="ariaLabel()"
          (keydown)="handleKeydown($event)">
       
-      <blg-grid-header 
+      <ng-ui-lib-header 
         [columns]="visibleColumns()"
         [sortState]="sortState()"
         (sortChange)="onSortChange($event)"
         (filterChange)="onFilterChange($event)">
-      </blg-grid-header>
+      </ng-ui-lib-header>
 
-      <blg-grid-viewport
+      <ng-ui-lib-viewport
         [rows]="visibleRows()"
         [columns]="visibleColumns()"
         [rowHeight]="rowHeight()"
         [viewport]="viewport()"
         (viewportChange)="onViewportChange($event)">
-      </blg-grid-viewport>
+      </ng-ui-lib-viewport>
 
-      <blg-grid-selection-overlay
+      <ng-ui-lib-selection-overlay
         [selectionState]="selectionState()">
-      </blg-grid-selection-overlay>
+      </ng-ui-lib-selection-overlay>
 
     </div>
   `,

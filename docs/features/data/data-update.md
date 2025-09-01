@@ -17,7 +17,7 @@ Data update functionality allows you to modify, add, and remove data in the BLG 
 ### Single Row Updates
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
@@ -26,14 +26,14 @@ import { BlgGridComponent } from '@blg/grid';
       <button (click)="addNewRow()">Add Row</button>
       <button (click)="removeSelectedRows()">Remove Selected</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [rowSelection]="'multiple'"
       (gridReady)="onGridReady($event)"
       (cellValueChanged)="onCellValueChanged($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicDataUpdateComponent {
@@ -252,11 +252,11 @@ export class RealtimeDataService {
       </span>
       <span>Last update: {{ lastUpdateTime | date:'medium' }}</span>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class RealtimeDataComponent implements OnInit, OnDestroy {

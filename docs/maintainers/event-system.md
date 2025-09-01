@@ -476,28 +476,28 @@ export interface EventBusStats {
 
 ```typescript
 @Component({
-  selector: 'blg-grid',
+  selector: 'ng-ui-lib',
   template: `
-    <div class="blg-grid-container"
+    <div class="ng-ui-lib-container"
          (click)="onContainerClick($event)"
          (keydown)="onContainerKeydown($event)"
          (scroll)="onContainerScroll($event)">
       
-      <blg-grid-header
+      <ng-ui-lib-header
         [columns]="columns()"
         (columnSort)="onColumnSort($event)"
         (columnResize)="onColumnResize($event)"
         (columnReorder)="onColumnReorder($event)">
-      </blg-grid-header>
+      </ng-ui-lib-header>
       
-      <blg-grid-body
+      <ng-ui-lib-body
         [data]="displayData()"
         [columns]="columns()"
         (cellClick)="onCellClick($event)"
         (cellDoubleClick)="onCellDoubleClick($event)"
         (cellRightClick)="onCellRightClick($event)"
         (rowSelect)="onRowSelect($event)">
-      </blg-grid-body>
+      </ng-ui-lib-body>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

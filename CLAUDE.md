@@ -32,7 +32,7 @@ Components: Standalone (no NgModules)
 ```
 blg-sdk-ng-grid/
 ├── docs/                    # All documentation (70+ files)
-├── blg-grid/               # Main Angular workspace
+├── ng-ui-lib/               # Main Angular workspace
 │   ├── libs/               # Library packages (7 modules)
 │   │   ├── core/          # Core interfaces, types, services
 │   │   ├── grid/          # Main grid component
@@ -210,7 +210,7 @@ export class Component {
 ## 🐛 Known Issues & Solutions
 
 ### Issue: Import path inconsistencies
-**Solution**: Always use `@blg/*` imports, not `@blg-grid/*`
+**Solution**: Always use `@ng-ui/*` imports, not `@ng-ui-lib/*`
 
 ### Issue: Virtual scrolling performance
 **Solution**: Ensure trackBy is implemented and itemSize is set
@@ -225,7 +225,7 @@ export class Component {
 
 ### Development
 ```bash
-cd blg-grid
+cd ng-ui-lib
 npm install
 npm run serve  # Start dev server on :4200
 ```

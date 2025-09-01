@@ -19,20 +19,20 @@ Sorting can be enabled globally or per-column:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-sortable-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       (columnSort)="onSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class SortableGridComponent {
@@ -223,12 +223,12 @@ Enable sorting by multiple columns simultaneously:
       </div>
     </div>
     
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       (columnSort)="onMultiSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MultiSortGridComponent {
@@ -485,11 +485,11 @@ Create custom sort controls:
       </div>
     </div>
 
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class CustomSortUIComponent {
@@ -681,7 +681,7 @@ describe('Grid Sorting', () => {
     await fixture.whenStable();
     
     // Verify sort order
-    const rows = gridElement.querySelectorAll('.blg-grid-row');
+    const rows = gridElement.querySelectorAll('.ng-ui-lib-row');
     const firstRowName = rows[0].querySelector('[data-column="name"]')?.textContent;
     expect(firstRowName).toBe('Alice Johnson'); // First alphabetically
   });
@@ -743,9 +743,9 @@ describe('Grid Sorting', () => {
 
 ## Examples
 
-- [Basic Sorting](https://stackblitz.com/edit/blg-grid-sorting-basic)
-- [Multi-Column Sorting](https://stackblitz.com/edit/blg-grid-sorting-multi)
-- [Custom Comparators](https://stackblitz.com/edit/blg-grid-sorting-custom)
-- [Server-Side Sorting](https://stackblitz.com/edit/blg-grid-sorting-server)
-- [Sort Performance Test](https://stackblitz.com/edit/blg-grid-sorting-performance)
-- [Custom Sort UI](https://stackblitz.com/edit/blg-grid-sorting-ui)
+- [Basic Sorting](https://stackblitz.com/edit/ng-ui-lib-sorting-basic)
+- [Multi-Column Sorting](https://stackblitz.com/edit/ng-ui-lib-sorting-multi)
+- [Custom Comparators](https://stackblitz.com/edit/ng-ui-lib-sorting-custom)
+- [Server-Side Sorting](https://stackblitz.com/edit/ng-ui-lib-sorting-server)
+- [Sort Performance Test](https://stackblitz.com/edit/ng-ui-lib-sorting-performance)
+- [Custom Sort UI](https://stackblitz.com/edit/ng-ui-lib-sorting-ui)

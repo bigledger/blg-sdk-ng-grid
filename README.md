@@ -4,7 +4,7 @@
 
 ![BLG Grid](./docs/images/grid-complete-overview.png)
 
-[![npm version](https://img.shields.io/npm/v/@blg/grid.svg)](https://www.npmjs.com/package/@blg/grid)
+[![npm version](https://img.shields.io/npm/v/@ng-ui/grid.svg)](https://www.npmjs.com/package/@ng-ui/grid)
 [![Build Status](https://img.shields.io/github/workflow/status/bigledger/blg-sdk-ng-grid/CI)](https://github.com/bigledger/blg-sdk-ng-grid/actions)
 [![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen)](./coverage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -13,7 +13,7 @@
 
 **A high-performance, feature-rich Angular data grid component built with modern Angular patterns and TypeScript**
 
-[📖 Documentation](./docs/INDEX.md) | [🚀 Getting Started](./docs/getting-started/overview.md) | [💻 Demo](https://stackblitz.com/@blg-grid) | [🐛 Report Bug](https://github.com/bigledger/blg-sdk-ng-grid/issues)
+[📖 Documentation](./docs/INDEX.md) | [🚀 Getting Started](./docs/getting-started/overview.md) | [💻 Demo](https://stackblitz.com/@ng-ui-lib) | [🐛 Report Bug](https://github.com/bigledger/blg-sdk-ng-grid/issues)
 
 </div>
 
@@ -59,26 +59,26 @@ BLG Grid is a production-ready, enterprise-grade Angular data grid component tha
 ### Installation
 
 ```bash
-npm install @blg/grid @blg/core
+npm install @ng-ui/grid @ng-ui/core
 ```
 
 ### Basic Usage
 
 ```typescript
 import { Component } from '@angular/core';
-import { BlgGrid } from '@blg/grid';
-import { ColumnDefinition } from '@blg/core';
+import { BlgGrid } from '@ng-ui/grid';
+import { ColumnDefinition } from '@ng-ui/core';
 
 @Component({
   selector: 'app-my-grid',
   standalone: true,
   imports: [BlgGrid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="rowData" 
       [columns]="columnDefs"
       [config]="gridConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -116,7 +116,7 @@ blg-sdk-ng-grid/
 │   ├── examples/           # Code examples
 │   ├── contributing/       # Contributor guides
 │   └── maintainers/        # Maintainer documentation
-├── blg-grid/               # Main Angular workspace
+├── ng-ui-lib/               # Main Angular workspace
 │   ├── libs/               # Library packages
 │   │   ├── core/          # Core interfaces and services
 │   │   ├── grid/          # Main grid component
@@ -186,7 +186,7 @@ Comprehensive documentation is available in the [docs](./docs) folder:
 ```bash
 # Clone repository
 git clone https://github.com/bigledger/blg-sdk-ng-grid.git
-cd blg-sdk-ng-grid/blg-grid
+cd blg-sdk-ng-grid/ng-ui-lib
 
 # Install dependencies
 npm install
@@ -232,8 +232,8 @@ This project includes [CLAUDE.md](./CLAUDE.md) - a comprehensive guide for AI co
 - **Repository**: [GitHub](https://github.com/bigledger/blg-sdk-ng-grid)
 - **Documentation**: [Full Docs](./docs/INDEX.md)
 - **Issues**: [Bug Reports](https://github.com/bigledger/blg-sdk-ng-grid/issues)
-- **Demo**: [StackBlitz](https://stackblitz.com/@blg-grid)
-- **npm**: [@blg/grid](https://www.npmjs.com/package/@blg/grid)
+- **Demo**: [StackBlitz](https://stackblitz.com/@ng-ui-lib)
+- **npm**: [@ng-ui/grid](https://www.npmjs.com/package/@ng-ui/grid)
 
 ## 📄 License
 
@@ -257,5 +257,5 @@ The library has been thoroughly tested, documented, and validated for production
 <div align="center">
 Made with ❤️ by BigLedger Team
 
-**[⬆ back to top](#blg-grid---enterprise-angular-data-grid-component)**
+**[⬆ back to top](#ng-ui-lib---enterprise-angular-data-grid-component)**
 </div>

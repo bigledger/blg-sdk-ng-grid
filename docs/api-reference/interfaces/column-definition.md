@@ -5,7 +5,7 @@ Configuration interface for defining grid columns with their behavior, appearanc
 ## Import
 
 ```typescript
-import { ColumnDefinition } from '@blg-grid/core';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 ```
 
 ## Interface Definition
@@ -489,11 +489,11 @@ const advancedColumns: ColumnDefinition[] = [
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="dynamicColumns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DynamicColumnsComponent {
@@ -531,11 +531,11 @@ export class DynamicColumnsComponent {
         {{ col.visible ? 'Hide' : 'Show' }} {{ col.header }}
       </button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="visibleColumns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ColumnVisibilityComponent {

@@ -19,13 +19,13 @@ Immutable data support in BLG Grid allows you to work with immutable data struct
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData$ | async"
       [columnDefs]="columnDefs"
       [getRowId]="getRowId"
       [immutableData]="true"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ImmutableDataComponent {

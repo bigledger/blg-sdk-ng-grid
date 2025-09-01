@@ -171,13 +171,13 @@ onRowSelect(event: RowSelectEvent) {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       [config]="config"
       (rowSelect)="onRowSelect($event)"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
     
     <div class="selection-info">
       Selected: {{getSelectedCount()}} of {{data.length}} rows
@@ -327,20 +327,20 @@ onRowSelect(event: RowSelectEvent) {
 @Component({
   template: `
     <!-- Master Grid -->
-    <blg-grid 
+    <ng-ui-lib 
       [data]="masterData"
       [columns]="masterColumns"
       [config]="masterConfig"
       (rowSelect)="onMasterRowSelect($event)">
-    </blg-grid>
+    </ng-ui-lib>
     
     <!-- Detail Grid -->
-    <blg-grid 
+    <ng-ui-lib 
       [data]="detailData"
       [columns]="detailColumns"
       [config]="detailConfig"
       *ngIf="selectedMasterRow">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MasterDetailComponent {

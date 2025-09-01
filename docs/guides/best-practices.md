@@ -59,13 +59,13 @@ export class UserManagementComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="grid-loading" *ngIf="loading">Loading users...</div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="users || []"
       [columns]="columns"
       [config]="config"
       (rowSelect)="userSelect.emit($event.data.rowData)"
       (cellClick)="handleCellClick($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class UserGridPresentationComponent {
@@ -209,11 +209,11 @@ export class UserGridStateService {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="optimizedConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class PerformanceOptimizedGridComponent {
@@ -766,8 +766,8 @@ export class GridErrorHandler implements ErrorHandler {
   }
   
   private isGridRelatedError(error: any): boolean {
-    return error?.context?.includes('blg-grid') ||
-           error?.stack?.includes('blg-grid') ||
+    return error?.context?.includes('ng-ui-lib') ||
+           error?.stack?.includes('ng-ui-lib') ||
            error?.message?.includes('grid');
   }
   
@@ -819,7 +819,7 @@ describe('UserGridComponent', () => {
     
     // Assert
     expect(component.users).toEqual(mockUsers);
-    const rows = fixture.debugElement.queryAll(By.css('.blg-grid__row'));
+    const rows = fixture.debugElement.queryAll(By.css('.ng-ui-lib__row'));
     expect(rows.length).toBe(2);
   }));
   
@@ -907,15 +907,15 @@ export class UserGridPage {
   
   async waitForGridToLoad() {
     await this.page.waitForSelector('[data-testid="user-grid"]');
-    await this.page.waitForSelector('[data-testid="user-grid"] .blg-grid__row');
+    await this.page.waitForSelector('[data-testid="user-grid"] .ng-ui-lib__row');
   }
   
   async getRowCount() {
-    return await this.page.locator('[data-testid="user-grid"] .blg-grid__row').count();
+    return await this.page.locator('[data-testid="user-grid"] .ng-ui-lib__row').count();
   }
   
   async clickRow(index: number) {
-    await this.page.locator(`[data-testid="user-grid"] .blg-grid__row:nth-child(${index + 1})`).click();
+    await this.page.locator(`[data-testid="user-grid"] .ng-ui-lib__row:nth-child(${index + 1})`).click();
   }
   
   async sortByColumn(columnId: string) {
@@ -974,11 +974,11 @@ test.describe('User Grid', () => {
       [attr.aria-rowcount]="data.length"
       [attr.aria-colcount]="columns.length">
       
-      <blg-grid 
+      <ng-ui-lib 
         [data]="data"
         [columns]="accessibleColumns"
         [config]="accessibleConfig">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })

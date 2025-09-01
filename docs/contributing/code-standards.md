@@ -165,21 +165,21 @@ function validateGridConfig(config: unknown): Result<GridConfig> {
 ```typescript
 // ✅ Good: Signal-based reactive component
 @Component({
-  selector: 'blg-grid',
+  selector: 'ng-ui-lib',
   template: `
-    <div class="blg-grid" [attr.role]="gridRole()">
-      <blg-grid-header 
+    <div class="ng-ui-lib" [attr.role]="gridRole()">
+      <ng-ui-lib-header 
         [columns]="columns()"
         [sortState]="sortState()"
         (sortChange)="onSortChange($event)">
-      </blg-grid-header>
+      </ng-ui-lib-header>
       
-      <blg-grid-body
+      <ng-ui-lib-body
         [data]="displayData()"
         [columns]="columns()"
         [loading]="loading()"
         (selectionChange)="onSelectionChange($event)">
-      </blg-grid-body>
+      </ng-ui-lib-body>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -399,8 +399,8 @@ export const GRID_ROLE = 'grid';
 
 // ✅ Good: kebab-case for file names, CSS classes, selectors
 grid-header.component.ts
-.blg-grid-container
-blg-grid-header
+.ng-ui-lib-container
+ng-ui-lib-header
 ```
 
 ### Component Naming
@@ -408,13 +408,13 @@ blg-grid-header
 ```typescript
 // ✅ Good: Descriptive component names with BLG prefix
 @Component({
-  selector: 'blg-grid',           // Main grid component
+  selector: 'ng-ui-lib',           // Main grid component
   // ...
 })
 export class BlgGridComponent { }
 
 @Component({
-  selector: 'blg-grid-header',    // Specific sub-component
+  selector: 'ng-ui-lib-header',    // Specific sub-component
   // ...
 })
 export class BlgGridHeaderComponent { }
@@ -595,20 +595,20 @@ export class GridStateService {
 ### README Standards
 
 ```markdown
-# @blg-grid/core
+# @ng-ui-lib/core
 
 Core services, interfaces, and utilities for the BLG Grid library.
 
 ## Installation
 
 ```bash
-npm install @blg-grid/core
+npm install @ng-ui-lib/core
 ```
 
 ## Quick Start
 
 ```typescript
-import { GridStateService } from '@blg-grid/core';
+import { GridStateService } from '@ng-ui-lib/core';
 
 // In your component
 const gridState = inject(GridStateService);
@@ -808,23 +808,23 @@ class DataValidationService {
 ```typescript
 // ✅ Good: Accessible component implementation
 @Component({
-  selector: 'blg-grid',
+  selector: 'ng-ui-lib',
   template: `
     <div 
-      class="blg-grid"
+      class="ng-ui-lib"
       role="grid"
       [attr.aria-label]="gridAriaLabel()"
       [attr.aria-rowcount]="totalRowCount()"
       [attr.aria-colcount]="columns().length">
       
       <div 
-        class="blg-grid-header"
+        class="ng-ui-lib-header"
         role="row"
         [attr.aria-rowindex]="1">
         
         <div 
           *ngFor="let column of columns(); index as i"
-          class="blg-grid-header-cell"
+          class="ng-ui-lib-header-cell"
           role="columnheader"
           [attr.aria-colindex]="i + 1"
           [attr.aria-sort]="getAriaSort(column.id)"
@@ -836,17 +836,17 @@ class DataValidationService {
         </div>
       </div>
       
-      <div class="blg-grid-body" [attr.aria-live]="loading() ? 'polite' : 'off'">
+      <div class="ng-ui-lib-body" [attr.aria-live]="loading() ? 'polite' : 'off'">
         <div 
           *ngFor="let row of displayData(); index as rowIndex"
-          class="blg-grid-row"
+          class="ng-ui-lib-row"
           role="row"
           [attr.aria-rowindex]="rowIndex + 2"
           [attr.aria-selected]="isRowSelected(rowIndex)">
           
           <div 
             *ngFor="let column of columns(); index as colIndex"
-            class="blg-grid-cell"
+            class="ng-ui-lib-cell"
             role="gridcell"
             [attr.aria-colindex]="colIndex + 1"
             [attr.tabindex]="getCellTabIndex(rowIndex, colIndex)">

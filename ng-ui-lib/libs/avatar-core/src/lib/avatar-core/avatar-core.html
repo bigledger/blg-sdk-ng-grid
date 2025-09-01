@@ -1,0 +1,48 @@
+<div class="avatar-core-container" [class.ready]="isReady()">
+  <!-- Avatar Status Display -->
+  <div class="avatar-status" *ngIf="!isReady()">
+    <div class="loading-spinner"></div>
+    <p>Initializing avatar...</p>
+  </div>
+
+  <!-- Avatar Content -->
+  <div class="avatar-content" *ngIf="isReady()">
+    <!-- Avatar would be rendered here -->
+    <!-- This is where 2D or 3D avatar components would be placed -->
+    <div class="avatar-placeholder">
+      <div class="avatar-info">
+        <h3>{{ config().id }}</h3>
+        <p>{{ config().appearance.model | titlecase }}</p>
+        <div class="status-indicators">
+          <span class="indicator" 
+                [class.active]="currentState()?.speech.isSpeaking"
+                title="Speaking">🗣️</span>
+          <span class="indicator" 
+                [class.active]="currentState()?.animation.current !== 'idle'"
+                title="Animating">✋</span>
+          <span class="indicator" 
+                [class.active]="currentState()?.connection.websocket === 'connected'"
+                title="Connected">🌐</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Debug Information (if in development) -->
+  <div class="debug-info" *ngIf="enablePerformanceMonitoring() && isReady()">
+    <div class="stats">
+      <div class="stat">
+        <label>Queue:</label>
+        <span>{{ getStatistics().queueLength }}</span>
+      </div>
+      <div class="stat">
+        <label>Processed:</label>
+        <span>{{ getStatistics().messagesProcessed }}</span>
+      </div>
+      <div class="stat">
+        <label>Avg Time:</label>
+        <span>{{ getStatistics().averageProcessingTime | number:'1.0-1' }}ms</span>
+      </div>
+    </div>
+  </div>
+</div>

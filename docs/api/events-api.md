@@ -36,11 +36,11 @@ Emits all grid events through a single output for centralized handling.
 @Output() gridEvent = new EventEmitter<GridEventType>();
 
 // Usage
-<blg-grid 
+<ng-ui-lib 
   [data]="data" 
   [columns]="columns"
   (gridEvent)="onGridEvent($event)">
-</blg-grid>
+</ng-ui-lib>
 
 // Handler
 onGridEvent(event: GridEventType) {
@@ -299,12 +299,12 @@ onCellEdit(event: CellEditEvent) {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns" 
       [config]="config"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class CentralizedEventComponent {
@@ -341,13 +341,13 @@ export class CentralizedEventComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       (cellClick)="onCellClick($event)"
       (rowSelect)="onRowSelect($event)"
       (columnSort)="onColumnSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class SpecificEventHandlersComponent {
@@ -609,11 +609,11 @@ interface CustomRowActionEvent extends GridEvent {
 @Component({
   selector: 'extended-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ExtendedGridComponent {

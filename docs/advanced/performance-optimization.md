@@ -35,12 +35,12 @@ const optimizedConfig: GridConfig = {
 @Component({
   selector: 'app-optimized-virtual-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       [config]="virtualConfig"
       #grid>
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class OptimizedVirtualGridComponent implements OnInit, AfterViewInit {
@@ -101,12 +101,12 @@ interface ColumnVirtualizationConfig {
 @Component({
   selector: 'app-column-virtualized-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="visibleColumns"
       [config]="config"
       (scrollHorizontal)="onHorizontalScroll($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ColumnVirtualizedGridComponent {
@@ -302,12 +302,12 @@ export class OptimizedDataService {
   selector: 'app-optimized-grid',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data$ | async"
       [columns]="columns"
       [config]="config"
       [trackByFn]="trackByItemId">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class OptimizedGridComponent {
@@ -354,11 +354,11 @@ export class OptimizedGridComponent {
 @Component({
   selector: 'app-lazy-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="visibleData"
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
     
     <div #loadingTrigger class="loading-trigger" *ngIf="hasMoreData">
       <div class="spinner" *ngIf="loading"></div>
@@ -436,16 +436,16 @@ export class LazyGridComponent implements OnInit, OnDestroy {
 
 ```typescript
 // Import only needed parts
-import { Grid } from '@blg/grid/core';
-import type { ColumnDefinition, GridConfig } from '@blg/grid/types';
+import { Grid } from '@ng-ui/grid/core';
+import type { ColumnDefinition, GridConfig } from '@ng-ui/grid/types';
 
 // Avoid importing entire feature modules
 // ❌ Bad - imports everything
-// import { BLGGridModule } from '@blg/grid';
+// import { BLGGridModule } from '@ng-ui/grid';
 
 // ✅ Good - imports only what's needed
-import { GridComponent } from '@blg/grid/components';
-import { VirtualScrollingDirective } from '@blg/grid/directives';
+import { GridComponent } from '@ng-ui/grid/components';
+import { VirtualScrollingDirective } from '@ng-ui/grid/directives';
 ```
 
 ### Lazy Loading Grid Features
@@ -453,17 +453,17 @@ import { VirtualScrollingDirective } from '@blg/grid/directives';
 ```typescript
 // Lazy load expensive features
 const LazyExportComponent = lazy(() => 
-  import('@blg/grid/export').then(m => ({ default: m.ExportComponent }))
+  import('@ng-ui/grid/export').then(m => ({ default: m.ExportComponent }))
 );
 
 const LazyGroupingComponent = lazy(() => 
-  import('@blg/grid/grouping').then(m => ({ default: m.GroupingComponent }))
+  import('@ng-ui/grid/grouping').then(m => ({ default: m.GroupingComponent }))
 );
 
 @Component({
   template: `
-    <blg-grid [data]="data" [columns]="columns" [config]="config">
-    </blg-grid>
+    <ng-ui-lib [data]="data" [columns]="columns" [config]="config">
+    </ng-ui-lib>
     
     <!-- Lazy load features when needed -->
     <ng-container *ngIf="showExport">
@@ -638,25 +638,25 @@ export class SmoothGridComponent {
 
 ```css
 /* Use transform instead of changing top/left for better performance */
-.blg-grid .virtual-row {
+.ng-ui-lib .virtual-row {
   transform: translateY(var(--row-offset));
   will-change: transform; /* Hint browser to use GPU acceleration */
 }
 
 /* Enable hardware acceleration for smooth scrolling */
-.blg-grid .scroll-container {
+.ng-ui-lib .scroll-container {
   transform: translateZ(0); /* Force GPU layer */
   -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
 }
 
 /* Optimize animations */
-.blg-grid .grid-row {
+.ng-ui-lib .grid-row {
   backface-visibility: hidden; /* Prevent flicker */
   perspective: 1000px;
 }
 
 /* Use contain for performance */
-.blg-grid .grid-cell {
+.ng-ui-lib .grid-cell {
   contain: layout style paint;
 }
 ```

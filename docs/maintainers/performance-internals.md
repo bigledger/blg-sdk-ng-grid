@@ -284,22 +284,22 @@ export class VariableHeightVirtualScrollComponent {
 ```typescript
 // Optimized component with OnPush strategy
 @Component({
-  selector: 'blg-grid-row',
+  selector: 'ng-ui-lib-row',
   template: `
     <div 
-      class="blg-grid-row"
+      class="ng-ui-lib-row"
       [class.selected]="isSelected"
       [class.even]="isEven"
       [class.odd]="!isEven">
       
-      <blg-grid-cell
+      <ng-ui-lib-cell
         *ngFor="let column of columns; trackBy: trackByColumnId"
         [data]="data"
         [column]="column"
         [value]="getCellValue(column)"
         [selected]="isSelected"
         (valueChange)="onCellValueChange($event, column)">
-      </blg-grid-cell>
+      </ng-ui-lib-cell>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -891,7 +891,7 @@ export class GridCacheService {
   
   private async initializeCacheAPI(): Promise<void> {
     if ('caches' in window) {
-      this.l2Cache = await caches.open('blg-grid-cache-v1');
+      this.l2Cache = await caches.open('ng-ui-lib-cache-v1');
     }
   }
   

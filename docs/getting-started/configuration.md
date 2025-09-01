@@ -15,7 +15,7 @@ BlgGrid configuration is split into two main areas:
 The simplest grid configuration:
 
 ```typescript
-import { GridConfig } from '@blg-grid/core';
+import { GridConfig } from '@ng-ui-lib/core';
 
 const basicConfig: GridConfig = {
   // Essential settings
@@ -291,7 +291,7 @@ const exportConfig: GridConfig = {
 ### Basic Column Setup
 
 ```typescript
-import { ColumnDefinition } from '@blg-grid/core';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 
 const basicColumns: ColumnDefinition[] = [
   {
@@ -429,22 +429,22 @@ Here's a comprehensive configuration example:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-enterprise-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       [config]="config"
       (gridReady)="onGridReady($event)"
       (selectionChanged)="onSelectionChanged($event)"
       (columnResized)="onColumnResized($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class EnterpriseGridComponent {
@@ -752,8 +752,8 @@ With your grid properly configured:
 
 ## Configuration Examples
 
-- [Basic Configuration](https://stackblitz.com/edit/blg-grid-basic-config)
-- [Advanced Configuration](https://stackblitz.com/edit/blg-grid-advanced-config)
-- [Responsive Configuration](https://stackblitz.com/edit/blg-grid-responsive-config)
-- [Theme Configuration](https://stackblitz.com/edit/blg-grid-theme-config)
-- [Enterprise Configuration](https://stackblitz.com/edit/blg-grid-enterprise-config)
+- [Basic Configuration](https://stackblitz.com/edit/ng-ui-lib-basic-config)
+- [Advanced Configuration](https://stackblitz.com/edit/ng-ui-lib-advanced-config)
+- [Responsive Configuration](https://stackblitz.com/edit/ng-ui-lib-responsive-config)
+- [Theme Configuration](https://stackblitz.com/edit/ng-ui-lib-theme-config)
+- [Enterprise Configuration](https://stackblitz.com/edit/ng-ui-lib-enterprise-config)

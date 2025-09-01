@@ -1,0 +1,189 @@
+name: Publish Packages to GitHub Packages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.2.3)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Is this a prerelease?'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '20'
+  REGISTRY_URL: 'https://npm.pkg.github.com'
+  SCOPE: '@bigledger'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.REGISTRY_URL }}
+          scope: ${{ env.SCOPE }}
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint all packages
+        run: npm run lint
+
+      - name: Test all packages
+        run: npm run test
+        env:
+          CI: true
+
+      - name: Build all packages
+        run: npm run build
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          CI: true
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-packages
+          path: dist/
+          retention-days: 5
+
+  publish-packages:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.REGISTRY_URL }}
+          scope: ${{ env.SCOPE }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-packages
+          path: dist/
+
+      - name: Set version from release
+        if: github.event_name == 'release'
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Publishing version: $VERSION"
+
+      - name: Set version from workflow dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "PACKAGE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "Publishing version: ${{ github.event.inputs.version }}"
+
+      - name: Prepare packages for publishing
+        run: node scripts/prepare-packages.js
+        env:
+          PACKAGE_VERSION: ${{ env.PACKAGE_VERSION }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IS_PRERELEASE: ${{ github.event.inputs.prerelease || github.event.release.prerelease }}
+
+      - name: Publish packages to GitHub Packages
+        run: node scripts/publish-packages.js
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_VERSION: ${{ env.PACKAGE_VERSION }}
+
+      - name: Generate changelog
+        if: github.event_name == 'release'
+        run: node scripts/generate-changelog.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_VERSION: ${{ env.PACKAGE_VERSION }}
+
+  generate-docs:
+    needs: publish-packages
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && !github.event.release.prerelease
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build documentation
+        run: |
+          npm run build
+          npm run docs:generate || echo "Documentation generation step not yet implemented"
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/dist
+          commit_message: 'docs: update documentation for v${{ env.PACKAGE_VERSION }}'
+
+  notify-success:
+    needs: [build-and-test, publish-packages, generate-docs]
+    runs-on: ubuntu-latest
+    if: always() && (needs.build-and-test.result == 'success' && needs.publish-packages.result == 'success')
+    steps:
+      - name: Notify success
+        run: |
+          echo "✅ Packages published successfully!"
+          echo "📦 Published version: ${{ env.PACKAGE_VERSION }}"
+          echo "🔗 Registry: ${{ env.REGISTRY_URL }}/${{ env.SCOPE }}"
+
+  notify-failure:
+    needs: [build-and-test, publish-packages]
+    runs-on: ubuntu-latest
+    if: always() && (needs.build-and-test.result == 'failure' || needs.publish-packages.result == 'failure')
+    steps:
+      - name: Notify failure
+        run: |
+          echo "❌ Package publishing failed!"
+          echo "📋 Check the workflow logs for details"
+          exit 1

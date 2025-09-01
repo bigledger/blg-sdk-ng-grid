@@ -24,11 +24,11 @@ Excel export functionality provides advanced export capabilities to Microsoft Ex
       <button (click)="exportWithFormatting()">Export with Formatting</button>
       <button (click)="exportMultipleSheets()">Export Multiple Sheets</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicExcelExportComponent {

@@ -11,7 +11,7 @@ This guide covers the essential configuration options for BlgGrid to get you up 
 The `GridConfig` interface defines the main configuration options for your grid:
 
 ```typescript
-import { GridConfig } from '@blg-grid/core';
+import { GridConfig } from '@ng-ui-lib/core';
 
 const gridConfig: GridConfig = {
   // Row settings
@@ -40,7 +40,7 @@ const gridConfig: GridConfig = {
 Define how your columns should behave and appear:
 
 ```typescript
-import { ColumnDefinition } from '@blg-grid/core';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 
 const columnDefs: ColumnDefinition[] = [
   {
@@ -160,8 +160,8 @@ Here's a comprehensive example combining all configuration options:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 interface ProductData {
   id: number;
@@ -179,14 +179,14 @@ interface ProductData {
   imports: [Grid],
   template: `
     <div class="grid-container">
-      <blg-grid 
+      <ng-ui-lib 
         [data]="products" 
         [columns]="columns" 
         [config]="config"
         (rowSelect)="onRowSelect($event)"
         (cellClick)="onCellClick($event)"
         (columnSort)="onColumnSort($event)">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `,
   styles: [`

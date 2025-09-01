@@ -58,7 +58,7 @@ ng version
 ```bash
 # Fork the repository on GitHub first, then clone your fork
 git clone https://github.com/YOUR_USERNAME/blg-sdk-ng-grid.git
-cd blg-grid
+cd ng-ui-lib
 
 # Add the upstream remote
 git remote add upstream https://github.com/ORIGINAL_OWNER/blg-sdk-ng-grid.git
@@ -156,13 +156,13 @@ BLG Grid uses Nx for managing the monorepo structure. Key Nx concepts:
 ### Libraries Structure
 ```
 libs/
-├── core/           # @blg-grid/core - Core services and interfaces
-├── grid/           # @blg-grid/grid - Main grid component
-├── column/         # @blg-grid/column - Column management
-├── row/            # @blg-grid/row - Row components
-├── cell/           # @blg-grid/cell - Cell components  
-├── data/           # @blg-grid/data - Data services
-└── theme/          # @blg-grid/theme - Theming system
+├── core/           # @ng-ui-lib/core - Core services and interfaces
+├── grid/           # @ng-ui-lib/grid - Main grid component
+├── column/         # @ng-ui-lib/column - Column management
+├── row/            # @ng-ui-lib/row - Row components
+├── cell/           # @ng-ui-lib/cell - Cell components  
+├── data/           # @ng-ui-lib/data - Data services
+└── theme/          # @ng-ui-lib/theme - Theming system
 ```
 
 ### Key Nx Commands

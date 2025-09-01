@@ -17,14 +17,14 @@ Column pinning allows you to fix columns to the left or right side of the grid, 
 ### Static Pinning in Column Definitions
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class PinnedColumnsComponent {
@@ -83,12 +83,12 @@ export class PinnedColumnsComponent {
       <button (click)="unpinColumn('name')">Unpin Name</button>
       <button (click)="clearAllPinned()">Clear All Pinned</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DynamicPinningComponent {
@@ -295,12 +295,12 @@ export class PinnedColumnGroupsComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [getContextMenuItems]="getContextMenuItems.bind(this)"
       (columnPinned)="onColumnPinned($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ContextMenuPinningComponent {

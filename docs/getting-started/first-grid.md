@@ -18,8 +18,8 @@ Create a new Angular component for your grid:
 ```typescript
 // car-grid.component.ts
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-car-grid',
@@ -195,14 +195,14 @@ Create the HTML template:
   </div>
   
   <div class="grid-wrapper">
-    <blg-grid 
+    <ng-ui-lib 
       [data]="rowData"
       [columns]="columnDefs"
       [config]="gridConfig"
       (cellClick)="onCellClick($event)"
       (rowSelect)="onRowSelect($event)"
       (columnSort)="onColumnSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   </div>
   
   <div class="grid-footer">
@@ -216,7 +216,7 @@ Create the HTML template:
 Handle grid events in your component:
 
 ```typescript
-import { CellClickEvent, RowSelectEvent, ColumnSortEvent } from '@blg-grid/core';
+import { CellClickEvent, RowSelectEvent, ColumnSortEvent } from '@ng-ui-lib/core';
 
 export class CarGridComponent {
   // ... existing code ...
@@ -300,7 +300,7 @@ Add CSS styling:
 }
 
 // Import BlgGrid theme
-@import '@blg-grid/theme/styles/default-theme';
+@import '@ng-ui-lib/theme/styles/default-theme';
 ```
 
 ## Step 8: Use in Your App
@@ -339,14 +339,14 @@ Here's the complete working component:
 ```typescript
 // car-grid.component.ts
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 import { 
   ColumnDefinition, 
   GridConfig, 
   CellClickEvent, 
   RowSelectEvent, 
   ColumnSortEvent 
-} from '@blg-grid/core';
+} from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-car-grid',
@@ -360,14 +360,14 @@ import {
       </div>
       
       <div class="grid-wrapper">
-        <blg-grid 
+        <ng-ui-lib 
           [data]="rowData"
           [columns]="columnDefs"
           [config]="gridConfig"
           (cellClick)="onCellClick($event)"
           (rowSelect)="onRowSelect($event)"
           (columnSort)="onColumnSort($event)">
-        </blg-grid>
+        </ng-ui-lib>
       </div>
       
       <div class="grid-footer">
@@ -579,6 +579,6 @@ Now that you have a working grid:
 ## Live Examples
 
 See this grid in action:
-- [Basic Grid](https://stackblitz.com/edit/blg-grid-first-grid) - The example from this guide
-- [Car Inventory](https://stackblitz.com/edit/blg-grid-car-inventory) - Enhanced version with more features
-- [Interactive Demo](https://stackblitz.com/edit/blg-grid-interactive) - Try different configurations
+- [Basic Grid](https://stackblitz.com/edit/ng-ui-lib-first-grid) - The example from this guide
+- [Car Inventory](https://stackblitz.com/edit/ng-ui-lib-car-inventory) - Enhanced version with more features
+- [Interactive Demo](https://stackblitz.com/edit/ng-ui-lib-interactive) - Try different configurations

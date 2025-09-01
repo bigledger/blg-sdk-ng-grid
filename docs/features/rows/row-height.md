@@ -17,15 +17,15 @@ Row height management in BLG Grid provides flexible control over individual row 
 ### Fixed Row Height
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [rowHeight]="40">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class FixedRowHeightComponent {
@@ -47,11 +47,11 @@ export class FixedRowHeightComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [getRowHeight]="getRowHeight.bind(this)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DynamicRowHeightComponent {
@@ -108,12 +108,12 @@ export class DynamicRowHeightComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [domLayout]="'autoHeight'"
       [suppressHorizontalScroll]="true">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class AutoHeightRowsComponent {

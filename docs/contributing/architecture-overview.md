@@ -232,28 +232,28 @@ export class GridStateService {
 
 ```typescript
 @Component({
-  selector: 'blg-grid',
+  selector: 'ng-ui-lib',
   template: `
-    <div class="blg-grid-container" [class]="containerClasses()">
-      <blg-grid-header 
+    <div class="ng-ui-lib-container" [class]="containerClasses()">
+      <ng-ui-lib-header 
         *ngIf="config().showHeader"
         [columns]="columns()"
         [sortState]="sortState()"
         (sortChange)="onSortChange($event)">
-      </blg-grid-header>
+      </ng-ui-lib-header>
       
-      <blg-grid-body 
+      <ng-ui-lib-body 
         [data]="displayData()"
         [columns]="columns()"
         [virtualScroll]="config().virtualScroll"
         (selectionChange)="onSelectionChange($event)">
-      </blg-grid-body>
+      </ng-ui-lib-body>
       
-      <blg-grid-footer 
+      <ng-ui-lib-footer 
         *ngIf="config().showFooter"
         [pagination]="paginationState()"
         (pageChange)="onPageChange($event)">
-      </blg-grid-footer>
+      </ng-ui-lib-footer>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

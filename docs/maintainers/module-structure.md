@@ -23,16 +23,16 @@ The BLG Grid library is organized into seven focused modules, each with specific
 ### Module Hierarchy
 
 ```
-@blg-grid/core          (Foundation - No dependencies)
+@ng-ui-lib/core          (Foundation - No dependencies)
        ↑
    ┌───┴───┬───────┬───────┬───────┐
    ↑       ↑       ↑       ↑       ↑
-@blg-grid/ @blg-grid/ @blg-grid/ @blg-grid/ @blg-grid/
+@ng-ui-lib/ @ng-ui-lib/ @ng-ui-lib/ @ng-ui-lib/ @ng-ui-lib/
   data     theme    column    row     cell
    ↑       ↑       ↑       ↑       ↑
    └───────┴───┬───┴───┬───┴───┬───┘
                ↑       ↑       ↑
-            @blg-grid/grid (Top-level orchestration)
+            @ng-ui-lib/grid (Top-level orchestration)
 ```
 
 ### Module Size and Complexity
@@ -186,7 +186,7 @@ const dependencyMatrix = {
 
 ## Module Responsibilities
 
-### @blg-grid/core
+### @ng-ui-lib/core
 
 **Primary Responsibility**: Foundation services, interfaces, and utilities
 
@@ -230,7 +230,7 @@ core/src/lib/
     └── grid.tokens.ts
 ```
 
-### @blg-grid/data
+### @ng-ui-lib/data
 
 **Primary Responsibility**: Data processing, transformation, and management
 
@@ -275,7 +275,7 @@ export class DataPipeline<T> {
 }
 ```
 
-### @blg-grid/theme
+### @ng-ui-lib/theme
 
 **Primary Responsibility**: Styling system and theme management
 
@@ -344,7 +344,7 @@ export interface ThemeConfig {
 }
 ```
 
-### @blg-grid/column
+### @ng-ui-lib/column
 
 **Primary Responsibility**: Column management, headers, and column-specific operations
 
@@ -366,7 +366,7 @@ export class ColumnValidationService {
 }
 ```
 
-### @blg-grid/row
+### @ng-ui-lib/row
 
 **Primary Responsibility**: Row rendering, selection, and row-level operations
 
@@ -389,7 +389,7 @@ export class RowRenderingService {
 }
 ```
 
-### @blg-grid/cell
+### @ng-ui-lib/cell
 
 **Primary Responsibility**: Cell rendering, editing, and cell-level operations
 
@@ -411,7 +411,7 @@ export class CellRenderingService {
 }
 ```
 
-### @blg-grid/grid
+### @ng-ui-lib/grid
 
 **Primary Responsibility**: Main grid orchestration and integration
 
@@ -811,7 +811,7 @@ export interface PlannedModule {
 export const MODULE_ROADMAP: ModuleRoadmap = {
   planned: [
     {
-      name: '@blg-grid/export',
+      name: '@ng-ui-lib/export',
       version: '1.3.0',
       description: 'Advanced export functionality',
       dependencies: ['core@1.2.0', 'data@1.2.0'],
@@ -822,7 +822,7 @@ export const MODULE_ROADMAP: ModuleRoadmap = {
   deprecated: [],
   experimental: [
     {
-      name: '@blg-grid/ai',
+      name: '@ng-ui-lib/ai',
       version: '0.1.0-alpha',
       description: 'AI-powered grid features',
       dependencies: ['core@1.2.0'],

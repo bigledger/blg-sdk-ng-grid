@@ -10,7 +10,7 @@ The BLG Grid automatically applies appropriate ARIA attributes:
 
 ```html
 <!-- Grid container -->
-<div class="blg-grid" 
+<div class="ng-ui-lib" 
      role="grid" 
      tabindex="0"
      aria-label="Data Grid"
@@ -47,13 +47,13 @@ The BLG Grid automatically applies appropriate ARIA attributes:
 @Component({
   selector: 'app-accessible-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="employees"
       [columns]="columns"
       [config]="config"
       [ariaLabel]="gridAriaLabel"
       [ariaDescription]="gridDescription">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class AccessibleGridComponent {
@@ -120,13 +120,13 @@ The grid supports comprehensive keyboard navigation:
       </ul>
     </div>
     
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       [config]="config"
       (focusChange)="announceFocusChange($event)"
       (keyboardAction)="announceAction($event)">
-    </blg-grid>
+    </ng-ui-lib>
     
     <!-- Screen reader announcements -->
     <div aria-live="assertive" class="sr-only">
@@ -286,7 +286,7 @@ export class CustomKeyboardGridComponent {
       {{ getSelectionSummary() }}
     </div>
     
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       [config]="config"
@@ -294,7 +294,7 @@ export class CustomKeyboardGridComponent {
       (dataChange)="updateSummary()"
       (sortChange)="announceSortChange($event)"
       (selectionChange)="announceSelectionChange($event)">
-    </blg-grid>
+    </ng-ui-lib>
     
     <!-- Live region for dynamic announcements -->
     <div 
@@ -435,19 +435,19 @@ export class ScreenReaderGridComponent {
 ```css
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .blg-grid {
-    --blg-grid-border-color: #000000;
-    --blg-grid-text-primary: #000000;
-    --blg-grid-bg-primary: #ffffff;
-    --blg-grid-primary-color: #0000ff;
+  .ng-ui-lib {
+    --ng-ui-lib-border-color: #000000;
+    --ng-ui-lib-text-primary: #000000;
+    --ng-ui-lib-bg-primary: #ffffff;
+    --ng-ui-lib-primary-color: #0000ff;
   }
   
-  .blg-grid .grid-row.selected {
+  .ng-ui-lib .grid-row.selected {
     background: #000000;
     color: #ffffff;
   }
   
-  .blg-grid .grid-cell:focus {
+  .ng-ui-lib .grid-cell:focus {
     outline: 3px solid #000000;
     outline-offset: -3px;
   }
@@ -455,18 +455,18 @@ export class ScreenReaderGridComponent {
 
 /* Windows High Contrast Mode */
 @media (-ms-high-contrast: active) {
-  .blg-grid {
+  .ng-ui-lib {
     border: 1px solid WindowText;
     background: Window;
     color: WindowText;
   }
   
-  .blg-grid .grid-header {
+  .ng-ui-lib .grid-header {
     background: ButtonFace;
     color: ButtonText;
   }
   
-  .blg-grid .grid-row.selected {
+  .ng-ui-lib .grid-row.selected {
     background: Highlight;
     color: HighlightText;
   }
@@ -474,18 +474,18 @@ export class ScreenReaderGridComponent {
 
 /* Forced colors mode (newer standard) */
 @media (forced-colors: active) {
-  .blg-grid {
+  .ng-ui-lib {
     border: 1px solid CanvasText;
     background: Canvas;
     color: CanvasText;
   }
   
-  .blg-grid .grid-row.selected {
+  .ng-ui-lib .grid-row.selected {
     background: SelectedItem;
     color: SelectedItemText;
   }
   
-  .blg-grid .grid-cell:focus {
+  .ng-ui-lib .grid-cell:focus {
     outline: 2px solid Highlight;
   }
 }
@@ -556,31 +556,31 @@ export class FocusManagedGridComponent implements AfterViewInit {
 ```css
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  .blg-grid * {
+  .ng-ui-lib * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
   
-  .blg-grid .loading-spinner {
+  .ng-ui-lib .loading-spinner {
     animation: none !important;
   }
   
-  .blg-grid .scroll-indicator {
+  .ng-ui-lib .scroll-indicator {
     display: none;
   }
 }
 
 /* Alternative indicators for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .blg-grid .sorting-indicator {
+  .ng-ui-lib .sorting-indicator {
     /* Use static icons instead of animations */
     transition: none;
   }
   
-  .blg-grid .row-highlight {
+  .ng-ui-lib .row-highlight {
     /* Use solid colors instead of fade effects */
-    background: var(--blg-grid-primary-light);
+    background: var(--ng-ui-lib-primary-light);
   }
 }
 ```
@@ -642,31 +642,31 @@ export class ColorblindFriendlyGridComponent {
 
 ```css
 /* Use patterns and textures in addition to colors */
-.blg-grid .priority-high {
+.ng-ui-lib .priority-high {
   background: repeating-linear-gradient(
     45deg,
-    var(--blg-grid-danger),
-    var(--blg-grid-danger) 2px,
+    var(--ng-ui-lib-danger),
+    var(--ng-ui-lib-danger) 2px,
     transparent 2px,
     transparent 6px
   );
-  border-left: 4px solid var(--blg-grid-danger);
+  border-left: 4px solid var(--ng-ui-lib-danger);
 }
 
-.blg-grid .priority-medium {
+.ng-ui-lib .priority-medium {
   background: repeating-linear-gradient(
     90deg,
-    var(--blg-grid-warning),
-    var(--blg-grid-warning) 1px,
+    var(--ng-ui-lib-warning),
+    var(--ng-ui-lib-warning) 1px,
     transparent 1px,
     transparent 4px
   );
-  border-left: 4px solid var(--blg-grid-warning);
+  border-left: 4px solid var(--ng-ui-lib-warning);
 }
 
-.blg-grid .priority-low {
-  background: dots 2px var(--blg-grid-info);
-  border-left: 4px solid var(--blg-grid-info);
+.ng-ui-lib .priority-low {
+  background: dots 2px var(--ng-ui-lib-info);
+  border-left: 4px solid var(--ng-ui-lib-info);
 }
 ```
 
@@ -695,7 +695,7 @@ describe('Grid Accessibility', () => {
     const fixture = TestBed.createComponent(AccessibleGridComponent);
     fixture.detectChanges();
     
-    const gridElement = fixture.nativeElement.querySelector('.blg-grid');
+    const gridElement = fixture.nativeElement.querySelector('.ng-ui-lib');
     expect(gridElement.getAttribute('role')).toBe('grid');
     expect(gridElement.getAttribute('aria-label')).toBeTruthy();
     expect(gridElement.getAttribute('aria-rowcount')).toBeTruthy();
@@ -706,7 +706,7 @@ describe('Grid Accessibility', () => {
     const fixture = TestBed.createComponent(AccessibleGridComponent);
     fixture.detectChanges();
     
-    const gridElement = fixture.nativeElement.querySelector('.blg-grid');
+    const gridElement = fixture.nativeElement.querySelector('.ng-ui-lib');
     
     // Test tab navigation
     gridElement.focus();

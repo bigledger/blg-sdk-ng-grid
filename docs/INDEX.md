@@ -161,7 +161,7 @@ This documentation is continuously updated. For the latest version:
 
 - **Issues**: [GitHub Issues](https://github.com/bigledger/blg-sdk-ng-grid/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/bigledger/blg-sdk-ng-grid/discussions)
-- **Examples**: [StackBlitz Examples](https://stackblitz.com/@blg-grid)
+- **Examples**: [StackBlitz Examples](https://stackblitz.com/@ng-ui-lib)
 
 ## 📖 Documentation Conventions
 

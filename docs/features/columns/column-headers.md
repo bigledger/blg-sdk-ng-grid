@@ -18,14 +18,14 @@ Column headers provide essential navigation, sorting, filtering, and customizati
 ### Simple Header Setup
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicHeaderComponent {
@@ -102,7 +102,7 @@ export class HeaderTooltipsComponent {
 
 ```typescript
 import { Component } from '@angular/core';
-import { IHeaderAngularComp } from '@blg/grid';
+import { IHeaderAngularComp } from '@ng-ui/grid';
 
 @Component({
   selector: 'app-custom-header',
@@ -263,11 +263,11 @@ export class CustomHeaderComponent implements IHeaderAngularComp {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [frameworkComponents]="frameworkComponents">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class GridWithCustomHeadersComponent {

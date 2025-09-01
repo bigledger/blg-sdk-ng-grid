@@ -1,0 +1,54 @@
+{
+  "name": "ag-grid-migration-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for ag-Grid to BigLedger Grid migration",
+  "main": "run-migration-tests.js",
+  "scripts": {
+    "test": "npx ts-node run-migration-tests.ts",
+    "test:basic": "npx playwright test scenarios/basic-grid-migration.spec.ts",
+    "test:advanced": "npx playwright test scenarios/advanced-features-migration.spec.ts",
+    "test:api": "npx playwright test api-compatibility/",
+    "test:performance": "npx playwright test performance/migration-performance-comparison.spec.ts",
+    "test:edge-cases": "npx playwright test edge-cases/migration-edge-cases.spec.ts",
+    "test:compatibility": "npx playwright test scenarios/ api-compatibility/",
+    "test:all": "npx ts-node run-migration-tests.ts",
+    "test:ci": "npx ts-node run-migration-tests.ts --json --quiet",
+    "build": "npx tsc",
+    "clean": "rm -rf migration-test-results/ *.js *.js.map",
+    "validate": "npx tsc --noEmit"
+  },
+  "keywords": [
+    "ag-grid",
+    "migration",
+    "testing",
+    "angular",
+    "playwright",
+    "compatibility",
+    "performance"
+  ],
+  "author": "BigLedger Grid Team",
+  "license": "MIT",
+  "dependencies": {
+    "@playwright/test": "^1.40.0",
+    "commander": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "utils/",
+    "test-data/",
+    "scenarios/",
+    "api-compatibility/",
+    "performance/",
+    "edge-cases/",
+    "migration-test-runner.ts",
+    "run-migration-tests.ts",
+    "README.md"
+  ]
+}

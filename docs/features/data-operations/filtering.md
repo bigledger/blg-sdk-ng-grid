@@ -20,20 +20,20 @@ Enable filtering globally or per-column:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-filterable-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       (filterChanged)="onFilterChanged($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class FilterableGridComponent {
@@ -302,7 +302,7 @@ Create complex filter conditions:
       <button (click)="clearAdvancedFilter()">Clear All</button>
     </div>
     
-    <blg-grid [data]="filteredData" [columns]="columns" [config]="config"></blg-grid>
+    <ng-ui-lib [data]="filteredData" [columns]="columns" [config]="config"></ng-ui-lib>
   `
 })
 export class AdvancedFilterComponent {
@@ -394,11 +394,11 @@ Implement a global search across all columns:
       <button (click)="clearQuickFilter(quickFilter)">Clear</button>
     </div>
     
-    <blg-grid
+    <ng-ui-lib
       [data]="filteredData()"
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class QuickFilterComponent {
@@ -910,9 +910,9 @@ describe('Grid Filtering', () => {
 
 ## Examples
 
-- [Basic Filtering](https://stackblitz.com/edit/blg-grid-filtering-basic)
-- [Advanced Filters](https://stackblitz.com/edit/blg-grid-filtering-advanced)
-- [Custom Filter Components](https://stackblitz.com/edit/blg-grid-filtering-custom)
-- [Server-Side Filtering](https://stackblitz.com/edit/blg-grid-filtering-server)
-- [Filter State Management](https://stackblitz.com/edit/blg-grid-filtering-state)
-- [Quick Filter](https://stackblitz.com/edit/blg-grid-filtering-quick)
+- [Basic Filtering](https://stackblitz.com/edit/ng-ui-lib-filtering-basic)
+- [Advanced Filters](https://stackblitz.com/edit/ng-ui-lib-filtering-advanced)
+- [Custom Filter Components](https://stackblitz.com/edit/ng-ui-lib-filtering-custom)
+- [Server-Side Filtering](https://stackblitz.com/edit/ng-ui-lib-filtering-server)
+- [Filter State Management](https://stackblitz.com/edit/ng-ui-lib-filtering-state)
+- [Quick Filter](https://stackblitz.com/edit/ng-ui-lib-filtering-quick)

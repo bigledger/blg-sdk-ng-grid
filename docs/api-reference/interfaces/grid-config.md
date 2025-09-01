@@ -5,7 +5,7 @@ Configuration interface for controlling grid behavior and appearance.
 ## Import
 
 ```typescript
-import { GridConfig } from '@blg-grid/core';
+import { GridConfig } from '@ng-ui-lib/core';
 ```
 
 ## Interface Definition
@@ -200,11 +200,11 @@ const defaultConfig: GridConfig = {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="basicConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicGridComponent {
@@ -220,11 +220,11 @@ export class BasicGridComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="largeDataset" 
       [columns]="columns" 
       [config]="perfConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class PerformanceGridComponent {
@@ -242,11 +242,11 @@ export class PerformanceGridComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="readOnlyData" 
       [columns]="columns" 
       [config]="readOnlyConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ReadOnlyGridComponent {
@@ -265,11 +265,11 @@ export class ReadOnlyGridComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="fullFeaturedConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class FullFeaturedGridComponent {
@@ -293,11 +293,11 @@ export class FullFeaturedGridComponent {
 @Component({
   template: `
     <div class="dark-theme-container">
-      <blg-grid 
+      <ng-ui-lib 
         [data]="data" 
         [columns]="columns" 
         [config]="darkConfig">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })

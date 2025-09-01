@@ -5,13 +5,13 @@ The main component for displaying data grids with virtual scrolling, sorting, fi
 ## Selector
 
 ```typescript
-blg-grid
+ng-ui-lib
 ```
 
 ## Import
 
 ```typescript
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 ```
 
 ## Properties
@@ -233,7 +233,7 @@ The Grid component includes comprehensive accessibility support:
 The Grid component applies these CSS classes:
 
 ```scss
-.blg-grid {
+.ng-ui-lib {
   // Main grid container
   &__header {
     // Header row
@@ -287,11 +287,11 @@ config: GridConfig = {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicGridComponent {
@@ -317,13 +317,13 @@ export class BasicGridComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns"
       (cellClick)="onCellClick($event)"
       (rowSelect)="onRowSelect($event)"
       (columnSort)="onColumnSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class EventGridComponent {
@@ -346,11 +346,11 @@ export class EventGridComponent {
 @Component({
   template: `
     <div style="height: 500px;">
-      <blg-grid 
+      <ng-ui-lib 
         [data]="largeDataset" 
         [columns]="columns" 
         [config]="config">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })

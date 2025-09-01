@@ -17,16 +17,16 @@ Row dragging enables users to reorder rows by dragging them to new positions wit
 ### Enable Row Dragging
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [rowDragManaged]="true"
       [animateRows]="true">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicRowDraggingComponent {
@@ -60,14 +60,14 @@ export class BasicRowDraggingComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [rowDragManaged]="true"
       [frameworkComponents]="frameworkComponents"
       (rowDragMove)="onRowDragMove($event)"
       (rowDragEnd)="onRowDragEnd($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class CustomDragHandleComponent {
@@ -328,26 +328,26 @@ export class MultiRowDraggingComponent {
     <div class="grid-container">
       <div class="source-grid">
         <h3>Source Grid</h3>
-        <blg-grid
+        <ng-ui-lib
           #sourceGrid
           [rowData]="sourceRowData"
           [columnDefs]="columnDefs"
           [rowDragManaged]="false"
           (rowDragLeave)="onRowDragLeave($event)"
           (rowDragEnd)="onRowDragEnd($event)">
-        </blg-grid>
+        </ng-ui-lib>
       </div>
       
       <div class="target-grid">
         <h3>Target Grid</h3>
-        <blg-grid
+        <ng-ui-lib
           #targetGrid
           [rowData]="targetRowData"
           [columnDefs]="columnDefs"
           [rowDragManaged]="false"
           (rowDragEnter)="onRowDragEnter($event)"
           (rowDragEnd)="onRowDragEnd($event)">
-        </blg-grid>
+        </ng-ui-lib>
       </div>
     </div>
   `,

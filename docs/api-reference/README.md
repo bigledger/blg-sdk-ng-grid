@@ -28,16 +28,16 @@ Complete reference for all BlgGrid components, interfaces, and services.
 ### Basic Usage
 
 ```typescript
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 ```

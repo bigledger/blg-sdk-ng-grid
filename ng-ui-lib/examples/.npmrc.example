@@ -1,0 +1,38 @@
+# NPM Configuration for BigLedger GitHub Packages
+# This file should be placed in your project root as .npmrc
+# Replace YOUR_GITHUB_TOKEN with your actual Personal Access Token
+
+# Configure GitHub Packages registry for BigLedger scope
+@bigledger:registry=https://npm.pkg.github.com
+
+# Authentication token for GitHub Packages
+# Get your token from: https://github.com/settings/tokens
+# Required scopes: read:packages (and write:packages if publishing)
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+
+# Optional: Default registry for other packages
+registry=https://registry.npmjs.org/
+
+# Optional: Save exact versions in package.json
+save-exact=true
+
+# Optional: Prevent npm audit from running automatically
+audit=false
+
+# Optional: Set log level (info, warn, error, silent)
+loglevel=warn
+
+# Optional: Configure npm install behavior
+package-lock=true
+shrinkwrap=false
+
+# Optional: Set timeout for registry requests (in milliseconds)
+timeout=60000
+
+# Optional: Configure proxy if behind corporate firewall
+# proxy=http://proxy.company.com:8080
+# https-proxy=http://proxy.company.com:8080
+
+# Optional: Configure GitHub Packages for different organizations
+# @your-org:registry=https://npm.pkg.github.com
+# //npm.pkg.github.com/:_authToken=YOUR_OTHER_TOKEN

@@ -19,7 +19,7 @@ The Editing API provides comprehensive programmatic control over cell editing op
 
 ```typescript
 import { Component, ViewChild } from '@angular/core';
-import { BlgGridComponent, GridApi } from '@blg/grid';
+import { BlgGridComponent, GridApi } from '@ng-ui/grid';
 
 @Component({
   template: `
@@ -29,12 +29,12 @@ import { BlgGridComponent, GridApi } from '@blg/grid';
       <button (click)="stopEditing()">Stop All Editing</button>
       <button (click)="stopEditingAndCancel()">Cancel All Editing</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class EditingApiComponent {

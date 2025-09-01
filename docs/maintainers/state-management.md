@@ -501,7 +501,7 @@ export class StateSynchronizationService {
 // Automatic state persistence
 @Injectable()
 export class StatePersistenceService {
-  private readonly STORAGE_KEY = 'blg-grid-state';
+  private readonly STORAGE_KEY = 'ng-ui-lib-state';
   
   constructor(private gridState: GridStateService) {
     // Auto-save state on changes

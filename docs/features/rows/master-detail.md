@@ -17,16 +17,16 @@ Master-Detail provides the capability to show detailed information for each row 
 ### Simple Detail Panel
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [masterDetail]="true"
       [detailCellRendererParams]="detailCellRendererParams">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicMasterDetailComponent {
@@ -102,13 +102,13 @@ export class BasicMasterDetailComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [masterDetail]="true"
       [detailCellRenderer]="'customDetailRenderer'"
       [frameworkComponents]="frameworkComponents">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class CustomDetailTemplateComponent {

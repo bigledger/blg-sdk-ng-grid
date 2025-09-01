@@ -1,0 +1,54 @@
+{
+  "name": "@ng-ui/export",
+  "version": "1.0.0",
+  "description": "Comprehensive unified export service for Angular applications supporting multiple formats including PDF, Excel, Word, CSV, JSON, Images, and Google Workspace integration.",
+  "keywords": [
+    "angular",
+    "export",
+    "pdf",
+    "excel",
+    "word",
+    "csv",
+    "json",
+    "image",
+    "google-sheets",
+    "google-docs",
+    "typescript"
+  ],
+  "author": "NG-UI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ng-ui/export"
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "dependencies": {},
+  "optionalDependencies": {
+    "jspdf": "^2.5.1",
+    "html2canvas": "^1.4.1",
+    "xlsx": "^0.18.5",
+    "docx": "^8.5.0"
+  },
+  "sideEffects": false,
+  "main": "./index.js",
+  "module": "./esm2022/index.mjs",
+  "es2022": "./esm2022/index.mjs",
+  "esm2022": "./esm2022/index.mjs",
+  "fesm2022": "./fesm2022/ng-ui-export.mjs",
+  "typings": "./index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/index.mjs",
+      "es2022": "./esm2022/index.mjs",
+      "default": "./fesm2022/ng-ui-export.mjs"
+    }
+  }
+}

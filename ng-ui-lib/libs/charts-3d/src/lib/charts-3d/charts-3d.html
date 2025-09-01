@@ -1,0 +1,41 @@
+<ng-container [ngSwitch]="config.type">
+  <ng-ui-bar-chart-3d
+    *ngSwitchCase="'3d-bar'"
+    [config]="config"
+    [data]="data"
+    [showStats]="showStats"
+    (chartClick)="onChartClick($event)"
+    (chartHover)="onChartHover($event)"
+    (chartSelect)="onChartSelect($event)"
+    (initialized)="onInitialized()"
+    (error)="onError($event)"
+  ></ng-ui-bar-chart-3d>
+  
+  <ng-ui-scatter-chart-3d
+    *ngSwitchCase="'3d-scatter'"
+    [config]="config"
+    [data]="data"
+    [showStats]="showStats"
+    (chartClick)="onChartClick($event)"
+    (chartHover)="onChartHover($event)"
+    (chartSelect)="onChartSelect($event)"
+    (initialized)="onInitialized()"
+    (error)="onError($event)"
+  ></ng-ui-scatter-chart-3d>
+  
+  <ng-ui-globe-chart-3d
+    *ngSwitchCase="'3d-globe'"
+    [config]="config"
+    [data]="data"
+    [showStats]="showStats"
+    (chartClick)="onChartClick($event)"
+    (chartHover)="onChartHover($event)"
+    (chartSelect)="onChartSelect($event)"
+    (initialized)="onInitialized()"
+    (error)="onError($event)"
+  ></ng-ui-globe-chart-3d>
+  
+  <div *ngSwitchDefault class="chart-3d-error">
+    <span>Unsupported chart type: {{ config.type }}</span>
+  </div>
+</ng-container>

@@ -17,14 +17,14 @@ Column spanning allows cells to extend across multiple columns, creating merged 
 ### Static Column Spanning
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicColumnSpanningComponent {

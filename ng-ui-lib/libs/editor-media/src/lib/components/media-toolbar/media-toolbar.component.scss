@@ -1,0 +1,60 @@
+.blg-media-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selection-count {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  color: #374151;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+  }
+
+  &.secondary {
+    color: #ef4444;
+    border-color: #fecaca;
+
+    &:hover {
+      background-color: #fef2f2;
+    }
+  }
+
+  i {
+    width: 16px;
+    height: 16px;
+  }
+}

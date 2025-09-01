@@ -17,16 +17,16 @@ Row pinning allows you to fix specific rows to the top or bottom of the grid, ke
 ### Static Pinned Rows
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [pinnedTopRowData]="pinnedTopRowData"
       [pinnedBottomRowData]="pinnedBottomRowData">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class StaticPinnedRowsComponent {
@@ -93,7 +93,7 @@ export class StaticPinnedRowsComponent {
       <button (click)="clearPinnedRows()">Clear Pinned Rows</button>
       <button (click)="pinCurrentSelection()">Pin Selected Row</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [rowData]="rowData"
       [columnDefs]="columnDefs"
@@ -101,7 +101,7 @@ export class StaticPinnedRowsComponent {
       [pinnedBottomRowData]="pinnedBottomRowData"
       (gridReady)="onGridReady($event)"
       (rowSelected)="onRowSelected($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DynamicPinnedRowsComponent {
@@ -248,13 +248,13 @@ export class ConditionalPinnedRowsComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [pinnedTopRowData]="pinnedTopRowData"
       [frameworkComponents]="frameworkComponents"
       (cellClicked)="onCellClicked($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class InteractivePinnedRowsComponent {

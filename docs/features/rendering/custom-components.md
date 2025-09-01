@@ -901,13 +901,13 @@ export class CustomLoadingOverlayComponent implements ILoadingOverlayAngularComp
 @Component({
   selector: 'app-grid-with-custom-components',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [frameworkComponents]="frameworkComponents"
       [loadingOverlayComponent]="'customLoadingOverlay'"
       [noRowsOverlayComponent]="'customNoRowsOverlay'">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class GridWithCustomComponentsComponent {

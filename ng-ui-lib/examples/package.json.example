@@ -1,0 +1,59 @@
+{
+  "name": "my-bigledger-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint"
+  },
+  "dependencies": {
+    "@angular/animations": "^20.1.0",
+    "@angular/cdk": "^20.2.1",
+    "@angular/common": "^20.1.0",
+    "@angular/compiler": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/forms": "^20.1.0",
+    "@angular/platform-browser": "^20.1.0",
+    "@angular/platform-browser-dynamic": "^20.1.0",
+    "@angular/router": "^20.1.0",
+    
+    "@bigledger/ng-ui-core": "^1.0.0",
+    "@bigledger/ng-ui-grid": "^1.0.0",
+    "@bigledger/ng-ui-theme": "^1.0.0",
+    "@bigledger/ng-ui-column": "^1.0.0",
+    "@bigledger/ng-ui-row": "^1.0.0",
+    "@bigledger/ng-ui-cell": "^1.0.0",
+    "@bigledger/ng-ui-data": "^1.0.0",
+    "@bigledger/ng-ui-export": "^1.0.0",
+    "@bigledger/ng-ui-charts-core": "^1.0.0",
+    "@bigledger/ng-ui-charts-2d": "^1.0.0",
+    "@bigledger/ng-ui-editor-core": "^1.0.0",
+    "@bigledger/ng-ui-editor-formats": "^1.0.0",
+    
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^20.1.0",
+    "@angular/cli": "^20.1.0",
+    "@angular/compiler-cli": "^20.1.0",
+    "@types/jasmine": "~5.1.4",
+    "@types/node": "^20.19.9",
+    "jasmine-core": "~5.4.1",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

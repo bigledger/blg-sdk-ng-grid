@@ -1,11 +1,11 @@
 # Grid Component API Reference
 
-The `blg-grid` component is the main entry point for the BLG Grid library. It provides a high-performance, feature-rich data grid with virtual scrolling, sorting, filtering, selection, grouping, and export capabilities.
+The `ng-ui-lib` component is the main entry point for the BLG Grid library. It provides a high-performance, feature-rich data grid with virtual scrolling, sorting, filtering, selection, grouping, and export capabilities.
 
 ## Component Selector
 
 ```typescript
-<blg-grid 
+<ng-ui-lib 
   [data]="gridData" 
   [columns]="columnDefinitions" 
   [config]="gridConfig"
@@ -14,7 +14,7 @@ The `blg-grid` component is the main entry point for the BLG Grid library. It pr
   (rowSelect)="onRowSelect($event)"
   (columnSort)="onColumnSort($event)"
   (columnResize)="onColumnResize($event)">
-</blg-grid>
+</ng-ui-lib>
 ```
 
 ## Input Properties
@@ -330,21 +330,21 @@ The grid component includes comprehensive accessibility support:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg/grid';
-import { ColumnDefinition, GridConfig } from '@blg/core';
+import { Grid } from '@ng-ui/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui/core';
 
 @Component({
   selector: 'app-basic-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config"
       (cellClick)="onCellClick($event)"
       (rowSelect)="onRowSelect($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicGridComponent {
@@ -384,12 +384,12 @@ export class BasicGridComponent {
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class AdvancedGridComponent {

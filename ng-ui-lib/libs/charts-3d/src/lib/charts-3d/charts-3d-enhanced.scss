@@ -1,0 +1,256 @@
+// Enhanced 3D Charts with Export Functionality
+.chart-3d-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  background: var(--chart-background, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  &[data-chart-export-target] {
+    // Ensures proper targeting for export functionality
+    position: relative;
+  }
+}
+
+// Export Toolbar Styles
+.chart-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--toolbar-background, #f8f9fa);
+  border-bottom: 1px solid var(--toolbar-border, #e9ecef);
+  z-index: 100;
+
+  // Responsive toolbar
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+// Chart Content Area
+.chart-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  
+  // Ensure 3D context is properly contained
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
+
+  // WebGL context preservation for export
+  canvas[data-engine="three"] {
+    // Preserve drawing buffer for high-quality exports
+    image-rendering: high-quality;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+  }
+}
+
+// 3D Chart Specific Enhancements
+.chart-3d-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: var(--error-background, #f8f9fa);
+  border: 2px dashed var(--error-border, #dee2e6);
+  border-radius: 8px;
+  margin: 20px;
+
+  span {
+    color: var(--error-text, #6c757d);
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+// Export-ready styling
+.chart-3d-container {
+  // High-DPI ready
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    canvas {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  }
+
+  // Print styles for PDF export
+  @media print {
+    .chart-toolbar {
+      display: none; // Hide toolbar in print/PDF export
+    }
+
+    .chart-content {
+      height: 100vh;
+      page-break-inside: avoid;
+    }
+  }
+
+  // Dark theme support
+  &[data-theme="dark"] {
+    background: var(--chart-dark-background, #2d3748);
+    color: var(--chart-dark-text, #f7fafc);
+
+    .chart-toolbar {
+      background: var(--toolbar-dark-background, #4a5568);
+      border-color: var(--toolbar-dark-border, #718096);
+    }
+  }
+}
+
+// Loading states for export operations
+.chart-3d-container.exporting {
+  .chart-content {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    &::before {
+      content: 'Exporting...';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1001;
+      background: var(--export-progress-bg, #007bff);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+  }
+}
+
+// Animation support for export capture
+.chart-3d-container.animation-capture {
+  canvas {
+    // Ensure animations are captured at consistent frame rates
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+  }
+}
+
+// Multi-view export support
+.chart-3d-container.multi-view-export {
+  .chart-content {
+    // Prepare for multiple view captures
+    transition: transform 0.3s ease;
+  }
+}
+
+// 3D Model export indicators
+.chart-3d-container.model-export-ready {
+  .chart-content canvas {
+    // Optimize for 3D model extraction
+    image-rendering: pixelated; // Preserve geometry details
+  }
+}
+
+// Responsive design
+@media (max-width: 1200px) {
+  .chart-3d-container {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-3d-container {
+    min-height: 300px;
+    margin: 8px;
+    border-radius: 4px;
+  }
+
+  .chart-toolbar {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-3d-container {
+    min-height: 250px;
+    margin: 4px;
+  }
+
+  .chart-toolbar {
+    padding: 6px 8px;
+    
+    // Stack export buttons on mobile
+    ::ng-deep .quick-export-buttons {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .chart-3d-container {
+    border: 2px solid var(--high-contrast-border, #000000);
+    
+    .chart-toolbar {
+      border-bottom: 2px solid var(--high-contrast-border, #000000);
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .chart-3d-container {
+    .chart-content canvas {
+      animation: none !important;
+    }
+    
+    // Disable transitions during export for reduced motion users
+    &.exporting .chart-content {
+      transition: none;
+    }
+  }
+}
+
+// Focus management for accessibility
+.chart-3d-container:focus-within {
+  outline: 2px solid var(--focus-color, #007bff);
+  outline-offset: 2px;
+}
+
+// Export format specific optimizations
+.chart-3d-container {
+  // Vector export optimization
+  &.vector-export svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Raster export optimization  
+  &.raster-export canvas {
+    // Ensure crisp edges for PNG/JPEG export
+    image-rendering: crisp-edges;
+  }
+
+  // 3D model export optimization
+  &.model-export canvas {
+    // Preserve maximum detail for 3D model extraction
+    image-rendering: pixelated;
+  }
+}

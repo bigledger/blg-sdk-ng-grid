@@ -1,0 +1,390 @@
+.table-insertion-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: none;
+  
+  &.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.dialog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.dialog-content {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e1e5e9;
+  
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+}
+
+.close-button {
+  background: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #f1f5f9;
+    color: #475569;
+  }
+  
+  svg {
+    fill: currentColor;
+  }
+}
+
+.dialog-body {
+  padding: 24px;
+}
+
+.table-picker-section,
+.custom-size-section,
+.table-options-section,
+.style-options-section,
+.preview-section {
+  margin-bottom: 24px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+  }
+}
+
+.visual-table-picker {
+  text-align: center;
+}
+
+.picker-grid {
+  display: inline-block;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px;
+  background: #f9fafb;
+}
+
+.picker-row {
+  display: flex;
+  gap: 2px;
+  
+  &:not(:last-child) {
+    margin-bottom: 2px;
+  }
+}
+
+.picker-cell {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  
+  &.highlighted {
+    background-color: #dbeafe;
+    border-color: #3b82f6;
+  }
+  
+  &.selected {
+    background-color: #3b82f6;
+    border-color: #2563eb;
+  }
+}
+
+.picker-info {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.custom-inputs {
+  display: flex;
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #374151;
+  }
+}
+
+.size-input {
+  width: 80px;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+.options-grid,
+.style-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.option-group,
+.style-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #3b82f6;
+  }
+}
+
+.style-group {
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #374151;
+  }
+}
+
+.style-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+.table-preview {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 16px;
+  background: #f9fafb;
+  overflow-x: auto;
+}
+
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  
+  td {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+    text-align: inherit;
+    
+    &.row-number {
+      background: #f3f4f6;
+      font-weight: 600;
+      width: 40px;
+      text-align: center;
+    }
+    
+    &.header-cell {
+      background: #f9fafb;
+      font-weight: 600;
+      color: #374151;
+    }
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.cancel-button,
+.create-button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancel-button {
+  background: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  
+  &:hover {
+    background: #f1f5f9;
+    color: #475569;
+  }
+}
+
+.create-button {
+  background: #3b82f6;
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background: #2563eb;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+  .dialog-content {
+    background: #1f2937;
+    color: white;
+  }
+  
+  .dialog-header {
+    border-bottom-color: #374151;
+    
+    h3 {
+      color: #f9fafb;
+    }
+  }
+  
+  .close-button {
+    color: #9ca3af;
+    
+    &:hover {
+      background-color: #374151;
+      color: #d1d5db;
+    }
+  }
+  
+  .picker-grid {
+    background: #374151;
+    border-color: #4b5563;
+  }
+  
+  .picker-cell {
+    background: #1f2937;
+    border-color: #4b5563;
+  }
+  
+  .size-input,
+  .style-select {
+    background: #374151;
+    border-color: #4b5563;
+    color: white;
+  }
+  
+  .table-preview {
+    background: #374151;
+    border-color: #4b5563;
+  }
+  
+  .preview-table td {
+    background: #1f2937;
+    border-color: #4b5563;
+    color: white;
+    
+    &.row-number,
+    &.header-cell {
+      background: #374151;
+    }
+  }
+  
+  .dialog-footer {
+    border-top-color: #374151;
+  }
+  
+  .cancel-button {
+    background: #374151;
+    color: #d1d5db;
+    border-color: #4b5563;
+    
+    &:hover {
+      background: #4b5563;
+    }
+  }
+}

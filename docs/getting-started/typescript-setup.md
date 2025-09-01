@@ -39,7 +39,7 @@ Configure your `tsconfig.json` for the best BlgGrid experience:
     // Module Resolution
     "baseUrl": "./",
     "paths": {
-      "@blg-grid/*": ["node_modules/@blg-grid/*"],
+      "@ng-ui-lib/*": ["node_modules/@ng-ui-lib/*"],
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"]
     },
@@ -96,14 +96,14 @@ import type {
   PaginationConfig,
   GroupingConfig,
   ExportConfig
-} from '@blg-grid/core';
+} from '@ng-ui-lib/core';
 
 // Service types
 import type {
   GridStateService,
   ExportService,
   GroupingService
-} from '@blg-grid/core';
+} from '@ng-ui-lib/core';
 ```
 
 ### Advanced Type Usage
@@ -216,8 +216,8 @@ export class EmployeeGridComponent {
 
 ```typescript
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig, RowSelectEvent } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig, RowSelectEvent } from '@ng-ui-lib/core';
 
 // Generic reusable grid component
 @Component({
@@ -225,12 +225,12 @@ import { ColumnDefinition, GridConfig, RowSelectEvent } from '@blg-grid/core';
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       (rowSelect)="onRowSelect($event)"
-    ></blg-grid>
+    ></ng-ui-lib>
   `
 })
 export class TypedGridComponent<T = any> {
@@ -419,25 +419,25 @@ Add to your `.vscode/settings.json`:
 Create VSCode snippets for common BlgGrid patterns:
 
 ```json
-// .vscode/blg-grid.code-snippets
+// .vscode/ng-ui-lib.code-snippets
 {
   "BlgGrid Component": {
     "prefix": "blg-component",
     "body": [
       "import { Component } from '@angular/core';",
-      "import { Grid } from '@blg-grid/grid';",
-      "import { ColumnDefinition, GridConfig } from '@blg-grid/core';",
+      "import { Grid } from '@ng-ui-lib/grid';",
+      "import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';",
       "",
       "@Component({",
       "  selector: 'app-${1:grid}',",
       "  standalone: true,",
       "  imports: [Grid],",
       "  template: \\`",
-      "    <blg-grid",
+      "    <ng-ui-lib",
       "      [data]=\"data\"",
       "      [columns]=\"columns\"",
       "      [config]=\"config\">",
-      "    </blg-grid>",
+      "    </ng-ui-lib>",
       "  \\`",
       "})",
       "export class ${2:GridComponent} {",
@@ -560,7 +560,7 @@ Add scripts to your `package.json`:
 
 ```typescript
 // type-validation.ts
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 // Compile-time validation functions
 export function validateColumns<T>(
@@ -602,7 +602,7 @@ Test your type definitions:
 
 ```typescript
 // types.spec.ts
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 describe('Type Definitions', () => {
   it('should enforce column definition structure', () => {
@@ -705,8 +705,8 @@ With TypeScript properly configured:
 
 ## TypeScript Examples
 
-- [Strongly Typed Grid](https://stackblitz.com/edit/blg-grid-typescript)
-- [Generic Components](https://stackblitz.com/edit/blg-grid-generic)
-- [Custom Types](https://stackblitz.com/edit/blg-grid-custom-types)
-- [Type Guards](https://stackblitz.com/edit/blg-grid-type-guards)
-- [Utility Types](https://stackblitz.com/edit/blg-grid-utility-types)
+- [Strongly Typed Grid](https://stackblitz.com/edit/ng-ui-lib-typescript)
+- [Generic Components](https://stackblitz.com/edit/ng-ui-lib-generic)
+- [Custom Types](https://stackblitz.com/edit/ng-ui-lib-custom-types)
+- [Type Guards](https://stackblitz.com/edit/ng-ui-lib-type-guards)
+- [Utility Types](https://stackblitz.com/edit/ng-ui-lib-utility-types)

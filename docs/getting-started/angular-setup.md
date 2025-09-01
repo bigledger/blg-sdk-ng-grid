@@ -13,15 +13,15 @@ BlgGrid components are built as standalone components for maximum flexibility:
 ```typescript
 // Modern standalone component setup
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { GridStateService } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { GridStateService } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-data-grid',
   standalone: true,
   imports: [Grid], // Direct import, no module needed
   providers: [GridStateService], // Component-level services
-  template: `<blg-grid [data]="data" [columns]="columns"></blg-grid>`
+  template: `<ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>`
 })
 export class DataGridComponent {}
 ```
@@ -34,7 +34,7 @@ For applications still using NgModules:
 // app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 
 @NgModule({
   declarations: [AppComponent],
@@ -55,19 +55,19 @@ BlgGrid leverages Angular Signals for reactive data binding:
 
 ```typescript
 import { Component, signal, computed } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-signal-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="filteredData()" 
       [columns]="columns()"
       [config]="gridConfig()">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class SignalGridComponent {
@@ -137,12 +137,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
         <option value="age">Age</option>
       </select>
       
-      <blg-grid 
+      <ng-ui-lib 
         [data]="processedData()" 
         [columns]="columns"
         [config]="gridConfig"
         [loading]="loading()">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })
@@ -203,7 +203,7 @@ BlgGrid services can be injected at different levels:
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { GridStateService, ExportService } from '@blg-grid/core';
+import { GridStateService, ExportService } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-grid-with-services',
@@ -236,7 +236,7 @@ export class GridWithServicesComponent {
 ```typescript
 // main.ts
 import { bootstrapApplication } from '@angular/platform-browser';
-import { GridStateService } from '@blg-grid/core';
+import { GridStateService } from '@ng-ui-lib/core';
 import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
@@ -255,7 +255,7 @@ Optimize change detection for better performance:
 
 ```typescript
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 
 @Component({
   selector: 'app-optimized-grid',
@@ -263,11 +263,11 @@ import { Grid } from '@blg-grid/grid';
   imports: [Grid],
   changeDetection: ChangeDetectionStrategy.OnPush, // Optimize change detection
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns"
       [trackByFn]="trackByFn">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class OptimizedGridComponent {
@@ -349,7 +349,7 @@ export const GRID_ROUTES: Routes = [
 // grid-feature.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 
 @NgModule({
   imports: [
@@ -372,8 +372,8 @@ Configure testing for BlgGrid components:
 ```typescript
 // grid.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Grid } from '@blg-grid/grid';
-import { GridStateService } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { GridStateService } from '@ng-ui-lib/core';
 import { MyGridComponent } from './my-grid.component';
 
 describe('MyGridComponent', () => {
@@ -404,7 +404,7 @@ describe('MyGridComponent', () => {
     component.data = [{ id: 1, name: 'Test' }];
     fixture.detectChanges();
     
-    const gridElement = fixture.nativeElement.querySelector('blg-grid');
+    const gridElement = fixture.nativeElement.querySelector('ng-ui-lib');
     expect(gridElement).toBeTruthy();
   });
 });
@@ -417,15 +417,15 @@ describe('MyGridComponent', () => {
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="testData" 
       [columns]="testColumns"
       (rowSelect)="onRowSelect($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   standalone: true,
   imports: [Grid]
@@ -478,13 +478,13 @@ Monitor grid performance in Angular:
 
 ```typescript
 import { Component, AfterViewInit } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 
 @Component({
   selector: 'app-monitored-grid',
   standalone: true,
   imports: [Grid],
-  template: `<blg-grid [data]="data" [columns]="columns"></blg-grid>`
+  template: `<ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>`
 })
 export class MonitoredGridComponent implements AfterViewInit {
   ngAfterViewInit() {
@@ -544,7 +544,7 @@ Configure accessibility features:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
+import { Grid } from '@ng-ui-lib/grid';
 
 @Component({
   selector: 'app-accessible-grid',
@@ -552,12 +552,12 @@ import { Grid } from '@blg-grid/grid';
   imports: [Grid],
   template: `
     <div role="region" aria-label="Data grid">
-      <blg-grid 
+      <ng-ui-lib 
         [data]="data"
         [columns]="columns"
         [config]="accessibleConfig"
         [ariaLabel]="'Employee data grid with ' + data.length + ' rows'">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })
@@ -623,8 +623,8 @@ With your Angular setup complete:
 
 ## Angular-Specific Examples
 
-- [Standalone Components](https://stackblitz.com/edit/blg-grid-standalone)
-- [Angular Signals](https://stackblitz.com/edit/blg-grid-signals)
-- [Dependency Injection](https://stackblitz.com/edit/blg-grid-di)
-- [Change Detection](https://stackblitz.com/edit/blg-grid-onpush)
-- [Lazy Loading](https://stackblitz.com/edit/blg-grid-lazy)
+- [Standalone Components](https://stackblitz.com/edit/ng-ui-lib-standalone)
+- [Angular Signals](https://stackblitz.com/edit/ng-ui-lib-signals)
+- [Dependency Injection](https://stackblitz.com/edit/ng-ui-lib-di)
+- [Change Detection](https://stackblitz.com/edit/ng-ui-lib-onpush)
+- [Lazy Loading](https://stackblitz.com/edit/ng-ui-lib-lazy)

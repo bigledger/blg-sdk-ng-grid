@@ -117,7 +117,7 @@ Install and configure Angular DevTools browser extension:
 ```typescript
 // 1. Check if component is being instantiated
 @Component({
-  selector: 'blg-grid',
+  selector: 'ng-ui-lib',
   template: `
     <div class="debug-info">
       Debug: Component loaded at {{ debugTimestamp }}
@@ -154,10 +154,10 @@ export class BlgGridComponent {
 })
 
 // ✅ Check: Are inputs properly bound?
-<blg-grid 
+<ng-ui-lib 
   [config]="gridConfig"    <!-- Binding syntax correct? -->
   [data]="gridData">       <!-- Data exists? -->
-</blg-grid>
+</ng-ui-lib>
 
 // ✅ Check: Are there any errors in the console?
 // Open browser console and look for errors
@@ -187,10 +187,10 @@ export class BlgGridComponent {
       </details>
     </div>
     
-    <blg-grid-body 
+    <ng-ui-lib-body 
       [data]="displayData()"
       [columns]="columns()">
-    </blg-grid-body>
+    </ng-ui-lib-body>
   `
 })
 export class BlgGridComponent {
@@ -591,7 +591,7 @@ test('grid sorting functionality', async ({ page }) => {
   // Add debug information
   await page.evaluate(() => {
     console.log('🔍 E2E: Page loaded, checking grid');
-    const grid = document.querySelector('blg-grid');
+    const grid = document.querySelector('ng-ui-lib');
     console.log('🔍 E2E: Grid found:', !!grid);
   });
   
@@ -734,10 +734,10 @@ export class DiagnosticsService {
 // Useful debugging commands in Chrome Console
 
 // 1. Inspect Angular component
-ng.getComponent(document.querySelector('blg-grid'))
+ng.getComponent(document.querySelector('ng-ui-lib'))
 
 // 2. Get injector from element
-ng.getInjector(document.querySelector('blg-grid'))
+ng.getInjector(document.querySelector('ng-ui-lib'))
 
 // 3. Profile change detection
 ng.profiler.timeChangeDetection()
@@ -753,7 +753,7 @@ unmonitor(BlgGridComponent.prototype.updateSort)
 debugger; // Will pause execution
 
 // 7. Log all events on element
-monitorEvents(document.querySelector('blg-grid'))
+monitorEvents(document.querySelector('ng-ui-lib'))
 ```
 
 ## Logging and Instrumentation
@@ -883,7 +883,7 @@ test('should sort data', async () => {
   // ... setup ...
   
   // Add explicit waits
-  await page.waitForSelector('.blg-grid-row');
+  await page.waitForSelector('.ng-ui-lib-row');
   await page.waitForTimeout(100); // Allow rendering to complete
   
   // ... assertions ...

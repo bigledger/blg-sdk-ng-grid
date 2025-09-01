@@ -9,8 +9,8 @@ This example demonstrates various data binding patterns with the BLG Grid, inclu
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, interval, map, takeUntil, Subject } from 'rxjs';
-import { Grid } from '@blg/grid';
-import { ColumnDefinition, GridConfig } from '@blg/core';
+import { Grid } from '@ng-ui/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui/core';
 
 interface Employee {
   id: number;
@@ -45,12 +45,12 @@ interface Employee {
       <span>Average Salary: {{ getAverageSalary() | currency }}</span>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="employees" 
       [columns]="columns" 
       [config]="config"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .controls {
@@ -384,12 +384,12 @@ export class EmployeeService {
       </button>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="employees$ | async" 
       [columns]="columns"
       [config]="config"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ServerDataGridComponent implements OnInit {
@@ -475,11 +475,11 @@ import { Component, signal, computed, effect } from '@angular/core';
       <p>Average Salary: {{ averageSalary() | currency }}</p>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="filteredEmployees()" 
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class SignalGridComponent {
@@ -650,11 +650,11 @@ export class RealTimeEmployeeService {
       <span>Last Update: {{ lastUpdateTime | date:'short' }}</span>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="employees$ | async" 
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .status-bar {
@@ -711,11 +711,11 @@ export class RealtimeGridComponent implements OnInit, OnDestroy {
         Found {{ employees.length }} employees
       </div>
       
-      <blg-grid 
+      <ng-ui-lib 
         [data]="employees" 
         [columns]="columns"
         [config]="config">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
 
     <ng-template #loading>
@@ -826,10 +826,10 @@ trackByEmployeeId(index: number, employee: Employee): number {
 }
 
 // In template
-<blg-grid 
+<ng-ui-lib 
   [data]="employees"
   [trackByFn]="trackByEmployeeId">
-</blg-grid>
+</ng-ui-lib>
 ```
 
 ## Next Steps

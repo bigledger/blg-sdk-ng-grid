@@ -8,8 +8,8 @@ This example demonstrates how to handle large datasets efficiently using virtual
 
 ```typescript
 import { Component, OnInit, ViewChild, computed, signal } from '@angular/core';
-import { Grid } from '@blg/grid';
-import { ColumnDefinition, GridConfig, GridEventType } from '@blg/core';
+import { Grid } from '@ng-ui/grid';
+import { ColumnDefinition, GridConfig, GridEventType } from '@ng-ui/core';
 
 interface LargeDataRecord {
   id: number;
@@ -79,13 +79,13 @@ interface LargeDataRecord {
     </div>
 
     <!-- Grid -->
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [data]="data()" 
       [columns]="columns" 
       [config]="gridConfig()"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .performance-dashboard {
@@ -439,12 +439,12 @@ export class LargeDatasetGridComponent implements OnInit {
       </div>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="employees$ | async" 
       [columns]="columns"
       [config]="config"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .server-controls {
@@ -765,12 +765,12 @@ export class LargeDataService {
       </label>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="optimizedData$ | async" 
       [columns]="optimizedColumns"
       [config]="optimizedConfig"
       [trackByFn]="trackByRecordId">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class OptimizedGridComponent implements OnInit, OnDestroy {

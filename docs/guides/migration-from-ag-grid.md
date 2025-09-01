@@ -36,7 +36,7 @@ npm uninstall ag-grid-angular ag-grid-community ag-grid-enterprise
 ### Install BlgGrid
 ```bash
 # Install BlgGrid packages
-npm install @blg-grid/core @blg-grid/grid @blg-grid/theme
+npm install @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
 ```
 
 ## API Migration Mapping
@@ -50,7 +50,7 @@ npm install @blg-grid/core @blg-grid/grid @blg-grid/theme
 
 **BlgGrid:**
 ```html
-<blg-grid></blg-grid>
+<ng-ui-lib></ng-ui-lib>
 ```
 
 ### Basic Properties
@@ -180,8 +180,8 @@ export class DataGridComponent {
 **After (BlgGrid):**
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-data-grid',
@@ -189,13 +189,13 @@ import { ColumnDefinition, GridConfig } from '@blg-grid/core';
   imports: [Grid],
   template: `
     <div style="height: 500px;">
-      <blg-grid
+      <ng-ui-lib
         [data]="data"
         [columns]="columns"
         [config]="config"
         (rowSelect)="onRowSelected($event)"
         (cellClick)="onCellClicked($event)">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })
@@ -390,11 +390,11 @@ data$ = this.dataService.getData().pipe(
 
 // Template
 template: `
-  <blg-grid 
+  <ng-ui-lib 
     [data]="data$ | async || []" 
     [columns]="columns" 
     [config]="config">
-  </blg-grid>
+  </ng-ui-lib>
 `
 ```
 

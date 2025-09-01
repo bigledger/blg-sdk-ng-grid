@@ -13,13 +13,13 @@ Before installing BlgGrid, ensure you have the following:
 ### NPM Installation
 
 ```bash
-npm install @blg-grid/core @blg-grid/grid @blg-grid/theme
+npm install @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
 ```
 
 ### Yarn Installation
 
 ```bash
-yarn add @blg-grid/core @blg-grid/grid @blg-grid/theme
+yarn add @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
 ```
 
 ## Setup
@@ -44,19 +44,19 @@ export const appConfig: ApplicationConfig = {
 
 // component.ts
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-my-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="rowData" 
       [columns]="columnDefs" 
       [config]="gridConfig">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -70,7 +70,7 @@ Include the theme styles in your application:
 
 #### Option A: In styles.scss
 ```scss
-@import '@blg-grid/theme/styles/default-theme.scss';
+@import '@ng-ui-lib/theme/styles/default-theme.scss';
 ```
 
 #### Option B: In angular.json
@@ -83,7 +83,7 @@ Include the theme styles in your application:
           "options": {
             "styles": [
               "src/styles.scss",
-              "node_modules/@blg-grid/theme/styles/default-theme.css"
+              "node_modules/@ng-ui-lib/theme/styles/default-theme.css"
             ]
           }
         }
@@ -99,8 +99,8 @@ Create a simple grid with minimal configuration:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-simple-grid',
@@ -108,11 +108,11 @@ import { ColumnDefinition, GridConfig } from '@blg-grid/core';
   imports: [Grid],
   template: `
     <div class="grid-container">
-      <blg-grid 
+      <ng-ui-lib 
         [data]="rowData" 
         [columns]="columnDefs" 
         [config]="gridConfig">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `,
   styles: [`

@@ -1,0 +1,55 @@
+{
+  "name": "@ng-ui/editor-toolbar",
+  "version": "1.0.0",
+  "description": "Comprehensive and customizable toolbar system for Angular editor applications",
+  "author": "BLG Team",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "toolbar",
+    "editor",
+    "ui",
+    "components",
+    "typescript",
+    "material",
+    "responsive",
+    "accessibility"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blg/editor-toolbar.git"
+  },
+  "homepage": "https://github.com/blg/editor-toolbar#readme",
+  "bugs": {
+    "url": "https://github.com/blg/editor-toolbar/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
+    "rxjs": "~7.8.0"
+  },
+  "dependencies": {},
+  "sideEffects": false,
+  "main": "./bundles/blg-editor-toolbar.umd.js",
+  "module": "./fesm2022/blg-editor-toolbar.mjs",
+  "es2020": "./fesm2020/blg-editor-toolbar.mjs",
+  "esm2020": "./esm2020/blg-editor-toolbar.mjs",
+  "fesm2020": "./fesm2020/blg-editor-toolbar.mjs",
+  "fesm2022": "./fesm2022/blg-editor-toolbar.mjs",
+  "typings": "./index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/blg-editor-toolbar.mjs",
+      "esm2020": "./esm2020/blg-editor-toolbar.mjs",
+      "es2020": "./fesm2020/blg-editor-toolbar.mjs",
+      "es2015": "./fesm2015/blg-editor-toolbar.mjs",
+      "node": "./fesm2015/blg-editor-toolbar.mjs",
+      "default": "./fesm2022/blg-editor-toolbar.mjs"
+    }
+  }
+}

@@ -45,7 +45,7 @@ BlgGrid is a comprehensive Angular data grid component that provides:
 BlgGrid follows a modular architecture with clear separation of concerns:
 
 ```
-@blg-grid/
+@ng-ui-lib/
 ├── core/          # Core interfaces, services, and utilities
 ├── grid/          # Main grid component and orchestration
 ├── theme/         # Styling system and themes
@@ -58,7 +58,7 @@ BlgGrid follows a modular architecture with clear separation of concerns:
 ### Core Concepts
 
 **Grid Component**
-The main `<blg-grid>` component that orchestrates all other components and provides the public API.
+The main `<ng-ui-lib>` component that orchestrates all other components and provides the public API.
 
 **Column Definitions**
 Configuration objects that define how data fields should be displayed, formatted, and interact with users.
@@ -88,22 +88,22 @@ If you're already familiar with data grids and want to jump in quickly:
 
 ```bash
 # Install packages
-npm install @blg-grid/core @blg-grid/grid @blg-grid/theme
+npm install @ng-ui-lib/core @ng-ui-lib/grid @ng-ui-lib/theme
 
 # Import and use
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-my-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -126,8 +126,8 @@ After completing the getting started guide:
 
 - **Documentation**: Start with our comprehensive docs
 - **Examples**: Working examples with live demos
-- **Discord**: [Join our community](https://discord.gg/blg-grid) for real-time help
-- **GitHub Issues**: [Report bugs or request features](https://github.com/your-org/blg-grid/issues)
-- **Stack Overflow**: Tag questions with `blg-grid`
+- **Discord**: [Join our community](https://discord.gg/ng-ui-lib) for real-time help
+- **GitHub Issues**: [Report bugs or request features](https://github.com/your-org/ng-ui-lib/issues)
+- **Stack Overflow**: Tag questions with `ng-ui-lib`
 
 Ready to get started? Let's [install BlgGrid](./installation.md) and create your first grid!

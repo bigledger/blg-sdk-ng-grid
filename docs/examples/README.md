@@ -33,24 +33,24 @@ Comprehensive collection of working TypeScript examples for BlgGrid. Each exampl
 Click these links to open ready-to-use templates:
 
 #### Basic Grid Template
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/your-org/blg-grid-templates/tree/main/basic-grid?title=BlgGrid%20Basic%20Template)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/your-org/ng-ui-lib-templates/tree/main/basic-grid?title=BlgGrid%20Basic%20Template)
 
 ```typescript
 // Basic template with sample data
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-basic-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicGridComponent {
@@ -76,13 +76,13 @@ export class BasicGridComponent {
 ```
 
 #### Advanced Grid Template
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/your-org/blg-grid-templates/tree/main/advanced-grid?title=BlgGrid%20Advanced%20Template)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/your-org/ng-ui-lib-templates/tree/main/advanced-grid?title=BlgGrid%20Advanced%20Template)
 
 ```typescript
 // Advanced template with features enabled
 import { Component, OnInit } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 interface Product {
   id: number;
@@ -101,13 +101,13 @@ interface Product {
   template: `
     <div class="grid-container">
       <h2>Product Catalog</h2>
-      <blg-grid 
+      <ng-ui-lib 
         [data]="products" 
         [columns]="columns" 
         [config]="config"
         (rowSelect)="onRowSelect($event)"
         (cellClick)="onCellClick($event)">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `,
   styles: [`
@@ -177,7 +177,7 @@ export class AdvancedGridComponent implements OnInit {
 ### CodeSandbox Templates
 
 #### Enterprise Dashboard Template
-[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/blg-grid-enterprise-dashboard)
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ng-ui-lib-enterprise-dashboard)
 
 Complete enterprise application with:
 - Multiple grid views
@@ -195,7 +195,7 @@ Simple examples for getting started:
 ```typescript
 // Static Data Example
 @Component({
-  template: `<blg-grid [data]="staticData" [columns]="basicColumns"></blg-grid>`
+  template: `<ng-ui-lib [data]="staticData" [columns]="basicColumns"></ng-ui-lib>`
 })
 export class StaticDataExample {
   staticData = [/* ... */];
@@ -204,7 +204,7 @@ export class StaticDataExample {
 
 // Observable Data Example
 @Component({
-  template: `<blg-grid [data]="data$ | async" [columns]="columns"></blg-grid>`
+  template: `<ng-ui-lib [data]="data$ | async" [columns]="columns"></ng-ui-lib>`
 })
 export class ObservableDataExample {
   data$ = this.service.getData();
@@ -360,8 +360,8 @@ Each example includes:
   template: `
     <div class="performance-demo">
       <h3>Virtual Scrolling Demo: {{ totalRows.toLocaleString() }} Rows</h3>
-      <blg-grid [data]="largeDataset" [columns]="columns" [config]="perfConfig">
-      </blg-grid>
+      <ng-ui-lib [data]="largeDataset" [columns]="columns" [config]="perfConfig">
+      </ng-ui-lib>
     </div>
   `
 })
@@ -394,8 +394,8 @@ export class VirtualScrollDemo {
     <div class="realtime-demo">
       <h3>Real-time Updates Demo</h3>
       <div class="stats">Updates: {{ updateCount }} | Last: {{ lastUpdate | date:'medium' }}</div>
-      <blg-grid [data]="liveData" [columns]="columns" [config]="config">
-      </blg-grid>
+      <ng-ui-lib [data]="liveData" [columns]="columns" [config]="config">
+      </ng-ui-lib>
     </div>
   `
 })
@@ -500,8 +500,8 @@ export class StateGridComponent {
         <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
       </select>
     </form>
-    <blg-grid [data]="filteredData$ | async" [columns]="columns">
-    </blg-grid>
+    <ng-ui-lib [data]="filteredData$ | async" [columns]="columns">
+    </ng-ui-lib>
   `
 })
 export class FilteredGridComponent {
@@ -543,7 +543,7 @@ describe('GridComponent', () => {
     ];
     fixture.detectChanges();
     
-    const rows = fixture.debugElement.queryAll(By.css('.blg-grid__row'));
+    const rows = fixture.debugElement.queryAll(By.css('.ng-ui-lib__row'));
     expect(rows.length).toBe(1);
   });
 });
@@ -563,7 +563,7 @@ describe('Grid E2E Tests', () => {
     await expect(page.locator('[data-column-id="name"] .sort-asc')).toBeVisible();
     
     // Verify data is sorted
-    const firstRowName = await page.textContent('.blg-grid__row:first-child [data-column-id="name"]');
+    const firstRowName = await page.textContent('.ng-ui-lib__row:first-child [data-column-id="name"]');
     expect(firstRowName).toBe('Alice'); // Assuming alphabetical sort
   });
 });

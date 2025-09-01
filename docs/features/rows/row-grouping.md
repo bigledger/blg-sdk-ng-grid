@@ -17,16 +17,16 @@ Row grouping allows you to organize data into hierarchical groups based on one o
 ### Simple Column Grouping
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [autoGroupColumnDef]="autoGroupColumnDef"
       [groupDefaultExpanded]="1">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicRowGroupingComponent {
@@ -66,14 +66,14 @@ export class BasicRowGroupingComponent {
       <button (click)="collapseAll()">Collapse All</button>
       <button (click)="toggleGrouping()">Toggle Grouping</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [autoGroupColumnDef]="autoGroupColumnDef"
       [groupDefaultExpanded]="groupDefaultExpanded"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MultiLevelGroupingComponent {
@@ -364,12 +364,12 @@ export class CustomGroupRendererComponent implements ICellRendererAngularComp {
       </div>
     </div>
     
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [autoGroupColumnDef]="autoGroupColumnDef"
       [groupDefaultExpanded]="groupDefaultExpanded">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DynamicGroupingComponent {

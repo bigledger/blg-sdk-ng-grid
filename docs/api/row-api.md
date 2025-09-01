@@ -296,7 +296,7 @@ For varying row heights, you can use CSS with row-specific classes:
 }
 
 /* Adjust grid row height for specific content */
-.blg-grid .grid-row.has-long-content {
+.ng-ui-lib .grid-row.has-long-content {
   height: auto;
   min-height: 40px;
 }

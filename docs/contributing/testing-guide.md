@@ -314,10 +314,10 @@ We use Angular CDK Testing Harnesses for consistent component interaction:
 import { ComponentHarness } from '@angular/cdk/testing';
 
 export class BlgGridHarness extends ComponentHarness {
-  static hostSelector = 'blg-grid';
+  static hostSelector = 'ng-ui-lib';
   
-  private getHeaderCells = this.locatorForAll('.blg-grid-header-cell');
-  private getRows = this.locatorForAll('.blg-grid-row');
+  private getHeaderCells = this.locatorForAll('.ng-ui-lib-header-cell');
+  private getRows = this.locatorForAll('.ng-ui-lib-row');
   
   async getColumnCount(): Promise<number> {
     const headers = await this.getHeaderCells();
@@ -348,8 +348,8 @@ export class BlgGridHarness extends ComponentHarness {
   }
   
   async getRowData(rowIndex: number): Promise<any> {
-    const row = await this.locatorFor(`.blg-grid-row:nth-child(${rowIndex + 1})`)();
-    const cells = await row.locatorForAll('.blg-grid-cell')();
+    const row = await this.locatorFor(`.ng-ui-lib-row:nth-child(${rowIndex + 1})`)();
+    const cells = await row.locatorForAll('.ng-ui-lib-cell')();
     
     const data: any = {};
     for (let i = 0; i < cells.length; i++) {
@@ -434,24 +434,24 @@ test.describe('Grid E2E Tests', () => {
 
   test('should load grid with data', async ({ page }) => {
     // Wait for grid to be visible
-    await expect(page.locator('blg-grid')).toBeVisible();
+    await expect(page.locator('ng-ui-lib')).toBeVisible();
     
     // Check that data is loaded
-    const rowCount = await page.locator('.blg-grid-row').count();
+    const rowCount = await page.locator('.ng-ui-lib-row').count();
     expect(rowCount).toBeGreaterThan(0);
     
     // Verify column headers
-    await expect(page.locator('.blg-grid-header')).toBeVisible();
-    const headerCount = await page.locator('.blg-grid-header-cell').count();
+    await expect(page.locator('.ng-ui-lib-header')).toBeVisible();
+    const headerCount = await page.locator('.ng-ui-lib-header-cell').count();
     expect(headerCount).toBe(5); // Expected number of columns
   });
 
   test('should sort data when column clicked', async ({ page }) => {
     // Get first row data before sort
     const firstRowBefore = await page
-      .locator('.blg-grid-row')
+      .locator('.ng-ui-lib-row')
       .first()
-      .locator('.blg-grid-cell')
+      .locator('.ng-ui-lib-cell')
       .first()
       .textContent();
 
@@ -463,9 +463,9 @@ test.describe('Grid E2E Tests', () => {
     
     // Get first row data after sort
     const firstRowAfter = await page
-      .locator('.blg-grid-row')
+      .locator('.ng-ui-lib-row')
       .first()
-      .locator('.blg-grid-cell')
+      .locator('.ng-ui-lib-cell')
       .first()
       .textContent();
 
@@ -477,7 +477,7 @@ test.describe('Grid E2E Tests', () => {
   });
 
   test('should filter data correctly', async ({ page }) => {
-    const initialRowCount = await page.locator('.blg-grid-row').count();
+    const initialRowCount = await page.locator('.ng-ui-lib-row').count();
     
     // Open filter for name column
     await page.click('[data-column="name"] .filter-trigger');
@@ -489,13 +489,13 @@ test.describe('Grid E2E Tests', () => {
     // Wait for filter to apply
     await page.waitForTimeout(200);
     
-    const filteredRowCount = await page.locator('.blg-grid-row').count();
+    const filteredRowCount = await page.locator('.ng-ui-lib-row').count();
     
     // Should have fewer rows after filtering
     expect(filteredRowCount).toBeLessThan(initialRowCount);
     
     // All visible rows should contain filter text
-    const visibleRows = await page.locator('.blg-grid-row').all();
+    const visibleRows = await page.locator('.ng-ui-lib-row').all();
     for (const row of visibleRows) {
       const nameCell = await row.locator('[data-column="name"]').textContent();
       expect(nameCell).toContain('John');
@@ -507,30 +507,30 @@ test.describe('Grid E2E Tests', () => {
     await page.goto('/grid-demo/large-dataset');
     
     // Initial render should show limited rows (virtual scrolling)
-    const initialRowCount = await page.locator('.blg-grid-row').count();
+    const initialRowCount = await page.locator('.ng-ui-lib-row').count();
     expect(initialRowCount).toBeLessThan(100); // Should be less than total data
     
     // Scroll to bottom
-    await page.locator('.blg-grid-viewport').scrollTo(0, 10000);
+    await page.locator('.ng-ui-lib-viewport').scrollTo(0, 10000);
     
     // Wait for virtual scroll to render new items
     await page.waitForTimeout(200);
     
     // Should see different data at bottom
     const lastRowText = await page
-      .locator('.blg-grid-row')
+      .locator('.ng-ui-lib-row')
       .last()
       .textContent();
     
     expect(lastRowText).toBeDefined();
     
     // Scroll back to top
-    await page.locator('.blg-grid-viewport').scrollTo(0, 0);
+    await page.locator('.ng-ui-lib-viewport').scrollTo(0, 0);
     await page.waitForTimeout(200);
     
     // Should show original top data
     const firstRowText = await page
-      .locator('.blg-grid-row')
+      .locator('.ng-ui-lib-row')
       .first()
       .textContent();
     
@@ -553,7 +553,7 @@ test.describe('Grid Performance Tests', () => {
     const startTime = Date.now();
     
     // Wait for grid to fully load with 10,000 rows
-    await page.waitForSelector('.blg-grid-row');
+    await page.waitForSelector('.ng-ui-lib-row');
     await page.waitForLoadState('networkidle');
     
     const endTime = Date.now();
@@ -574,7 +574,7 @@ test.describe('Grid Performance Tests', () => {
     await page.goto('/grid-demo/virtual-scroll-test');
     
     // Measure scroll performance
-    const scrollContainer = page.locator('.blg-grid-viewport');
+    const scrollContainer = page.locator('.ng-ui-lib-viewport');
     
     const startTime = performance.now();
     
@@ -719,9 +719,9 @@ expect.extend({
   },
 
   toHaveGridStructure(received: Element) {
-    const hasHeader = !!received.querySelector('.blg-grid-header');
-    const hasBody = !!received.querySelector('.blg-grid-body');
-    const hasRows = received.querySelectorAll('.blg-grid-row').length > 0;
+    const hasHeader = !!received.querySelector('.ng-ui-lib-header');
+    const hasBody = !!received.querySelector('.ng-ui-lib-body');
+    const hasRows = received.querySelectorAll('.ng-ui-lib-row').length > 0;
     
     const pass = hasHeader && hasBody && hasRows;
     return {

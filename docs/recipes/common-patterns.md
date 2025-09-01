@@ -14,12 +14,12 @@ This guide covers common implementation patterns, best practices, and reusable s
       <!-- Master Grid -->
       <div class="master-panel">
         <h2>Orders</h2>
-        <blg-grid 
+        <ng-ui-lib 
           [data]="orders"
           [columns]="masterColumns"
           [config]="masterConfig"
           (rowSelect)="onMasterRowSelect($event)">
-        </blg-grid>
+        </ng-ui-lib>
       </div>
       
       <!-- Detail Panel -->
@@ -35,11 +35,11 @@ This guide covers common implementation patterns, best practices, and reusable s
         
         <!-- Order Items Grid -->
         <h3>Order Items</h3>
-        <blg-grid 
+        <ng-ui-lib 
           [data]="orderItems"
           [columns]="detailColumns"
           [config]="detailConfig">
-        </blg-grid>
+        </ng-ui-lib>
       </div>
     </div>
   `,
@@ -190,14 +190,14 @@ export class MasterDetailComponent {
       </div>
       
       <!-- Grid -->
-      <blg-grid 
+      <ng-ui-lib 
         [data]="data"
         [columns]="columns"
         [config]="config"
         (rowSelect)="onRowSelect($event)"
         (cellEdit)="onCellEdit($event)"
         (gridEvent)="onGridEvent($event)">
-      </blg-grid>
+      </ng-ui-lib>
       
       <!-- Status Bar -->
       <div class="status-bar">
@@ -695,11 +695,11 @@ interface Employee {
       </div>
     </div>
     
-    <blg-grid 
+    <ng-ui-lib 
       [data]="filteredData"
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .search-container {
@@ -1019,13 +1019,13 @@ export class SearchFilterGridComponent implements OnInit {
     <div class="drag-drop-container">
       <h3>Drag rows to reorder</h3>
       
-      <blg-grid 
+      <ng-ui-lib 
         [data]="data"
         [columns]="columns"
         [config]="config"
         [enableRowDrag]="true"
         (rowDrop)="onRowDrop($event)">
-      </blg-grid>
+      </ng-ui-lib>
       
       <div class="reorder-actions">
         <button (click)="resetOrder()" class="btn btn-secondary">Reset Order</button>
@@ -1045,27 +1045,27 @@ export class SearchFilterGridComponent implements OnInit {
     }
     
     /* Custom drag styles */
-    ::ng-deep .blg-grid .drag-handle {
+    ::ng-deep .ng-ui-lib .drag-handle {
       cursor: grab;
       color: #6c757d;
       width: 20px;
       text-align: center;
     }
     
-    ::ng-deep .blg-grid .drag-handle:hover {
+    ::ng-deep .ng-ui-lib .drag-handle:hover {
       color: #007bff;
     }
     
-    ::ng-deep .blg-grid .grid-row.dragging {
+    ::ng-deep .ng-ui-lib .grid-row.dragging {
       opacity: 0.5;
       transform: rotate(2deg);
     }
     
-    ::ng-deep .blg-grid .grid-row.drag-over {
+    ::ng-deep .ng-ui-lib .grid-row.drag-over {
       border-top: 2px solid #007bff;
     }
     
-    ::ng-deep .blg-grid .grid-row.drag-over-bottom {
+    ::ng-deep .ng-ui-lib .grid-row.drag-over-bottom {
       border-bottom: 2px solid #007bff;
     }
   `]
@@ -1237,12 +1237,12 @@ interface RowDropEvent {
         </div>
       </div>
       
-      <blg-grid 
+      <ng-ui-lib 
         [data]="data"
         [columns]="columns"
         [config]="config"
         (selectionChange)="onSelectionChange($event)">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
     
     <!-- Export Configuration Dialog -->

@@ -1,0 +1,50 @@
+<div class="blg-editor-container">
+  <div 
+    class="blg-editor-content"
+    [class.blg-editor-empty]="isEmpty()"
+    blgContentEditable
+    [content]="state().content"
+    [readonly]="state().readonly"
+    [placeholder]="config().placeholder || 'Start typing...'"
+    [autoFocus]="config().autoFocus"
+    (contentChange)="handleContentChange($event)"
+    (selectionChange)="handleSelectionChange($event)"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    role="textbox"
+    [attr.aria-label]="config().accessibility?.ariaLabel || 'Rich text editor'"
+    [attr.aria-multiline]="true"
+    [attr.aria-readonly]="state().readonly"
+    [attr.spellcheck]="config().spellcheck !== false"
+    tabindex="0">
+  </div>
+
+  <!-- Placeholder overlay -->
+  <div 
+    class="blg-editor-placeholder" 
+    *ngIf="isEmpty() && !state().focused && config().placeholder"
+    [innerHTML]="config().placeholder">
+  </div>
+
+  <!-- Character count -->
+  <div 
+    class="blg-editor-char-count" 
+    *ngIf="config().maxLength">
+    {{ state().content.length }} / {{ config().maxLength }}
+  </div>
+
+  <!-- Loading overlay -->
+  <div 
+    class="blg-editor-loading" 
+    *ngIf="state().loading">
+    <div class="blg-editor-loading-spinner"></div>
+  </div>
+
+  <!-- Error display -->
+  <div 
+    class="blg-editor-error" 
+    *ngIf="state().error"
+    role="alert"
+    [innerHTML]="state().error">
+  </div>
+</div>

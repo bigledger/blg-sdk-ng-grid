@@ -17,15 +17,15 @@ Column moving allows users to reorder columns by dragging them to new positions.
 ### Enable Column Moving
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [suppressMovableColumns]="false">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MovableColumnsComponent {
@@ -59,13 +59,13 @@ export class MovableColumnsComponent {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (columnMoved)="onColumnMoved($event)"
       (dragStarted)="onDragStarted($event)"
       (dragStopped)="onDragStopped($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ColumnMoveEventsComponent {
@@ -359,12 +359,12 @@ export class ZoneBasedMovementComponent {
 @Component({
   template: `
     <div class="grid-container" [class.dragging]="isDragging">
-      <blg-grid 
+      <ng-ui-lib 
         [rowData]="rowData"
         [columnDefs]="columnDefs"
         (dragStarted)="onDragStarted($event)"
         (dragStopped)="onDragStopped($event)">
-      </blg-grid>
+      </ng-ui-lib>
       
       <!-- Custom drop zones -->
       <div class="drop-zones" *ngIf="isDragging">

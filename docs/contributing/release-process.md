@@ -111,13 +111,13 @@ All BLG Grid libraries are versioned together:
 
 ```json
 {
-  "@blg-grid/core": "1.2.3",
-  "@blg-grid/grid": "1.2.3",
-  "@blg-grid/column": "1.2.3",
-  "@blg-grid/row": "1.2.3",
-  "@blg-grid/cell": "1.2.3",
-  "@blg-grid/data": "1.2.3",
-  "@blg-grid/theme": "1.2.3"
+  "@ng-ui-lib/core": "1.2.3",
+  "@ng-ui-lib/grid": "1.2.3",
+  "@ng-ui-lib/column": "1.2.3",
+  "@ng-ui-lib/row": "1.2.3",
+  "@ng-ui-lib/cell": "1.2.3",
+  "@ng-ui-lib/data": "1.2.3",
+  "@ng-ui-lib/theme": "1.2.3"
 }
 ```
 
@@ -563,7 +563,7 @@ interface ColumnDefinition {
 **Automated Migration**:
 ```bash
 # Run migration script
-npx @blg-grid/migrations v1-to-v2
+npx @ng-ui-lib/migrations v1-to-v2
 ```
 
 ## New Features
@@ -628,7 +628,7 @@ We're excited to announce the release of BLG Grid v1.2.0, packed with new featur
 ## 🚀 Getting Started
 
 ```bash
-npm install @blg-grid/grid@1.2.0
+npm install @ng-ui-lib/grid@1.2.0
 ```
 
 ## 📚 Documentation

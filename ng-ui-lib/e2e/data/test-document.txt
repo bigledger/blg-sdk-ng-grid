@@ -1,0 +1,4 @@
+This is a test document file used for validation in the editor tests.
+It contains plain text content that should not be accepted as an image file.
+
+The editor should reject this file when trying to upload it as an image.

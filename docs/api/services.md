@@ -10,7 +10,7 @@ The `GridStateService` manages the internal state of the grid, including selecti
 
 ```typescript
 import { inject } from '@angular/core';
-import { GridStateService } from '@blg/core';
+import { GridStateService } from '@ng-ui/core';
 
 // In component
 private gridState = inject(GridStateService);
@@ -232,7 +232,7 @@ The `GroupingService` manages row grouping functionality, including hierarchical
 ### Injection
 
 ```typescript
-import { GroupingService } from '@blg/core';
+import { GroupingService } from '@ng-ui/core';
 
 private groupingService = inject(GroupingService);
 ```
@@ -417,7 +417,7 @@ The `ExportService` handles data export functionality for CSV and Excel formats.
 ### Injection
 
 ```typescript
-import { ExportService } from '@blg/core';
+import { ExportService } from '@ng-ui/core';
 
 private exportService = inject(ExportService);
 ```
@@ -496,11 +496,11 @@ console.log('Excel defaults:', excelDefaults);
       <div>Selected: {{ getSelectedCount() }} rows</div>
     </div>
     
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data"
       [columns]="columns"
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ServiceIntegrationComponent {

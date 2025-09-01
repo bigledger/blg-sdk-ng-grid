@@ -1,0 +1,18 @@
+# NPM Configuration for BigLedger GitHub Packages
+# Copy this file to .npmrc in your project root and update the token
+
+# Configure GitHub Packages registry for BigLedger scope
+@bigledger:registry=https://npm.pkg.github.com
+
+# Authentication token for GitHub Packages
+# Replace YOUR_GITHUB_TOKEN with your Personal Access Token
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+
+# Optional: Configure other registries
+# registry=https://registry.npmjs.org/
+
+# Optional: Enable package-lock for faster installs
+package-lock=true
+
+# Optional: Set save preference
+save-exact=true

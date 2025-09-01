@@ -1,0 +1,53 @@
+{
+  "name": "ng-ui-migrate-ag-grid",
+  "version": "1.0.0",
+  "description": "CLI tool to migrate ag-Grid implementations to BigLedger Grid (ng-ui)",
+  "main": "dist/cli.js",
+  "bin": {
+    "ng-ui-migrate-ag-grid": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "ts-node src/cli.ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "angular",
+    "ag-grid",
+    "migration",
+    "ng-ui",
+    "cli"
+  ],
+  "author": "BigLedger Grid Team",
+  "license": "MIT",
+  "dependencies": {
+    "@angular-devkit/schematics": "^20.1.0",
+    "@angular/compiler": "^20.1.0",
+    "@babel/core": "^7.25.2",
+    "@babel/parser": "^7.25.6",
+    "@babel/types": "^7.25.6",
+    "@types/babel__core": "^7.20.5",
+    "@types/babel__parser": "^7.1.1",
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0",
+    "fast-glob": "^3.3.2",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.19.9",
+    "jest": "^30.0.2",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

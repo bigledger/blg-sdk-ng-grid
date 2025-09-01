@@ -32,8 +32,8 @@ Virtual scrolling is enabled by default but can be explicitly configured:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-virtual-grid',
@@ -41,11 +41,11 @@ import { GridConfig } from '@blg-grid/core';
   imports: [Grid],
   template: `
     <div style="height: 600px;">
-      <blg-grid
+      <ng-ui-lib
         [data]="largeDataset"
         [columns]="columns"
         [config]="config">
-      </blg-grid>
+      </ng-ui-lib>
     </div>
   `
 })
@@ -156,12 +156,12 @@ const variableHeightConfig: GridConfig = {
 // Usage with dynamic content
 @Component({
   template: `
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       [getRowHeight]="getRowHeight">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DynamicHeightGridComponent {
@@ -269,7 +269,7 @@ export class MonitoredVirtualGridComponent implements AfterViewInit {
 
   private setupScrollMonitoring() {
     const gridElement = this.grid.elementRef.nativeElement;
-    const scrollContainer = gridElement.querySelector('.blg-grid-viewport');
+    const scrollContainer = gridElement.querySelector('.ng-ui-lib-viewport');
 
     if (!scrollContainer) return;
 
@@ -741,9 +741,9 @@ export class VirtualScrollBenchmarkComponent implements AfterViewInit {
 
 ## Examples
 
-- [Basic Virtual Scrolling](https://stackblitz.com/edit/blg-grid-virtual-basic)
-- [Large Dataset (100k rows)](https://stackblitz.com/edit/blg-grid-virtual-large)
-- [Variable Row Heights](https://stackblitz.com/edit/blg-grid-virtual-variable)
-- [Server-Side Virtual Scrolling](https://stackblitz.com/edit/blg-grid-virtual-server)
-- [Infinite Scrolling](https://stackblitz.com/edit/blg-grid-infinite-scroll)
-- [Performance Benchmarks](https://stackblitz.com/edit/blg-grid-virtual-benchmark)
+- [Basic Virtual Scrolling](https://stackblitz.com/edit/ng-ui-lib-virtual-basic)
+- [Large Dataset (100k rows)](https://stackblitz.com/edit/ng-ui-lib-virtual-large)
+- [Variable Row Heights](https://stackblitz.com/edit/ng-ui-lib-virtual-variable)
+- [Server-Side Virtual Scrolling](https://stackblitz.com/edit/ng-ui-lib-virtual-server)
+- [Infinite Scrolling](https://stackblitz.com/edit/ng-ui-lib-infinite-scroll)
+- [Performance Benchmarks](https://stackblitz.com/edit/ng-ui-lib-virtual-benchmark)

@@ -449,7 +449,7 @@ import {
   GridEventType,
   CellClickEvent,
   RowSelectEvent 
-} from '@blg/core';
+} from '@ng-ui/core';
 
 interface UserData {
   id: number;
@@ -464,14 +464,14 @@ interface UserData {
 @Component({
   selector: 'app-typed-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="userData"
       [columns]="columns"
       [config]="config"
       (gridEvent)="onGridEvent($event)"
       (cellClick)="onCellClick($event)"
       (rowSelect)="onRowSelect($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class TypedGridComponent {

@@ -17,14 +17,14 @@ Cell editing allows users to modify data directly within the grid by double-clic
 ### Enable Cell Editing
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -76,13 +76,13 @@ columnDefs = [
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (cellEditingStarted)="onCellEditingStarted($event)"
       (cellEditingStopped)="onCellEditingStopped($event)"
       (cellValueChanged)="onCellValueChanged($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -138,11 +138,11 @@ columnDefs = [
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       singleClickEdit="true">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -212,12 +212,12 @@ columnDefs = [
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       tabToNextCell="true"
       tabToNextRow="true">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class MyGridComponent {
@@ -369,11 +369,11 @@ onCellValueChanged(event: CellValueChangedEvent) {
 // Enable debug mode
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       debug="true">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class DebuggingGridComponent {

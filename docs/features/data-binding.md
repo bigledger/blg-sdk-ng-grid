@@ -10,18 +10,18 @@ The simplest way to provide data to the grid:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-static-data',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="staticData" 
       [columns]="columns">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class StaticDataComponent {
@@ -48,8 +48,8 @@ For dynamic data that changes over time:
 import { Component, OnInit } from '@angular/core';
 import { Observable, interval, map, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 
 interface UserData {
   id: number;
@@ -63,10 +63,10 @@ interface UserData {
   standalone: true,
   imports: [Grid, AsyncPipe],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="userData$ | async || []" 
       [columns]="columns">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ObservableDataComponent implements OnInit {
@@ -147,8 +147,8 @@ export class EmployeeService {
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition } from '@ng-ui-lib/core';
 import { Employee, EmployeeService } from './employee.service';
 
 @Component({
@@ -157,11 +157,11 @@ import { Employee, EmployeeService } from './employee.service';
   imports: [Grid, AsyncPipe],
   template: `
     <div class="loading" *ngIf="loading">Loading employees...</div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="employees$ | async || []" 
       [columns]="columns"
       (gridEvent)="onGridEvent($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class EmployeeGridComponent implements OnInit {
@@ -234,10 +234,10 @@ interface UserProfile {
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="processedData" 
       [columns]="columns">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class NestedDataComponent {
@@ -294,10 +294,10 @@ interface Project {
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="processedProjects" 
       [columns]="columns">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ArrayDataComponent {
@@ -354,11 +354,11 @@ export class ArrayDataComponent {
     <div class="info">
       Displaying {{ totalRows.toLocaleString() }} rows
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="largeDataset" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .info {
@@ -414,11 +414,11 @@ import { BehaviorSubject, combineLatest, switchMap } from 'rxjs';
       <span>Page {{ currentPage }} of {{ totalPages }}</span>
       <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="displayData" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ServerPaginationComponent implements OnInit {
@@ -519,11 +519,11 @@ export class RealtimeDataService {
     <div class="status">
       Connection: {{ connectionStatus }} | Updates: {{ updateCount }}
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="realtimeData" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class RealtimeGridComponent implements OnInit, OnDestroy {
@@ -604,10 +604,10 @@ export class CurrencyPipe implements PipeTransform {
   standalone: true,
   imports: [Grid, CurrencyPipe],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="formattedData" 
       [columns]="columns">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class FormattedDataComponent {

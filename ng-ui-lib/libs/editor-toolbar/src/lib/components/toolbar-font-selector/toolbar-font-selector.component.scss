@@ -1,0 +1,26 @@
+// Toolbar Font Selector Component Styles
+.blg-toolbar-font-selector-host {
+  // Font previews in dropdown options
+  ::ng-deep .blg-toolbar-dropdown__option-label {
+    font-family: var(--option-font-family, inherit);
+  }
+  
+  // Wider dropdown for font names
+  ::ng-deep .blg-toolbar-dropdown__trigger {
+    min-width: 140px;
+  }
+  
+  // Mobile specific adjustments
+  &--mobile {
+    ::ng-deep .blg-toolbar-dropdown__trigger {
+      min-width: auto;
+    }
+  }
+  
+  // Compact variant
+  &--compact {
+    ::ng-deep .blg-toolbar-dropdown__trigger {
+      min-width: 100px;
+    }
+  }
+}

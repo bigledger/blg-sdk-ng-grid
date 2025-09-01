@@ -1,0 +1,33 @@
+// Toolbar Size Selector Component Styles
+.blg-toolbar-size-selector-host {
+  // Narrower dropdown for size values
+  ::ng-deep .blg-toolbar-dropdown__trigger {
+    min-width: 70px;
+  }
+  
+  // Center-align size values
+  ::ng-deep .blg-toolbar-dropdown__option-label {
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  // Show current value more prominently
+  ::ng-deep .blg-toolbar-dropdown__current-label {
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  // Mobile specific adjustments
+  &--mobile {
+    ::ng-deep .blg-toolbar-dropdown__trigger {
+      min-width: auto;
+    }
+  }
+  
+  // Compact variant
+  &--compact {
+    ::ng-deep .blg-toolbar-dropdown__trigger {
+      min-width: 50px;
+    }
+  }
+}

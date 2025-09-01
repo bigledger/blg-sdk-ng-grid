@@ -143,7 +143,7 @@ columnDefs = [
 
 ```typescript
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ICellEditorAngularComp } from '@blg/grid';
+import { ICellEditorAngularComp } from '@ng-ui/grid';
 
 @Component({
   selector: 'app-rich-text-editor',
@@ -238,11 +238,11 @@ export class RichTextEditorComponent implements ICellEditorAngularComp, AfterVie
 @Component({
   selector: 'app-grid',
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [frameworkComponents]="frameworkComponents">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class GridComponent {

@@ -17,14 +17,14 @@ Column sizing in BLG Grid provides flexible control over column widths, includin
 ### Fixed Width Columns
 
 ```typescript
-import { BlgGridComponent } from '@blg/grid';
+import { BlgGridComponent } from '@ng-ui/grid';
 
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class FixedWidthGridComponent {
@@ -90,12 +90,12 @@ columnDefs = [
       <button (click)="autoSizeColumn('name')">Auto Size Name Column</button>
       <button (click)="sizeColumnsToFit()">Size Columns to Fit</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       #grid
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class AutoSizingGridComponent {
@@ -310,12 +310,12 @@ gridOptions = {
 ```typescript
 @Component({
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       (columnResized)="onColumnResized($event)"
       (columnGroupResized)="onColumnGroupResized($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ResizingEventsComponent {

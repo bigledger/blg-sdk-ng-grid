@@ -20,8 +20,8 @@ Configure selection in your grid:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { GridConfig, RowSelectEvent } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { GridConfig, RowSelectEvent } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-selectable-grid',
@@ -35,13 +35,13 @@ import { GridConfig, RowSelectEvent } from '@blg-grid/core';
       </button>
     </div>
     
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       (rowSelect)="onRowSelect($event)"
       (selectionChanged)="onSelectionChanged($event)">
-    </blg-grid>
+    </ng-ui-lib>
     
     <div class="selected-data" *ngIf="selectedRows.length > 0">
       <h3>Selected Items:</h3>
@@ -274,7 +274,7 @@ Handle various selection events:
 ```typescript
 @Component({
   template: `
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
@@ -283,7 +283,7 @@ Handle various selection events:
       (beforeSelectionChange)="onBeforeSelectionChange($event)"
       (selectAll)="onSelectAll($event)"
       (selectNone)="onSelectNone($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class SelectionEventsComponent {
@@ -521,12 +521,12 @@ Create custom selection controls:
       </button>
     </div>
 
-    <blg-grid
+    <ng-ui-lib
       [data]="data"
       [columns]="columns"
       [config]="config"
       (selectionChanged)="onSelectionChanged($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class CustomSelectionUIComponent {
@@ -784,10 +784,10 @@ describe('Row Selection', () => {
   });
 
   it('should handle keyboard selection', async () => {
-    const gridElement = fixture.nativeElement.querySelector('blg-grid');
+    const gridElement = fixture.nativeElement.querySelector('ng-ui-lib');
     
     // Focus first row
-    const firstRow = gridElement.querySelector('.blg-grid-row');
+    const firstRow = gridElement.querySelector('.ng-ui-lib-row');
     firstRow.focus();
     
     // Press Space to select
@@ -831,9 +831,9 @@ describe('Row Selection', () => {
 
 ## Examples
 
-- [Basic Selection](https://stackblitz.com/edit/blg-grid-selection-basic)
-- [Multiple Selection](https://stackblitz.com/edit/blg-grid-selection-multiple)
-- [Checkbox Selection](https://stackblitz.com/edit/blg-grid-selection-checkbox)
-- [Programmatic Selection](https://stackblitz.com/edit/blg-grid-selection-programmatic)
-- [Custom Selection UI](https://stackblitz.com/edit/blg-grid-selection-custom)
-- [Selection with Virtual Scrolling](https://stackblitz.com/edit/blg-grid-selection-virtual)
+- [Basic Selection](https://stackblitz.com/edit/ng-ui-lib-selection-basic)
+- [Multiple Selection](https://stackblitz.com/edit/ng-ui-lib-selection-multiple)
+- [Checkbox Selection](https://stackblitz.com/edit/ng-ui-lib-selection-checkbox)
+- [Programmatic Selection](https://stackblitz.com/edit/ng-ui-lib-selection-programmatic)
+- [Custom Selection UI](https://stackblitz.com/edit/ng-ui-lib-selection-custom)
+- [Selection with Virtual Scrolling](https://stackblitz.com/edit/ng-ui-lib-selection-virtual)

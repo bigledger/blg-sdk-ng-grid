@@ -89,20 +89,20 @@ Try these interactive examples to see BlgGrid in action:
 
 | Feature | Screenshot | Live Demo |
 |---------|------------|-----------|
-| Basic Grid | ![Basic Grid](./images/grid-with-data.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-basic) |
-| Sorting & Filtering | ![Sorted Grid](./images/grid-sorted-ascending.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-sorting) |
-| Row Selection | ![Row Selection](./images/multiple-row-selection.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-selection) |
-| Virtual Scrolling | ![Virtual Scrolling](./images/virtual-scroll-middle.png) | [StackBlitz](https://stackblitz.com/edit/blg-grid-large-data) |
+| Basic Grid | ![Basic Grid](./images/grid-with-data.png) | [StackBlitz](https://stackblitz.com/edit/ng-ui-lib-basic) |
+| Sorting & Filtering | ![Sorted Grid](./images/grid-sorted-ascending.png) | [StackBlitz](https://stackblitz.com/edit/ng-ui-lib-sorting) |
+| Row Selection | ![Row Selection](./images/multiple-row-selection.png) | [StackBlitz](https://stackblitz.com/edit/ng-ui-lib-selection) |
+| Virtual Scrolling | ![Virtual Scrolling](./images/virtual-scroll-middle.png) | [StackBlitz](https://stackblitz.com/edit/ng-ui-lib-large-data) |
 
-- [StackBlitz - Enterprise Dashboard](https://stackblitz.com/edit/blg-grid-enterprise)
-- [CodeSandbox - Full Feature Demo](https://codesandbox.io/s/blg-grid-demo)
+- [StackBlitz - Enterprise Dashboard](https://stackblitz.com/edit/ng-ui-lib-enterprise)
+- [CodeSandbox - Full Feature Demo](https://codesandbox.io/s/ng-ui-lib-demo)
 
 ## Community & Support
 
 ### Getting Help
-- **GitHub Issues**: [Report bugs or request features](https://github.com/your-org/blg-grid/issues)
-- **Discord Community**: [Join our Discord server](https://discord.gg/blg-grid)
-- **Stack Overflow**: Tag questions with `blg-grid`
+- **GitHub Issues**: [Report bugs or request features](https://github.com/your-org/ng-ui-lib/issues)
+- **Discord Community**: [Join our Discord server](https://discord.gg/ng-ui-lib)
+- **Stack Overflow**: Tag questions with `ng-ui-lib`
 
 ### Contributing
 - **Documentation**: Help improve these docs by submitting PRs
@@ -158,12 +158,12 @@ docs/
 
 We value your feedback! Help us improve BlgGrid documentation:
 
-- **Documentation Issues**: [File documentation bugs](https://github.com/your-org/blg-grid/issues?label=documentation)
-- **Suggestions**: [Request new guides or improvements](https://github.com/your-org/blg-grid/discussions)
-- **Examples**: [Share your use cases](https://github.com/your-org/blg-grid/discussions/categories/show-and-tell)
+- **Documentation Issues**: [File documentation bugs](https://github.com/your-org/ng-ui-lib/issues?label=documentation)
+- **Suggestions**: [Request new guides or improvements](https://github.com/your-org/ng-ui-lib/discussions)
+- **Examples**: [Share your use cases](https://github.com/your-org/ng-ui-lib/discussions/categories/show-and-tell)
 
 ---
 
 **Ready to start building?** Head over to the [Installation Guide](./getting-started/installation.md) to get up and running in minutes!
 
-**Need inspiration?** Check out our [Live Examples](https://stackblitz.com/edit/blg-grid-basic) or browse the [Enterprise Examples](./examples/enterprise/).
+**Need inspiration?** Check out our [Live Examples](https://stackblitz.com/edit/ng-ui-lib-basic) or browse the [Enterprise Examples](./examples/enterprise/).

@@ -6,8 +6,8 @@ This example demonstrates how to create a basic grid with minimal configuration.
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg/grid';
-import { ColumnDefinition, GridConfig, CellClickEvent, RowSelectEvent } from '@blg/core';
+import { Grid } from '@ng-ui/grid';
+import { ColumnDefinition, GridConfig, CellClickEvent, RowSelectEvent } from '@ng-ui/core';
 
 @Component({
   selector: 'app-simple-grid',
@@ -17,13 +17,13 @@ import { ColumnDefinition, GridConfig, CellClickEvent, RowSelectEvent } from '@b
     <div class="container">
       <h2>Simple Product Grid</h2>
       
-      <blg-grid 
+      <ng-ui-lib 
         [data]="products" 
         [columns]="columns" 
         [config]="config"
         (cellClick)="onCellClick($event)"
         (rowSelect)="onRowSelect($event)">
-      </blg-grid>
+      </ng-ui-lib>
       
       <div class="selection-info" *ngIf="selectedProduct">
         <h3>Selected Product</h3>
@@ -202,8 +202,8 @@ export class SimpleGridComponent {
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg/grid';
-import { ColumnDefinition, GridConfig, CellClickEvent, RowSelectEvent } from '@blg/core';
+import { Grid } from '@ng-ui/grid';
+import { ColumnDefinition, GridConfig, CellClickEvent, RowSelectEvent } from '@ng-ui/core';
 ```
 
 The essential imports for a basic grid:
@@ -280,13 +280,13 @@ config: GridConfig = {
 ### 5. Add the Grid to Your Template
 
 ```html
-<blg-grid 
+<ng-ui-lib 
   [data]="products" 
   [columns]="columns" 
   [config]="config"
   (cellClick)="onCellClick($event)"
   (rowSelect)="onRowSelect($event)">
-</blg-grid>
+</ng-ui-lib>
 ```
 
 ### 6. Handle Events
@@ -316,7 +316,7 @@ For the absolute minimum setup:
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid [data]="data" [columns]="columns"></blg-grid>
+    <ng-ui-lib [data]="data" [columns]="columns"></ng-ui-lib>
   `
 })
 export class MinimalGridComponent {
@@ -385,22 +385,22 @@ Add CSS to customize the appearance:
 }
 
 /* Grid customization */
-::ng-deep .blg-grid {
+::ng-deep .ng-ui-lib {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-::ng-deep .blg-grid .grid-header {
+::ng-deep .ng-ui-lib .grid-header {
   background: #f8f9fa;
   font-weight: 600;
 }
 
-::ng-deep .blg-grid .grid-row:hover {
+::ng-deep .ng-ui-lib .grid-row:hover {
   background: #f5f5f5;
 }
 
-::ng-deep .blg-grid .grid-row.selected {
+::ng-deep .ng-ui-lib .grid-row.selected {
   background: #e3f2fd;
 }
 
@@ -426,12 +426,12 @@ Add CSS to customize the appearance:
   selector: 'app-loading-grid',
   template: `
     <div class="loading" *ngIf="loading">Loading products...</div>
-    <blg-grid 
+    <ng-ui-lib 
       *ngIf="!loading"
       [data]="products" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class LoadingGridComponent implements OnInit {
@@ -461,11 +461,11 @@ export class LoadingGridComponent implements OnInit {
       Error loading data: {{ error.message }}
       <button (click)="reload()">Retry</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       *ngIf="!error && !loading"
       [data]="products" 
       [columns]="columns">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class ErrorHandlingGridComponent {

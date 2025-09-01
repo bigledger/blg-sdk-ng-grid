@@ -20,20 +20,20 @@ Enable sorting globally or per column:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Grid } from '@blg-grid/grid';
-import { ColumnDefinition, GridConfig } from '@blg-grid/core';
+import { Grid } from '@ng-ui-lib/grid';
+import { ColumnDefinition, GridConfig } from '@ng-ui-lib/core';
 
 @Component({
   selector: 'app-sortable-grid',
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config"
       (columnSort)="onColumnSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class SortableGridComponent {
@@ -105,8 +105,8 @@ Different data types have specific sorting behaviors:
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid [data]="mixedData" [columns]="mixedColumns" [config]="config">
-    </blg-grid>
+    <ng-ui-lib [data]="mixedData" [columns]="mixedColumns" [config]="config">
+    </ng-ui-lib>
   `
 })
 export class DataTypeSortingComponent {
@@ -206,12 +206,12 @@ interface Employee {
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="sortedData" 
       [columns]="columns" 
       [config]="config"
       (columnSort)="handleCustomSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class CustomSortingComponent {
@@ -311,11 +311,11 @@ Enable filtering with automatic filter controls:
   standalone: true,
   imports: [Grid],
   template: `
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class FilterableGridComponent {
@@ -402,11 +402,11 @@ interface Product {
         <li><strong>Boolean:</strong> True/False toggle</li>
       </ul>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [data]="products" 
       [columns]="columns" 
       [config]="config">
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .filter-info {
@@ -542,8 +542,8 @@ Control filters programmatically using the GridStateService:
 
 ```typescript
 import { Component, ViewChild } from '@angular/core';
-import { GridStateService } from '@blg-grid/core';
-import { Grid } from '@blg-grid/grid';
+import { GridStateService } from '@ng-ui-lib/core';
+import { Grid } from '@ng-ui-lib/grid';
 
 @Component({
   selector: 'app-programmatic-filters',
@@ -569,12 +569,12 @@ import { Grid } from '@blg-grid/grid';
       </div>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="data" 
       [columns]="columns" 
       [config]="config"
       #grid>
-    </blg-grid>
+    </ng-ui-lib>
   `,
   styles: [`
     .filter-controls {
@@ -913,12 +913,12 @@ interface Employee {
       </div>
     </div>
 
-    <blg-grid 
+    <ng-ui-lib 
       [data]="displayData" 
       [columns]="columns" 
       [config]="config"
       (columnSort)="handleSort($event)">
-    </blg-grid>
+    </ng-ui-lib>
 
     <div class="grid-footer">
       <span>Showing {{ displayData.length }} of {{ allEmployees.length }} employees</span>
@@ -1199,8 +1199,8 @@ export class EmployeeManagementComponent {
       <span>Filtered: {{ filteredCount.toLocaleString() }} records</span>
       <span>Filter time: {{ filterTime }}ms</span>
     </div>
-    <blg-grid [data]="optimizedData" [columns]="columns" [config]="config">
-    </blg-grid>
+    <ng-ui-lib [data]="optimizedData" [columns]="columns" [config]="config">
+    </ng-ui-lib>
   `
 })
 export class PerformanceOptimizedComponent {

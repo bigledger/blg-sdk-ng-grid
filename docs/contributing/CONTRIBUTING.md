@@ -40,7 +40,7 @@ Before you begin, ensure you have the following installed:
 2. **Clone your fork** locally:
    ```bash
    git clone https://github.com/YOUR_USERNAME/blg-sdk-ng-grid.git
-   cd blg-grid
+   cd ng-ui-lib
    ```
 
 3. **Install dependencies**:

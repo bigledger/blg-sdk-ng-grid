@@ -56,15 +56,15 @@ BLG Grid uses Nx for monorepo management, providing:
 ### Workspace Layout
 
 ```
-blg-grid/
+ng-ui-lib/
 ├── libs/                    # Libraries (the main packages)
-│   ├── core/               # @blg-grid/core
-│   ├── grid/               # @blg-grid/grid  
-│   ├── column/             # @blg-grid/column
-│   ├── row/                # @blg-grid/row
-│   ├── cell/               # @blg-grid/cell
-│   ├── data/               # @blg-grid/data
-│   └── theme/              # @blg-grid/theme
+│   ├── core/               # @ng-ui-lib/core
+│   ├── grid/               # @ng-ui-lib/grid  
+│   ├── column/             # @ng-ui-lib/column
+│   ├── row/                # @ng-ui-lib/row
+│   ├── cell/               # @ng-ui-lib/cell
+│   ├── data/               # @ng-ui-lib/data
+│   └── theme/              # @ng-ui-lib/theme
 ├── apps/                   # Applications
 │   └── grid-demo/          # Demo application
 ├── dist/                   # Build output
@@ -257,15 +257,15 @@ Each library gets a generated package.json for publishing:
 ```json
 // dist/libs/core/package.json (generated)
 {
-  "name": "@blg-grid/core",
+  "name": "@ng-ui-lib/core",
   "version": "1.0.0",
-  "main": "./bundles/blg-grid-core.umd.min.js",
-  "fesm2022": "./fesm2022/blg-grid-core.mjs",
-  "fesm2015": "./fesm2015/blg-grid-core.mjs", 
-  "esm2022": "./esm2022/blg-grid-core.mjs",
+  "main": "./bundles/ng-ui-lib-core.umd.min.js",
+  "fesm2022": "./fesm2022/ng-ui-lib-core.mjs",
+  "fesm2015": "./fesm2015/ng-ui-lib-core.mjs", 
+  "esm2022": "./esm2022/ng-ui-lib-core.mjs",
   "typings": "./index.d.ts",
-  "module": "./fesm2022/blg-grid-core.mjs",
-  "es2022": "./fesm2022/blg-grid-core.mjs",
+  "module": "./fesm2022/ng-ui-lib-core.mjs",
+  "es2022": "./fesm2022/ng-ui-lib-core.mjs",
   "peerDependencies": {
     "@angular/common": "^17.0.0 || ^18.0.0",
     "@angular/core": "^17.0.0 || ^18.0.0"

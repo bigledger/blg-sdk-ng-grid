@@ -24,12 +24,12 @@ CSV export functionality allows users to export grid data to CSV format with cus
       <button (click)="exportSelectedRows()">Export Selected</button>
       <button (click)="exportFilteredData()">Export Filtered</button>
     </div>
-    <blg-grid 
+    <ng-ui-lib 
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [rowSelection]="'multiple'"
       (gridReady)="onGridReady($event)">
-    </blg-grid>
+    </ng-ui-lib>
   `
 })
 export class BasicCsvExportComponent {
