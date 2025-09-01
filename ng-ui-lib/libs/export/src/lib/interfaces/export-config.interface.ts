@@ -337,7 +337,11 @@ export interface GoogleCredentials {
  */
 export interface GoogleSharingConfig {
   /** Access level */
-  accessLevel: 'private' | 'restricted' | 'public';
+  accessLevel?: 'private' | 'restricted' | 'public';
+  /** Share type (legacy compatibility) */
+  type?: 'private' | 'restricted' | 'public';
+  /** User role */
+  role?: 'reader' | 'writer' | 'owner';
   /** Share with specific users */
   users?: string[];
   /** Allow comments */

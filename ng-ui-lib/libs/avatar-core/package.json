@@ -1,0 +1,33 @@
+{
+  "name": "@ng-ui/avatar-core",
+  "version": "0.0.1",
+  "description": "Core avatar interfaces and services shared across 2D and 3D avatar implementations",
+  "keywords": [
+    "angular",
+    "avatar",
+    "core",
+    "interfaces",
+    "typescript"
+  ],
+  "author": "BigLedger Development Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bigledger/ng-ui-kit.git",
+    "directory": "libs/avatar-core"
+  },
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "default": "./index.js"
+    }
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0"
+  },
+  "dependencies": {
+    "@ng-ui/common": "*"
+  },
+  "sideEffects": false
+}

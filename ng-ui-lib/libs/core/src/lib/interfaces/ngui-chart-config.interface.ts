@@ -1,4 +1,4 @@
-import { NgUiBaseConfig, NgUiDimensions, NgUiColor, NgUiAnimationConfig } from '../types/ngui-common.types';
+import { NgUiBaseConfig, NgUiDimensions, NgUiAnimationConfig } from '../types/ngui-common.types';
 
 /**
  * NgUI Chart Configuration Interface
@@ -39,8 +39,8 @@ export interface NgUiChartConfig extends NgUiBaseConfig {
     left?: number;
   };
 
-  /** Responsive behavior */
-  responsive?: boolean;
+  /** Responsive behavior - overrides base responsive config for charts */
+  chartResponsive?: boolean;
 
   /** Maintain aspect ratio */
   maintainAspectRatio?: boolean;

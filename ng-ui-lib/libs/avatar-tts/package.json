@@ -1,0 +1,36 @@
+{
+  "name": "@ng-ui/avatar-tts",
+  "version": "0.0.1",
+  "description": "Text-to-speech and lip sync engine for avatar systems with phoneme detection",
+  "keywords": [
+    "angular",
+    "avatar",
+    "tts",
+    "lip-sync",
+    "phoneme",
+    "speech",
+    "typescript"
+  ],
+  "author": "BigLedger Development Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bigledger/ng-ui-kit.git",
+    "directory": "libs/avatar-tts"
+  },
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "default": "./index.js"
+    }
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0"
+  },
+  "dependencies": {
+    "@ng-ui/avatar-core": "*",
+    "@ng-ui/common": "*"
+  },
+  "sideEffects": false
+}

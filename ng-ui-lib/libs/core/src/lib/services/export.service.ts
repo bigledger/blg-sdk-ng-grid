@@ -14,7 +14,6 @@ import {
   PdfExportOptions,
   GoogleSheetsOptions,
   ExportTemplate,
-  AdvancedExportOptions
 } from '../interfaces/export.interface';
 import { ColumnDefinition } from '../interfaces/column-definition.interface';
 import { GroupedRow } from '../interfaces/grouping.interface';
@@ -113,16 +112,16 @@ export class ExportService {
     
     switch (options.format) {
       case 'csv':
-        await this.exportToCsv(exportData, options.formatOptions as CsvExportOptions, options);
+        await this.exportToCsv(exportData, options.formatOptions as CsvExportOptions);
         break;
       case 'excel':
-        await this.exportToExcel(exportData, options.formatOptions as ExcelExportOptions, options);
+        await this.exportToExcel(exportData, options.formatOptions as ExcelExportOptions);
         break;
       case 'pdf':
-        await this.exportToPdf(exportData, options.formatOptions as PdfExportOptions, options);
+        await this.exportToPdf(exportData, options.formatOptions as PdfExportOptions);
         break;
       case 'google-sheets':
-        await this.exportToGoogleSheets(exportData, options.formatOptions as GoogleSheetsOptions, options);
+        await this.exportToGoogleSheets(exportData, options.formatOptions as GoogleSheetsOptions);
         break;
       default:
         throw new Error(`Unsupported export format: ${options.format}`);
@@ -163,7 +162,7 @@ export class ExportService {
   /**
    * Export to CSV format
    */
-  private async exportToCsv(exportData: ExportData, options: CsvExportOptions, exportOptions?: ExportOptions): Promise<void> {
+  private async exportToCsv(exportData: ExportData, options: CsvExportOptions): Promise<void> {
     const { delimiter = ',', qualifier = '"', lineEnding = '\n', includeBom = true } = options;
     
     let csvContent = '';
@@ -192,7 +191,7 @@ export class ExportService {
   /**
    * Export to Excel format
    */
-  private async exportToExcel(exportData: ExportData, options: ExcelExportOptions, exportOptions?: ExportOptions): Promise<void> {
+  private async exportToExcel(exportData: ExportData, options: ExcelExportOptions): Promise<void> {
     const {
       sheetName = 'Sheet1',
       autoSizeColumns = true,
@@ -552,7 +551,7 @@ export class ExportService {
   /**
    * Export to PDF format
    */
-  private async exportToPdf(exportData: ExportData, options: PdfExportOptions, exportOptions?: ExportOptions): Promise<void> {
+  private async exportToPdf(exportData: ExportData, options: PdfExportOptions): Promise<void> {
     const {
       orientation = 'portrait',
       pageSize = 'A4',
@@ -571,7 +570,6 @@ export class ExportService {
         borderColor: '#cccccc',
         showGridLines: true
       },
-      maxRowsPerPage = 0,
       customHeader = '',
       customFooter = ''
     } = options;
@@ -635,7 +633,6 @@ export class ExportService {
 
     // Calculate column widths
     const availableWidth = pageWidth - margins.left - margins.right;
-    const columnWidth = availableWidth / tableHeaders.length;
 
     // Create table using autoTable plugin
     (doc as any).autoTable({
@@ -658,7 +655,7 @@ export class ExportService {
       alternateRowStyles: {
         fillColor: this.hexToRgb(tableStyle.alternateRowColor)
       },
-      columnStyles: this.getColumnStyles(exportData.columns, exportOptions?.template),
+      columnStyles: this.getColumnStyles(exportData.columns, undefined),
       margin: { top: margins.top, right: margins.right, bottom: margins.bottom, left: margins.left },
       pageBreak: 'auto',
       rowPageBreak: 'avoid'
@@ -692,7 +689,7 @@ export class ExportService {
   /**
    * Export to Google Sheets
    */
-  private async exportToGoogleSheets(exportData: ExportData, options: GoogleSheetsOptions, exportOptions?: ExportOptions): Promise<void> {
+  private async exportToGoogleSheets(exportData: ExportData, options: GoogleSheetsOptions): Promise<void> {
     // Note: This is a placeholder implementation
     // In a real implementation, you would need to:
     // 1. Set up Google Sheets API authentication
@@ -708,7 +705,7 @@ export class ExportService {
       applyBasicStyling: true
     };
     
-    await this.exportToExcel(exportData, excelOptions, exportOptions);
+    await this.exportToExcel(exportData, excelOptions);
     
     // TODO: Implement actual Google Sheets API integration
     /*

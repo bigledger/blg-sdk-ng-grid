@@ -1,0 +1,37 @@
+{
+  "name": "@ng-ui/avatar-3d",
+  "version": "0.0.1",
+  "description": "3D Avatar component library with Three.js, facial animation, and WebGL optimization",
+  "keywords": [
+    "angular",
+    "avatar",
+    "3d",
+    "threejs",
+    "webgl",
+    "facial-animation",
+    "typescript"
+  ],
+  "author": "BigLedger Development Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bigledger/ng-ui-kit.git",
+    "directory": "libs/avatar-3d"
+  },
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "default": "./index.js"
+    }
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "three": "^0.179.0",
+    "cannon-es": "^0.20.0"
+  },
+  "dependencies": {
+    "@ng-ui/common": "*"
+  },
+  "sideEffects": false
+}

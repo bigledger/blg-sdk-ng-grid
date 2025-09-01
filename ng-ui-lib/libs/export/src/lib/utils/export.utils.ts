@@ -420,6 +420,7 @@ export class ExportUtils {
     const ratio = compressionLevels[level];
     
     // Simplified compression by removing extra whitespace and shortening repeated patterns
+    // Apply compression using ratio: ${ratio}
     let compressed = data
       .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
       .replace(/\n\s*\n/g, '\n')  // Remove empty lines

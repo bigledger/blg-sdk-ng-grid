@@ -1,7 +1,6 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { 
   GridApi, 
-  ColumnApi, 
   RowDataTransaction, 
   RefreshCellsParams, 
   RedrawRowsParams, 
@@ -26,7 +25,6 @@ export class GridApiService implements GridApi {
   // Internal data signals
   private _rowData = signal<any[]>([]);
   private _columnDefs = signal<ColDef[]>([]);
-  private _selectedNodes = signal<Set<number>>(new Set());
   
   // Computed values
   readonly rowData = this._rowData.asReadonly();
@@ -86,6 +84,7 @@ export class GridApiService implements GridApi {
    */
   refreshCells(params?: RefreshCellsParams): void {
     // Force update of grid state to trigger re-render
+    // TODO: Implement specific cell refresh based on params
     this.gridState.updateData(this._rowData());
   }
   

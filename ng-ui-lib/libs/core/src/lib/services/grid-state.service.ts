@@ -5,6 +5,7 @@ import { GridConfig, PaginationConfig } from '../interfaces/grid-config.interfac
 export interface GridState {
   columns: ColumnDefinition[];
   config: GridConfig;
+  data: any[];
   selectedRows: Set<number>;
   sortState: { columnId: string; direction: 'asc' | 'desc'; order: number }[] | null;
   filterState: Record<string, any>;
@@ -19,6 +20,7 @@ export class GridStateService {
   private _state = signal<GridState>({
     columns: [],
     config: {},
+    data: [],
     selectedRows: new Set(),
     sortState: null,
     filterState: {},
@@ -38,6 +40,7 @@ export class GridStateService {
   // Computed signals for reactive access
   readonly columns = computed(() => this._state().columns);
   readonly config = computed(() => this._state().config);
+  readonly data = computed(() => this._state().data);
   readonly selectedRows = computed(() => this._state().selectedRows);
   readonly sortState = computed(() => this._state().sortState);
   readonly filterState = computed(() => this._state().filterState);
@@ -54,6 +57,20 @@ export class GridStateService {
     this._state.update(state => ({
       ...state,
       columns: [...(columns || [])]
+    }));
+  }
+
+  updateData(data: any[]): void {
+    this._state.update(state => ({
+      ...state,
+      data: [...(data || [])]
+    }));
+  }
+
+  resetColumns(): void {
+    this._state.update(state => ({
+      ...state,
+      columns: []
     }));
   }
 
@@ -82,17 +99,31 @@ export class GridStateService {
     }));
   }
 
-  toggleRowSelection(rowIndex: number): void {
+  toggleRowSelection(rowIndex: number, selected?: boolean): void {
     this._state.update(state => {
       const newSelectedRows = new Set(state.selectedRows);
-      if (newSelectedRows.has(rowIndex)) {
-        newSelectedRows.delete(rowIndex);
-      } else {
-        // Handle selection mode
-        if (state.config.selectionMode === 'single') {
-          newSelectedRows.clear();
+      
+      if (selected !== undefined) {
+        // Explicit selection state provided
+        if (selected) {
+          if (state.config.selectionMode === 'single') {
+            newSelectedRows.clear();
+          }
+          newSelectedRows.add(rowIndex);
+        } else {
+          newSelectedRows.delete(rowIndex);
         }
-        newSelectedRows.add(rowIndex);
+      } else {
+        // Toggle behavior
+        if (newSelectedRows.has(rowIndex)) {
+          newSelectedRows.delete(rowIndex);
+        } else {
+          // Handle selection mode
+          if (state.config.selectionMode === 'single') {
+            newSelectedRows.clear();
+          }
+          newSelectedRows.add(rowIndex);
+        }
       }
       return {
         ...state,
@@ -183,6 +214,7 @@ export class GridStateService {
     this._state.set({
       columns: [],
       config: {},
+      data: [],
       selectedRows: new Set(),
       sortState: null,
       filterState: {},
