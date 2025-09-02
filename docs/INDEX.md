@@ -1,9 +1,39 @@
-# BLG Grid Documentation Index
+# BigLedger Angular UI Kit Documentation Index
 
-Welcome to the comprehensive documentation for BLG Grid - an enterprise-grade Angular data grid component. This documentation serves two primary audiences:
+Welcome to the comprehensive documentation for **BigLedger Angular UI Kit** - a complete suite of enterprise-grade Angular components. This documentation serves multiple audiences:
 
-1. **Library Users** - Developers implementing BLG Grid in their applications
-2. **Library Contributors/Maintainers** - Developers working on the BLG Grid library itself
+1. **Library Users** - Developers implementing UI Kit components in their applications
+2. **Library Contributors/Maintainers** - Developers working on the UI Kit libraries
+3. **Enterprise Teams** - Organizations looking for comprehensive Angular solutions
+
+## 🌟 Component Overview
+
+BigLedger UI Kit consists of 5 powerful, integrated components:
+
+### 📊 **Grid Component** - Advanced Data Grid
+Enterprise-grade data grid with virtual scrolling, real-time updates, and advanced features.
+- **[Grid Documentation](./grid/)** - Complete grid documentation
+- **[Grid README](./README.md)** - Main documentation hub (Grid-focused legacy)
+
+### 📈 **Charts Component** - 2D/3D Visualization  
+Stunning data visualizations with both 2D and interactive 3D chart capabilities.
+- **[Charts Documentation](./charts/)** - Complete charts documentation
+- **[Charts Getting Started](./charts/getting-started.md)** - Quick start guide
+
+### ✏️ **Editor Component** - Rich Text Editor
+Feature-rich WYSIWYG editor with collaboration features and extensible plugin system.
+- **[Editor Documentation](./editor/)** - Complete editor documentation  
+- **[Editor Getting Started](./editor/getting-started/quick-start.md)** - Quick start guide
+
+### 👤 **Avatar Component** - 2D/3D Speaking Avatars
+Interactive speaking avatars for enhanced user engagement and accessibility.
+- **[Avatar Documentation](./avatar/)** - Complete avatar documentation
+- **[Avatar Getting Started](./avatar/getting-started.md)** - Quick start guide
+
+### 📤 **Export Component** - Unified Export System
+Comprehensive data export solution supporting multiple formats and sources.
+- **[Export Documentation](./export/)** - Complete export documentation
+- **[Export Getting Started](./export/getting-started.md)** - Quick start guide
 
 ## 📚 Documentation Structure
 
